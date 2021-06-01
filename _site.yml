@@ -1,0 +1,25 @@
+name: "R tutorial"
+output_dir: "docs"
+navbar:
+  title: "R tutorial"
+  left:
+  - text: "About"
+    href: index.html
+  - text: "setup"
+    href: setup.html
+  - text: "session 1"
+    href: session1.html
+  - text: "packages"
+    href: packages.hmtl
+  - text: "session 2"
+    href: session2.html
+  - text: "session 3"
+    href: session3.html
+  - text: "reading & resources"
+    href: reading.html
+
+output:
+  html_document:
+    toc: true
+    code_folding: show
+    theme: cosmo

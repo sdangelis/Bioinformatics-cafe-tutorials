@@ -1,0 +1,137 @@
+---
+title: "Setting up R and R studio"
+---
+
+## Installing  R and Rstudio 
+
+before we can run R we need to install it. We'll also install R studi
+
+This video shows how to install R and Rstudio on your pc/mac/linux 
+[youtube tutorial](https://www.youtube.com/watch?v=by5HyJX6H1I)
+
+If you are on a BCI IT managed windows machine you should be able to install R and R studio 
+without needing admin access. A recent version of R studio is available in the software centre 
+(downloading R studio from the internet requires admin access)
+However, you will need to install R separately as the version on the software centre is not up to date
+
+## introducing Rstudio
+
+RStudio has 4 panels 
+ 
+1. Editor. This is where you write your scripts 
+2. Console. This is the command line interface where you can run R code, or where the code you select from the script with ctrl+enter (pc) / cmd+enter (mac) get sent to
+3. environment pane. This is where the variables you create during the R session get displayed.
+4. "magic" pane. This is a panel of many functions, depending on the selected tab it can display the files in the working directory, any plots you produce, a list of packages and an help panel. 
+
+![RStudio main interface](images/rstudio.PNG)
+
+Within Rstudio there are 2 ways to interact with R. You can execute code from a script by selecting it and pressing ctrl+enter (pc) / cmd+enter (mac). This is the best way as the code you execute remains on the script and you can easily run mutliple lines. Or you can type your command directly in the console. 
+
+## introducing R 
+
+before the session let's introduce some really basic concepts in R 
+
+### variables 
+
+Like, To save something in the computing memory you need to assign a value to variables. 
+Variables can be assigned using <- or = , try to keep it consistent within your scripts
+
+```{r}
+apples <- 1
+```
+While R allows any variable name starting with a letter and not containing symbols there are numerous conventions to
+keep variable naming consistent.
+This introduces the concept of style, which is how your code looks like to another person, rather than whether it runs correctly.
+Keeping a consistent style can help you and others understand your code and avoid bugs. what constitutes a good style 
+is a subjective matter, with different conventions used by different projects.
+If you are interested see the section about style in the reading tab. 
+
+for now we'll stick to lowercase variable names, with words separated by a _
+
+```{r}
+foo_bar <- 42
+```
+
+#### data types 
+
+Computers store all information. 
+R is a dynamically typed language which means R does a pretty good job at figuring what type each variable is while running your code
+and there is no normally no need to specify a type.
+It is however still useful to understand the way R stores a variable, particularly when things go wrong
+
+- character
+- numeric (real or decimal)
+- integer
+- logical (TRUE or FALSE)
+- complex
+- raw 
+
+Objects of each type can be organised in higher level structures - we'll see this in session 1.
+
+### functions 
+
+R has a library of functions, these are commands you use to perform a specific action. In R functions have a name and some arguments.
+You can call a function by using its name and (argument1, argument2). For now focus on the pattern in the calls, we'll see these functions again in session 1. 
+
+for instance we can call sum to add some numbers
+```{r}
+sum(1, 3, 5, 7)
+```
+
+functions have often default values, for those cases where there is no need to specify 
+sometimes functions have a complex list of arguments and their position is not enough.
+
+we can demonstrate both in the histogram function.
+```{r eval=FALSE, include=TRUE}
+hist(islands)
+```
+we can replace the default value for the labels given to the axes and the title, as well as the color of the bars by specifying what 
+
+```{r}
+hist(islands, xlab = "number of islands", ylab="frequency", main="histogram of island number by location", col=("pink"))
+```
+
+
+In the extreme case, some functions do not require any arguments. However you must still add an empty ().
+For instance, getwd() will return the working directory (i.e the folder R is currently opening -- which may be different from the folder your script is)
+
+```{r}
+getwd()
+```
+if you forget the (), R will print some information about the function itself, rather than calling it
+```{r}
+getwd
+```
+
+### help
+
+if you are ever stuck with a function adding ? before its name will open the help panel for you. The help panel will describe a function, its
+arguments and defaults, often a summary of the methods used, and a usage example.  
+
+for instance, 
+```{r}
+?hist
+```
+returns
+
+![help page for the hist (histogram) function](images/help_hist.PNG)
+
+The information on these help panels can sometimes be very concise and may be confusing at first.
+However, as you familiarize with R and the functios they will eventually make sense and can be very good as a quickreference
+(i.e if you forget how an argument is named or what it should contain)
+
+## how do the sessions work. 
+
+These workshop are in the spirit of the carpentries [see their material here](https://carpentries.org/), therefore we encourage everyone to run their code alongside the webinar.
+
+During the tutorials you'll sometimes be asked to answer
+in this case the solution will be initially hidden. Try to come up with your answer
+and run it to check the output before un hiding the code to check it
+
+This is an example of hidden code 
+```{r class.source = 'fold-hide'}
+print("hello world")
+```
+
+If you have any questions please post them in the google document for your session, details will be provided with the webinar.
+

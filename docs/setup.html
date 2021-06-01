@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Setting up R and R studio</title>
+
+<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">R tutorial</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">About</a>
+</li>
+<li>
+  <a href="setup.html">setup</a>
+</li>
+<li>
+  <a href="session1.html">session 1</a>
+</li>
+<li>
+  <a href="packages.hmtl">packages</a>
+</li>
+<li>
+  <a href="session2.html">session 2</a>
+</li>
+<li>
+  <a href="session3.html">session 3</a>
+</li>
+<li>
+  <a href="reading.html">reading &amp; resources</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Setting up R and R studio</h1>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#installing-r-and-rstudio">Installing R and Rstudio</a></li>
+<li><a href="#introducing-rstudio">introducing Rstudio</a></li>
+<li><a href="#introducing-r">introducing R</a>
+<ul>
+<li><a href="#variables">variables</a></li>
+<li><a href="#functions">functions</a></li>
+<li><a href="#help">help</a></li>
+</ul></li>
+<li><a href="#how-do-the-sessions-work.">how do the sessions work.</a></li>
+</ul>
+</div>
+
+<div id="installing-r-and-rstudio" class="section level2">
+<h2>Installing R and Rstudio</h2>
+<p>before we can run R we need to install it. We’ll also install R studi</p>
+<p>This video shows how to install R and Rstudio on your pc/mac/linux <a href="https://www.youtube.com/watch?v=by5HyJX6H1I">youtube tutorial</a></p>
+<p>If you are on a BCI IT managed windows machine you should be able to install R and R studio without needing admin access. A recent version of R studio is available in the software centre (downloading R studio from the internet requires admin access) However, you will need to install R separately as the version on the software centre is not up to date</p>
+</div>
+<div id="introducing-rstudio" class="section level2">
+<h2>introducing Rstudio</h2>
+<p>RStudio has 4 panels</p>
+<ol style="list-style-type: decimal">
+<li>Editor. This is where you write your scripts</li>
+<li>Console. This is the command line interface where you can run R code, or where the code you select from the script with ctrl+enter (pc) / cmd+enter (mac) get sent to</li>
+<li>environment pane. This is where the variables you create during the R session get displayed.</li>
+<li>“magic” pane. This is a panel of many functions, depending on the selected tab it can display the files in the working directory, any plots you produce, a list of packages and an help panel.</li>
+</ol>
+<div class="figure">
+<img src="images/rstudio.PNG" alt="" />
+<p class="caption">RStudio main interface</p>
+</div>
+<p>Within Rstudio there are 2 ways to interact with R. You can execute code from a script by selecting it and pressing ctrl+enter (pc) / cmd+enter (mac). This is the best way as the code you execute remains on the script and you can easily run mutliple lines. Or you can type your command directly in the console.</p>
+</div>
+<div id="introducing-r" class="section level2">
+<h2>introducing R</h2>
+<p>before the session let’s introduce some really basic concepts in R</p>
+<div id="variables" class="section level3">
+<h3>variables</h3>
+<p>Like, To save something in the computing memory you need to assign a value to variables. Variables can be assigned using &lt;- or = , try to keep it consistent within your scripts</p>
+<pre class="r"><code>apples &lt;- 1</code></pre>
+<p>While R allows any variable name starting with a letter and not containing symbols there are numerous conventions to keep variable naming consistent. This introduces the concept of style, which is how your code looks like to another person, rather than whether it runs correctly. Keeping a consistent style can help you and others understand your code and avoid bugs. what constitutes a good style is a subjective matter, with different conventions used by different projects. If you are interested see the section about style in the reading tab.</p>
+<p>for now we’ll stick to lowercase variable names, with words separated by a _</p>
+<pre class="r"><code>foo_bar &lt;- 42</code></pre>
+<div id="data-types" class="section level4">
+<h4>data types</h4>
+<p>Computers store all information. R is a dynamically typed language which means R does a pretty good job at figuring what type each variable is while running your code and there is no normally no need to specify a type. It is however still useful to understand the way R stores a variable, particularly when things go wrong</p>
+<ul>
+<li>character</li>
+<li>numeric (real or decimal)</li>
+<li>integer</li>
+<li>logical (TRUE or FALSE)</li>
+<li>complex</li>
+<li>raw</li>
+</ul>
+<p>Objects of each type can be organised in higher level structures - we’ll see this in session 1.</p>
+</div>
+</div>
+<div id="functions" class="section level3">
+<h3>functions</h3>
+<p>R has a library of functions, these are commands you use to perform a specific action. In R functions have a name and some arguments. You can call a function by using its name and (argument1, argument2). For now focus on the pattern in the calls, we’ll see these functions again in session 1.</p>
+<p>for instance we can call sum to add some numbers</p>
+<pre class="r"><code>sum(1, 3, 5, 7)</code></pre>
+<pre><code>## [1] 16</code></pre>
+<p>functions have often default values, for those cases where there is no need to specify sometimes functions have a complex list of arguments and their position is not enough.</p>
+<p>we can demonstrate both in the histogram function.</p>
+<pre class="r"><code>hist(islands)</code></pre>
+<p>we can replace the default value for the labels given to the axes and the title, as well as the color of the bars by specifying what</p>
+<pre class="r"><code>hist(islands, xlab = &quot;number of islands&quot;, ylab=&quot;frequency&quot;, main=&quot;histogram of island number by location&quot;, col=(&quot;pink&quot;))</code></pre>
+<p><img src="setup_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>In the extreme case, some functions do not require any arguments. However you must still add an empty (). For instance, getwd() will return the working directory (i.e the folder R is currently opening – which may be different from the folder your script is)</p>
+<pre class="r"><code>getwd()</code></pre>
+<pre><code>## [1] &quot;C:/Users/deange01/Documents/Bioinformatics-cafe-tutorials&quot;</code></pre>
+<p>if you forget the (), R will print some information about the function itself, rather than calling it</p>
+<pre class="r"><code>getwd</code></pre>
+<pre><code>## function () 
+## .Internal(getwd())
+## &lt;bytecode: 0x000001c8744e5ff8&gt;
+## &lt;environment: namespace:base&gt;</code></pre>
+</div>
+<div id="help" class="section level3">
+<h3>help</h3>
+<p>if you are ever stuck with a function adding ? before its name will open the help panel for you. The help panel will describe a function, its arguments and defaults, often a summary of the methods used, and a usage example.</p>
+<p>for instance,</p>
+<pre class="r"><code>?hist</code></pre>
+<p>returns</p>
+<div class="figure">
+<img src="images/help_hist.PNG" alt="" />
+<p class="caption">help page for the hist (histogram) function</p>
+</div>
+<p>The information on these help panels can sometimes be very concise and may be confusing at first. However, as you familiarize with R and the functios they will eventually make sense and can be very good as a quickreference (i.e if you forget how an argument is named or what it should contain)</p>
+</div>
+</div>
+<div id="how-do-the-sessions-work." class="section level2">
+<h2>how do the sessions work.</h2>
+<p>These workshop are in the spirit of the carpentries <a href="https://carpentries.org/">see their material here</a>, therefore we encourage everyone to run their code alongside the webinar.</p>
+<p>During the tutorials you’ll sometimes be asked to answer in this case the solution will be initially hidden. Try to come up with your answer and run it to check the output before un hiding the code to check it</p>
+<p>This is an example of hidden code</p>
+<pre class="r fold-hide"><code>print(&quot;hello world&quot;)</code></pre>
+<pre><code>## [1] &quot;hello world&quot;</code></pre>
+<p>If you have any questions please post them in the google document for your session, details will be provided with the webinar.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
