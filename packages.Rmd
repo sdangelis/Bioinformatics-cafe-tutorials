@@ -2,6 +2,160 @@
 title: "R packages and how to use them"
 ---
 
-Work in progress! please come back later 
+So far we've only used functions supplied as part of base R. However the real power of R comes from the ability to import functions
+the community of R programmers has built. These come in packages, which are a series of related functions bundled together
+
+generally speaking before implementing your function it is always worth checking if there is a well-maintained and documented package that performs what you would like to do. 
+
+## Installing packages
+
+Most R packages belong to a repository known as CRAN. CRAN packages can be installed with a function 
+```{r, eval=F}
+install.packages("package_name")
+```
+
+Often R will ask for your permission to install packages from source rather than precompiled binaries. If you want to use the most recent version in CRAN say yes, if you want to skip a potentially time consuming step say no. Installing packages from source on Windows PCs requires an additional component [RTools](https://cran.r-project.org/bin/windows/Rtools/) 
+
+But wait what does compiling mean? Unlike R and python where source code can be run directly, some programming languages
+need to be converted into human-unreadable machine code that is somewhat specific to a system before any code can be run. 
+This step is known as compilation. In short this allows for optimisation of the resulting machine code at the cost of flexibility, as things like what type variables are can be decided in advance. 
+R packages often interface with compiled code to speed up computation
+
+### Packages for session 2 
+
+before the next session try to install the following packages 
+- tidyverse
+- cowplot
+- 
+-
+
+```{r, eval = FALSE, }
+# you can use c() to create a vector of all the pacakges 
+install.packages(c("tidyverse"))
+```
+
+## Using packages 
+
+packages can be loaded by using the library function.
+Conventionally, packages are loaded at the beginning of a script, 
+to make clear which packages the script needs to run
+
+```{r warning=TRUE}
+library(cowplot)
+```
+
+once loaded you can use the functions in the package as normal
+
+Often it is useful to record which packages are loaded alongside their version, in this case we can use sessionInfo() to display information on R and the installed packages. 
+```{r}
+sessionInfo()
+```
+
+In the rare event you'd need to unload a package you can use 
+`detach("package:name", unload = TRUE)`. Be careful with this, it is often preferable to restart R form scratch.
+for instance we can now remove cowplot from the environment, and see it disappear from the session information  
+```{r}
+detach("package:cowplot", unload = TRUE)
+sessionInfo()
+```
+
+### citing packages
+
+Citing the packages used in your work is important, both for reproducibility and to acknowledge the work done by the package authors. You should always make an effort to cite the packages used in your analysis.
+We can use the `citation("package")` function to retrieve the citation information the authors have
+added to their packages
+
+for instance the IRanges package suggests you cite a PLOS Computational Biology
+```{r}
+citation("IRanges")
+```
+Of course, packages are often built on top of other packages, in most conditions it would not be reasonable to cite all the packages used and all their dependencies.
+
+# key packages
+
+This section will introduce some key packages for the analysis of biological data.
+
+## Tidyverse
+
+the tidyverse is a family of packages designed by the people behind RStudio.
+they can be installed and loaded as one tidyveres
+They share a similar philosophy and can be very powerful for data manipulation.
+However, it is important to note that the way of doing things in tidy R is often different form how you would operate on data in base R. It is important not to expect tidy R package to behave like base R. We'll see some of these distinctions in session 2.
+
+### Tidy data 
+
+the whole idea behind the tidyverse is that tidy data is easy to 
+```{r}
+
+```
+
+The tidyverse packages provide methods to clean messy data and manipulate 
+
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+
+## ggplot2 
+
+ggplot2 is a plotting package. while base R plots can become very beutiful with lots of customisation, ggplot2 can easily produces publication quality graphics.
+
+GGplot is based on the grammar of graphics, a whole theory of how to describe a plot whose explanation is 
+best left to the (official book)[https://ggplot2-book.org/index.html]. in short a ggplot2 graph is composed
+of at least 3 elements: data, a geometry representing the individual and a mapping
+
+for a gallery of what is possible with ggplot and other plotting packages see 
+[r graph gallery ](https://www.r-graph-gallery.com/histogram)
+ggplot2's grammar can appear complex at first, so we'll cover some common plots in session 2.
+
+## Bioconductor 
+
+bioconductor is a repository of bioinformatics packages, which are not accessible 
+We can install bioconductor following [their instructions]() we can see here another example of the `namespace::function` syntax
+```{r, eval=FALSE}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install()
+```
+
+This will install a set of core packages, additional packages (i.e AneuFinder) can be installed 
+by specifying their name.
+```{r, eval=FALSE}
+BiocManager::install("AneuFinder")
+```
+
+## namespaces 
+
+Functions are conventionally named with a short, descriptive verb. However sometimes two packages use the same name for a function. Sometimes a the most reacently loaded package will overwirte the name
+
+A very common case is the filter function in the dyplr package which overrides the default R function. Despite the shared name they do very differnt things
+
+(base R) apply a linear filter to a timeseries 
+```{r}
+x <- 1:100
+filter(x, rep(1, 3))
+```
+once we load tidyr we see the function no longer works 
+```{r, error = TRUE}
+library(tidyr)
+filter(x, rep(1, 3))
+```
+
+R has a built-in way to select which package, or namespace, we want to get our function from 
+`namespace::function`
+
+we can thus restore the default behavior by explicitly asking for the base filter, which is contained in the stats namespace. 
+```{r}
+stats::filter(x, rep(1, 3))
+```
+## R markdown 
+
+Compared to a script, which contains only your code and plain text comments, 
+R markdown can be a very powerful way to present your R code, its output and comments in markdown formatted text which can be shared in a wide range of formats including pdfs, office docs, presentations. 
 
 
+To illustrate the power of r markdown this website is automatically generated by a series of R notebooks, which you can see [here](https://github.com/sdangelis/Bioinformatics-cafe-tutorials)

@@ -2,4 +2,8 @@
 title: "Session 3"
 ---
 
-Work in progress! please come back later 
+Welcome to the third and final session in the series.
+While the first two sessions focused more on general data analysis skills, this session will 
+directly deal with genomic data
+
+This section is still a work in progress! please come back later 
