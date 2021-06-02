@@ -10,7 +10,7 @@ navbar:
   - text: "session 1"
     href: session1.html
   - text: "packages"
-    href: packages.hmtl
+    href: packages.html
   - text: "session 2"
     href: session2.html
   - text: "session 3"
