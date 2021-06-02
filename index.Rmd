@@ -2,4 +2,4 @@
 title: "About"
 ---
 
-Work in progress! please come back later 
+Hi all, welcome to the website for the BCI Bioinfromatics Cafe R tutorials 

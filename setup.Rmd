@@ -1,11 +1,9 @@
 ---
-title: "Setting up R and R studio"
+title: "Setting up R and Rstudio"
 ---
 
-## Installing  R and Rstudio 
 
-before we can run R we need to install it. We'll also install R studi
-
+before we can run R we need to install it. We'll also install Rstudio
 This video shows how to install R and Rstudio on your pc/mac/linux 
 [youtube tutorial](https://www.youtube.com/watch?v=by5HyJX6H1I)
 
@@ -25,20 +23,23 @@ RStudio has 4 panels
 
 ![RStudio main interface](images/rstudio.PNG)
 
-Within Rstudio there are 2 ways to interact with R. You can execute code from a script by selecting it and pressing ctrl+enter (pc) / cmd+enter (mac). This is the best way as the code you execute remains on the script and you can easily run mutliple lines. Or you can type your command directly in the console. 
+Within Rstudio there are 2 ways to interact with R. You can execute code from a script by selecting it and pressing ctrl+enter (pc) / cmd+enter (mac). This is the best way as the code you execute remains on the script and you can easily run multiple lines. Or you can type your command directly in the console. 
 
 ## introducing R 
 
-before the session let's introduce some really basic concepts in R 
+before the first session let's introduce some really basic concepts in R which will make following the webinar easy 
 
 ### variables 
 
-Like, To save something in the computing memory you need to assign a value to variables. 
-Variables can be assigned using <- or = , try to keep it consistent within your scripts
+Computers have memory. There are two kinds of memory: RAM and Disk memory. The first is where
+programes keep the information they need to compute, the second is where the resulting files are kept,
+To save something in the computing memory you need to assign its value to a variables. 
+Variables can be assigned using <- or = , try to keep it consistent in your scripts
 
 ```{r}
 apples <- 1
 ```
+
 While R allows any variable name starting with a letter and not containing symbols there are numerous conventions to
 keep variable naming consistent.
 This introduces the concept of style, which is how your code looks like to another person, rather than whether it runs correctly.
@@ -82,16 +83,14 @@ functions have often default values, for those cases where there is no need to s
 sometimes functions have a complex list of arguments and their position is not enough.
 
 we can demonstrate both in the histogram function.
-```{r eval=FALSE, include=TRUE}
+```{r}
 hist(islands)
 ```
-we can replace the default value for the labels given to the axes and the title, as well as the color of the bars by specifying what 
-
+we can replace the default value for the labels given to the axes and the title, as well as the color of the bars by specifying an value to the respecitve variable in the call. 
+Note here we can use only = , not <- 
 ```{r}
-hist(islands, xlab = "number of islands", ylab="frequency", main="histogram of island number by location", col=("pink"))
+hist(islands, xlab = "number of islands", ylab = "frequency", main="histogram of island number by location", col=rainbow(6))
 ```
-
-
 In the extreme case, some functions do not require any arguments. However you must still add an empty ().
 For instance, getwd() will return the working directory (i.e the folder R is currently opening -- which may be different from the folder your script is)
 

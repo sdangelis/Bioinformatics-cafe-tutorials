@@ -255,7 +255,7 @@ $(document).ready(function () {
   <a href="session1.html">session 1</a>
 </li>
 <li>
-  <a href="packages.hmtl">packages</a>
+  <a href="packages.html">packages</a>
 </li>
 <li>
   <a href="session2.html">session 2</a>
@@ -358,8 +358,8 @@ $(document).ready(function () {
 <p>functions have often default values, for those cases where there is no need to specify sometimes functions have a complex list of arguments and their position is not enough.</p>
 <p>we can demonstrate both in the histogram function.</p>
 <pre class="r"><code>hist(islands)</code></pre>
-<p>we can replace the default value for the labels given to the axes and the title, as well as the color of the bars by specifying what</p>
-<pre class="r"><code>hist(islands, xlab = &quot;number of islands&quot;, ylab=&quot;frequency&quot;, main=&quot;histogram of island number by location&quot;, col=(&quot;pink&quot;))</code></pre>
+<p><img src="setup_files/figure-html/unnamed-chunk-4-1.png" width="672" /> we can replace the default value for the labels given to the axes and the title, as well as the color of the bars by specifying that</p>
+<pre class="r"><code>hist(islands, xlab = &quot;number of islands&quot;, ylab=&quot;frequency&quot;, main=&quot;histogram of island number by location&quot;, col=rainbow(6))</code></pre>
 <p><img src="setup_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>In the extreme case, some functions do not require any arguments. However you must still add an empty (). For instance, getwd() will return the working directory (i.e the folder R is currently opening – which may be different from the folder your script is)</p>
 <pre class="r"><code>getwd()</code></pre>
