@@ -62,14 +62,13 @@ sessionInfo()
 ### citing packages
 
 Citing the packages used in your work is important, both for reproducibility and to acknowledge the work done by the package authors. You should always make an effort to cite the packages used in your analysis.
-We can use the `citation("package")` function to retrieve the citation information the authors have
-added to their packages
+We can use the `citation("package")` function to retrieve the citation information
 
 for instance the IRanges package suggests you cite a PLOS Computational Biology
 ```{r}
 citation("IRanges")
 ```
-Of course, packages are often built on top of other packages, in most conditions it would not be reasonable to cite all the packages used and all their dependencies.
+Of course, packages are often built on top of other packages, under most conditions it would not be reasonable to cite all the packages used and all their dependencies.
 
 # key packages
 
@@ -78,35 +77,28 @@ This section will introduce some key packages for the analysis of biological dat
 ## Tidyverse
 
 the tidyverse is a family of packages designed by the people behind RStudio.
-they can be installed and loaded as one tidyveres
+they can be installed and loaded as one tidyverse
 They share a similar philosophy and can be very powerful for data manipulation.
-However, it is important to note that the way of doing things in tidy R is often different form how you would operate on data in base R. It is important not to expect tidy R package to behave like base R. We'll see some of these distinctions in session 2.
+However, it is important to note that the way of doing things in tidy R is often quite
+different from how you would operate in base R.
 
-### Tidy data 
+The tidyverse packages provide methods to clean messy data and manipulate data with base idea that 
+tidy data is easy to manipulate. tidy data is defined as data where 
+ 
+1. Every column is a variable.
+2. Every row is an observation.
+3. Every cell is a single value.
 
-the whole idea behind the tidyverse is that tidy data is easy to 
-```{r}
-
-```
-
-The tidyverse packages provide methods to clean messy data and manipulate 
-
-- 
-- 
-- 
-- 
-- 
-- 
-- 
-- 
+you can read more about tidy data [here](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html)
 
 ## ggplot2 
 
-ggplot2 is a plotting package. while base R plots can become very beutiful with lots of customisation, ggplot2 can easily produces publication quality graphics.
+ggplot2 is a plotting package. while base R plots can become very beautiful with lots of customisation,
+ggplot2 can easily produces publication quality graphics with comparatively little effort
 
 GGplot is based on the grammar of graphics, a whole theory of how to describe a plot whose explanation is 
 best left to the (official book)[https://ggplot2-book.org/index.html]. in short a ggplot2 graph is composed
-of at least 3 elements: data, a geometry representing the individual and a mapping
+of 3 main elements: data, a geometry representing the individual data points and a mapping
 
 for a gallery of what is possible with ggplot and other plotting packages see 
 [r graph gallery ](https://www.r-graph-gallery.com/histogram)
@@ -114,8 +106,8 @@ ggplot2's grammar can appear complex at first, so we'll cover some common plots 
 
 ## Bioconductor 
 
-bioconductor is a repository of bioinformatics packages, which are not accessible 
-We can install bioconductor following [their instructions]() we can see here another example of the `namespace::function` syntax
+bioconductor is a repository of bioinformatics packages, which are not accessible from CRAN
+We can install bioconductor following [their instructions](http://bioconductor.org/install/). we can see here another example of the `namespace::function` syntax
 ```{r, eval=FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
@@ -130,9 +122,9 @@ BiocManager::install("AneuFinder")
 
 ## namespaces 
 
-Functions are conventionally named with a short, descriptive verb. However sometimes two packages use the same name for a function. Sometimes a the most reacently loaded package will overwirte the name
+Functions are conventionally named with a short, descriptive verb. However sometimes two packages use the same name for a function. In this case the most recently loaded package will overwrite the previous one
 
-A very common case is the filter function in the dyplr package which overrides the default R function. Despite the shared name they do very differnt things
+A very common case is the filter function in the dyplr package which overrides the default R function. Despite the shared name they do very different things
 
 (base R) apply a linear filter to a timeseries 
 ```{r}
@@ -145,17 +137,25 @@ library(tidyr)
 filter(x, rep(1, 3))
 ```
 
-R has a built-in way to select which package, or namespace, we want to get our function from 
+R has a very elegant built-in way to select which package, or namespace, we want to get our function from 
 `namespace::function`
 
-we can thus restore the default behavior by explicitly asking for the base filter, which is contained in the stats namespace. 
+we can restore the default behavior by explicitly asking for the filter function contained in the stats namespace, one of the R base packages that are loaded
 ```{r}
 stats::filter(x, rep(1, 3))
 ```
+
+Arguably, it can be worth to use the :: operator everytime you use a function from a package to explicitly state what packages are required
+This is suggested by the [Google R Style Guide](https://google.github.io/styleguide/Rguide.html)
+
 ## R markdown 
 
 Compared to a script, which contains only your code and plain text comments, 
-R markdown can be a very powerful way to present your R code, its output and comments in markdown formatted text which can be shared in a wide range of formats including pdfs, office docs, presentations. 
+R markdown can be a very powerful way to present your R code, its output and comments in markdown formatted text which can be shared in a wide range of formats including pdfs, office docs, presentations.  
+
+The base idea is that there are code chunks, which get exectuded with the output printed below and formatted text. 
+To illustrate the power of r markdown this website is automatically generated by a series of R notebooks, available on [github](https://github.com/sdangelis/Bioinformatics-cafe-tutorials).
+
+You can here more about R Markdown with this [book](https://bookdown.org/yihui/rmarkdown/)
 
 
-To illustrate the power of r markdown this website is automatically generated by a series of R notebooks, which you can see [here](https://github.com/sdangelis/Bioinformatics-cafe-tutorials)

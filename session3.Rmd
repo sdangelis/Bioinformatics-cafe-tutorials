@@ -7,3 +7,15 @@ While the first two sessions focused more on general data analysis skills, this 
 directly deal with genomic data
 
 This section is still a work in progress! please come back later 
+
+# introducing bioconductor 
+
+# Maftools 
+
+# TGCA CNv analysis
+
+# segmenting a single cell genome with QDNAseq 
+
+# command line scripts in R 
+
+# conditional execution 

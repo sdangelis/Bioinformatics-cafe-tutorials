@@ -241,7 +241,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">R tutorial</a>
+      <a class="navbar-brand" href="index.html">[BETA] R tutorial</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -292,21 +292,30 @@ $(document).ready(function () {
 
 <div id="TOC">
 <ul>
-<li><a href="#introducing-rstudio">introducing Rstudio</a></li>
-<li><a href="#introducing-r">introducing R</a>
+<li><a href="#introducing-rstudio">Introducing Rstudio</a></li>
+<li><a href="#introducing-r">Introducing R</a>
 <ul>
-<li><a href="#variables">variables</a></li>
-<li><a href="#functions">functions</a></li>
-<li><a href="#help">help</a></li>
+<li><a href="#variables">Variables</a>
+<ul>
+<li><a href="#listing-and-removing-variables">Listing and Removing Variables</a></li>
+<li><a href="#data-modes">Data Modes</a></li>
 </ul></li>
+<li><a href="#factors">Factors</a></li>
+</ul></li>
+<li><a href="#functions">Functions</a>
+<ul>
+<li><a href="#setting-the-working-directory">Setting the working directory</a></li>
+<li><a href="#help">Help</a></li>
 <li><a href="#how-do-the-sessions-work.">how do the sessions work.</a></li>
+<li><a href="#data-files">Data Files</a></li>
+</ul></li>
 </ul>
 </div>
 
 <p>before we can run R we need to install it. We’ll also install Rstudio This video shows how to install R and Rstudio on your pc/mac/linux <a href="https://www.youtube.com/watch?v=by5HyJX6H1I">youtube tutorial</a></p>
 <p>If you are on a BCI IT managed windows machine you should be able to install R and R studio without needing admin access. A recent version of R studio is available in the software centre (downloading R studio from the internet requires admin access) However, you will need to install R separately as the version on the software centre is not up to date</p>
 <div id="introducing-rstudio" class="section level2">
-<h2>introducing Rstudio</h2>
+<h2>Introducing Rstudio</h2>
 <p>RStudio has 4 panels</p>
 <ol style="list-style-type: decimal">
 <li>Editor. This is where you write your scripts</li>
@@ -320,68 +329,145 @@ $(document).ready(function () {
 </div>
 <p>Within Rstudio there are 2 ways to interact with R. You can execute code from a script by selecting it and pressing ctrl+enter (pc) / cmd+enter (mac). This is the best way as the code you execute remains on the script and you can easily run multiple lines. Or you can type your command directly in the console.</p>
 </div>
-<div id="introducing-r" class="section level2">
-<h2>introducing R</h2>
+<div id="introducing-r" class="section level1">
+<h1>Introducing R</h1>
 <p>before the first session let’s introduce some really basic concepts in R which will make following the webinar easy</p>
-<div id="variables" class="section level3">
-<h3>variables</h3>
+<div id="variables" class="section level2">
+<h2>Variables</h2>
 <p>Computers have memory. There are two kinds of memory: RAM and Disk memory. The first is where programes keep the information they need to compute, the second is where the resulting files are kept, To save something in the computing memory you need to assign its value to a variables. Variables can be assigned using &lt;- or = , try to keep it consistent in your scripts</p>
 <pre class="r"><code>apples &lt;- 1</code></pre>
 <p>While R allows any variable name starting with a letter and not containing symbols there are numerous conventions to keep variable naming consistent. This introduces the concept of style, which is how your code looks like to another person, rather than whether it runs correctly. Keeping a consistent style can help you and others understand your code and avoid bugs. what constitutes a good style is a subjective matter, with different conventions used by different projects. If you are interested see the section about style in the reading tab.</p>
-<p>for now we’ll stick to lowercase variable names, with words separated by a _</p>
+<p>for now we’ll stick to lowercase variable names, with words separated by a <code>_</code></p>
 <pre class="r"><code>foo_bar &lt;- 42</code></pre>
 <p>Note R will happily overwrite values in a variable without any warning</p>
 <pre class="r"><code>a &lt;- 1
 a &lt;- 2
 a</code></pre>
 <pre><code>## [1] 2</code></pre>
-<div id="listing-and-removing-variables" class="section level4">
-<h4>listing and removing variables</h4>
+<div id="listing-and-removing-variables" class="section level3">
+<h3>Listing and Removing Variables</h3>
 <p>R handles memory automatically so there is usually no need to manually remove variables. Sometimes it is useful to manually remove unused variables to clear the environment pane. This is done with rm(variable). i.e</p>
 <pre class="r"><code>rm(a)</code></pre>
 <p>you can use ls() to list all the variables in the environment</p>
 <pre class="r"><code>ls()</code></pre>
-<pre><code>## [1] &quot;apples&quot;  &quot;b&quot;       &quot;foo_bar&quot; &quot;sex&quot;     &quot;x&quot;       &quot;ylab&quot;</code></pre>
+<pre><code>##  [1] &quot;anova&quot;             &quot;apples&quot;            &quot;character&quot;         &quot;data&quot;              &quot;extra_data&quot;        &quot;factor_patients&quot;   &quot;factor1&quot;           &quot;foo_bar&quot;          
+##  [9] &quot;frame&quot;             &quot;list&quot;              &quot;meta&quot;              &quot;missing&quot;           &quot;named_list&quot;        &quot;named_matrix&quot;      &quot;p_vals&quot;            &quot;patients&quot;         
+## [17] &quot;patients_complete&quot; &quot;result&quot;            &quot;vector1&quot;           &quot;vector2&quot;           &quot;x&quot;</code></pre>
 <p>combine it with rm to remove everything. USE THIS WITH CARE</p>
 <pre class="r"><code>rm(list = ls())</code></pre>
 </div>
-<div id="data-types" class="section level4">
-<h4>data types</h4>
-<p>Computers store all information. R is a dynamically typed language which means R does a pretty good job at figuring what type each variable is while running your code so there is no normally no need to specify a type, or worry about them. It is however still useful to understand the way R stores a variable, particularly as sometimes things go wrong</p>
+<div id="data-modes" class="section level3">
+<h3>Data Modes</h3>
+<p>Computers store all information as 0s and 1s. R is a dynamically typed language which means R does a pretty good job at figuring what type each variable is while running your code so there is no normally no need to specify a type, or worry about them.</p>
+<p>There are 4 main data modes in r</p>
 <ul>
-<li>character</li>
-<li>numeric (real or decimal)</li>
-<li>integer</li>
-<li>logical (TRUE or FALSE)</li>
+<li>logical</li>
+<li>numeric</li>
 <li>complex</li>
-<li>raw</li>
+<li>character</li>
 </ul>
+<p>we can check the mode of a variable using <code>mode(variable)</code></p>
+<pre class="r"><code>mode(1)</code></pre>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<div id="logical-data" class="section level4">
+<h4>Logical Data</h4>
+<p>logical data can be TRUE (T), FALSE (F) or NA</p>
+<p>NA is the way R deals with missing data. we can declare something as not available with <code>NA</code></p>
+<pre class="r"><code>result &lt;- NA</code></pre>
+<pre class="r"><code>typeof(result)</code></pre>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+</div>
+<div id="numeric" class="section level4">
+<h4>Numeric</h4>
+<p>numeric data can come in 2 types: real numbers (double*) and integers.</p>
+<p>by default numbers in R are real</p>
+<pre class="r"><code>typeof(1)</code></pre>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<p>To get an integer we add a <code>L</code> after the number</p>
+<pre class="r"><code>typeof(1L)</code></pre>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<p>there is normally no reason to worry about this distinction beyond noting that factors are integers.</p>
+</div>
+<div id="complex-numbers" class="section level4">
+<h4>Complex Numbers</h4>
+<p>complex numbers can be represented by adding the imaginary part to a real number</p>
+<pre class="r"><code>typeof(2+1i)</code></pre>
+<pre><code>## [1] &quot;complex&quot;</code></pre>
+</div>
+<div id="characters" class="section level4">
+<h4>Characters</h4>
+<p>R can store text in variable with the character type R characters are equivalent to what in most languages are called strings. To create a character we quote our text with either single ’’ or double "" quotes</p>
+<pre class="r"><code>character&lt;- &quot;hello&quot;</code></pre>
+<p>else R will look for a variable of that name</p>
+<pre class="r"><code>character &lt;- hello</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;hello&#39; not found</code></pre>
+<p>every ’ must be closed by another ’, as so does every ". don’t mix the two</p>
+<pre class="r"><code>character &lt;- &quot;hello&#39;</code></pre>
+<pre><code>## Error: &lt;text&gt;:1:14: unexpected INCOMPLETE_STRING
+## 1: character &lt;- &quot;hello&#39;
+##                  ^</code></pre>
 </div>
 </div>
-<div id="functions" class="section level3">
-<h3>functions</h3>
+</div>
+<div id="factors" class="section level2">
+<h2>Factors</h2>
+<p>Traditionally R has represented categorical variables as factors rather than characters. In factors each category (named level) is assigned an integer value.</p>
+<p>you can create factors by using the factor() function.</p>
+<pre class="r"><code>factor1 &lt;- factor(c(&quot;red&quot;,&quot;green&quot;,&quot;blue&quot;))</code></pre>
+<pre class="r"><code>factor1</code></pre>
+<pre><code>## [1] red   green blue 
+## Levels: blue green red</code></pre>
+<p>checking a factor mode and type reveals their underlying representation</p>
+<pre class="r"><code>mode(factor1)</code></pre>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<pre class="r"><code>typeof(factor1)</code></pre>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<p>Originally, there was a memory advantage to this and historically R would automatically convert any character to factors, unless told not to. From R 4.0 the read.file() and data.frame() have. Although most functions can nowadays accept characters instead of factors, they can still be useful in some cases, see <a href="https://r4ds.had.co.nz/factors.html">r for data science</a>.</p>
+<p>Remember while some functions have special methods for dealing with factors, some treat factors as strings, other as numbers</p>
+<p>for instance the median function will correctly refuse to work on a factor but IQR will happily calculate an inter quantile range based on the integer value</p>
+<pre class="r"><code>median(factor1)</code></pre>
+<pre><code>## Error in median.default(factor1): need numeric data</code></pre>
+<pre class="r"><code>IQR(factor1)</code></pre>
+<pre><code>## [1] 1</code></pre>
+</div>
+</div>
+<div id="functions" class="section level1">
+<h1>Functions</h1>
 <p>R has a library of functions, these are commands you use to perform a specific action. In R functions have a name and some arguments. You can call a function by using its name and (argument1, argument2). For now focus on the pattern in the calls, we’ll see these functions again in session 1.</p>
 <p>for instance we can call sum to add some numbers</p>
 <pre class="r"><code>sum(1, 3, 5, 7)</code></pre>
 <pre><code>## [1] 16</code></pre>
 <p>functions have often default values where there is no need to specify an argument unless we need a different value from the default</p>
-<p>for instance the histogram function needs only data to produce a plot</p>
-<pre class="r"><code>hist(islands)</code></pre>
-<p><img src="setup_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-<p>we can however replace the default value for the labels given to the axes and the title, as well as the color of the bars by specifying. In this case there is a long list of arguments, of which we may need to only specify some values in the middle. In this case we assign the an value to the respective variable in the call. Note here we use only = not &lt;-</p>
-<pre class="r"><code>hist(islands, xlab = &quot;number of islands&quot;, ylab = &quot;frequency&quot;, main=&quot;histogram of island number by location&quot;, col=rainbow(6))</code></pre>
-<p><img src="setup_files/figure-html/unnamed-chunk-9-1.png" width="672" /> In the extreme case, some functions do not require any arguments. However you must still add an empty (). For instance, getwd() will return the working directory (i.e the folder R is currently opening – which may be different from the folder your script is)</p>
+<p>for instance the sequence <code>seq</code> function needs only needs a start and an end number to produce a sequence from 0 to 10</p>
+<pre class="r"><code>seq(0,10)</code></pre>
+<pre><code>##  [1]  0  1  2  3  4  5  6  7  8  9 10</code></pre>
+<p>we can however replace the default increment of 1 with 2 by specifying <code>by = 2</code> Think of it as assigning the value to a variable that will be passed to the function . Note here we use only = not &lt;-</p>
+<pre class="r"><code>seq(0,10,by = 2)</code></pre>
+<pre><code>## [1]  0  2  4  6  8 10</code></pre>
+<p>we can use the name of the arguments to ignore their order, but avoid this as it can get confusing</p>
+<pre class="r"><code>seq(by = 2, to = 10, from = 0)</code></pre>
+<pre><code>## [1]  0  2  4  6  8 10</code></pre>
+<p>the ability to change orders becomes useful when we want to leave some arguments in the middle as the default.</p>
+<p>Some functions do not require any arguments. However you must still add an empty (). For instance, getwd() will return the working directory (i.e the folder R is currently opening – which may be different from the folder your script is)</p>
 <pre class="r"><code>getwd()</code></pre>
 <pre><code>## [1] &quot;C:/Users/deange01/Documents/Bioinformatics-cafe-tutorials&quot;</code></pre>
 <p>if you forget the (), R will print some information about the function itself, rather than calling it</p>
 <pre class="r"><code>getwd</code></pre>
 <pre><code>## function () 
 ## .Internal(getwd())
-## &lt;bytecode: 0x0000019860140bf0&gt;
+## &lt;bytecode: 0x00000235b141b288&gt;
 ## &lt;environment: namespace:base&gt;</code></pre>
+<div id="setting-the-working-directory" class="section level2">
+<h2>Setting the working directory</h2>
+<p>We have seen getwd() will print the working directory to the screen. to change the working directory we can use setwd().</p>
+<p>Windows paths use <code>\</code>, this however has a special meaning in R (an Unix tools in general) as a character to ignore the next special character, so you need a <code>\</code> to tell r to ignore the <code>\</code> in the path.</p>
+<pre class="r"><code>setwd(&quot;c:\\Users\\deange01\\Documents\\Bioinformatics-cafe-tutorials\\&quot;)</code></pre>
+<p>However R can use Linux/Mac style paths using <code>/</code> work windows too.</p>
+<pre class="r"><code>setwd(&quot;c:/Users/deange01/Documents/Bioinformatics-cafe-tutorials/&quot;)</code></pre>
+<p>Similarly, by convention the <code>~</code> at the beginning of a path points to the home directory on Linux/Mac but in R in Windows it points to the document folder.</p>
 </div>
-<div id="help" class="section level3">
-<h3>help</h3>
+<div id="help" class="section level2">
+<h2>Help</h2>
 <p>if you are ever stuck with a function adding ? before its name will open the help panel for you. The help panel will describe a function, its arguments and defaults, often a summary of the methods used, and a usage example.</p>
 <p>for instance,</p>
 <pre class="r"><code>?hist</code></pre>
@@ -390,8 +476,7 @@ a</code></pre>
 <img src="images/help_hist.PNG" alt="" />
 <p class="caption">help page for the hist (histogram) function</p>
 </div>
-<p>The information on these help panels can sometimes be very concise and may be confusing at first. However, as you familiarize with R and the functios they will eventually make sense and can be very good as a quickreference (i.e if you forget how an argument is named or what it should contain)</p>
-</div>
+<p>The information on these help panels can sometimes be very concise and may be confusing at first. However, as you familiarize with R and the functios they will eventually make sense and can be very good as a quick reference (i.e if you forget how an argument is named or what it should contain)</p>
 </div>
 <div id="how-do-the-sessions-work." class="section level2">
 <h2>how do the sessions work.</h2>
@@ -400,7 +485,15 @@ a</code></pre>
 <p>This is an example of hidden code</p>
 <pre class="r fold-hide"><code>print(&quot;hello world&quot;)</code></pre>
 <pre><code>## [1] &quot;hello world&quot;</code></pre>
-<p>If you have any questions please post them in the google document for your session, details will be provided with the webinar.</p>
+</div>
+<div id="data-files" class="section level2">
+<h2>Data Files</h2>
+<p>the data files for the 3 sessions are available on <a href="https://drive.google.com/drive/folders/1FQvgPYSPPBNEC8ytuQ2MXUES4H9sHj3c?usp=sharing">Google Drive</a></p>
+<p>If you have any questions please post them in the Google document for your session, details will be provided with the webinar.</p>
+<ul>
+<li>in R all numbers are 64 bit long, they have double the precision of a 32 bit floating point so that is where double comes from</li>
+</ul>
+</div>
 </div>
 
 
