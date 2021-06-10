@@ -2,4 +2,37 @@
 title: "session 2"
 ---
 
-Work in progress! please come back later 
+Work in progress! please come back later.
+the outline here refers to the plan for session 2.
+
+# Loops 
+
+## Apply functions
+
+## A note on performance and vectorisation 
+
+# Creating custom functions 
+
+# Into the tidyverse 
+
+## manipulating data frames effectively
+
+## one pipe, two pipes
+
+## dyplr 
+
+## string manipulation 
+
+## ggplot2
+
+### scatterplot
+
+### histogram
+
+### boxplot 
+
+### violin plot
+
+### dotplot
+
+## colour palettes 
