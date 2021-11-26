@@ -4,7 +4,7 @@ title: "Session 3"
 
 Welcome to the third and final session in the series.
 While the first two sessions focused more on general data analysis skills, this session will 
-directly deal with genomic data
+directly deal with genomic data.
 
 This section is still a work in progress! please come back later 
 
@@ -12,10 +12,10 @@ This section is still a work in progress! please come back later
 
 # Maftools 
 
-# TGCA CNv analysis
+# TGCA CNV analysis
 
-# segmenting a single cell genome with QDNAseq 
+# Genomic Ranges 
 
-# command line scripts in R 
+# segmenting a shallowWGS genome with QDNAseq 
 
-# conditional execution 
+# 

@@ -2,4 +2,44 @@
 title: "Reading and external resources "
 ---
 
-Work in progress! please come back later 
+Congratulations!
+You have reached the end of the course!
+Feel free to leave feedback and suggestions as issues on [github]()
+
+# Further resources
+
+If crave more R,
+This is a list of external resources and open access books that go beyond what can be covered in 3 sessions.
+
+- [teacups-giraffes-and-statistics](https://tinystats.github.io/teacups-giraffes-and-statistics/) A narrative-driven introduction to both R and Statistics.
+- [Data to Viz](https://www.data-to-viz.com/) A guide to help understand which visualisation is appropriate for your data, with links to Python, R and JavaScript code for to reproduce them 
+- [R Graph Gallery](https://www.r-graph-gallery.com/index.html) A collection of base R and ggplot2 plots with code to reproduce them  
+- [R for Data Science](https://r4ds.had.co.nz/)  The introduction to data science in r, from a tidy R perspective
+- [What they forgot to teach you about R](https://rstats.wtf/) A good book to fill the gaps that inevitably form when you are learning R on your own 
+- [R Markdown: The Definitive Guide]() A guide to R markdown
+- [ggplot book](https://ggplot2-book.org/index.html) Describes ggplot's Grammar of Graphics and ggplot2
+- [The Bioconductor 2018 Workshop Compilation](https://bioconductor.github.io/BiocWorkshops/) A collection of workshops on bioconductor packages from the 2018 bioconductor conference. Might be slighly out of date.
+- [Advanced R, second edition](https://adv-r.hadley.nz/) for those wishing to delve deeper into R 
+- [The R Inferno]() An essential guide to the trouble spots and oddities of R. 
+
+Have a favorite R resource not included here? open an issue (or even better a pull request) and add it on [github]()
+
+# Further packages of interest
+
+Here are some packages that might be of interest 
+
+## data.table
+
+similar in spirit to dplyr in that it extends data frames for easy manipulation, but with emphasis on a concise syntax and speed. 
+It is consistently [one of the fastest packages](https://h2oai.github.io/db-benchmark/) for manipulating data frames. It can even be mixed with dplyr so I would consider using 'data.table::fread()' if `read.table()` or `read.csv()` gets too slow.
+
+## tidymodels
+
+An ecosystem for working with statistical models in a tidy format 
+
+## Shiny
+
+A framework to generate web apps from R. 
+
+
+

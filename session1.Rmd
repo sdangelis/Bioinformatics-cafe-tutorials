@@ -2,15 +2,21 @@
 title: "session 1"
 ---
 
+Welcome to the First session! By now the basic thing
+
+Today, We'll go over how variables can be and start analysing some patient data
+from TGCA. 
+
 # Data Structures
 
-variables can contain more than a single value. Multiple values in
-variables are arranged in a series of different structures.
+We have seen
+variables can contain more than a single value.
+Depending on how many dimensions we need, there are several 
 
-## vectors
+# vectors
 
-a vector is a collection of items. we create a vector by using the
-`c(item1,item2,item3)` function
+a vector is a collection of items^[In fact, unlike most languages in R any single variable that is not NULL is actually a vector of size 1]. we create a vector by using the
+`c(item1,item2,item3)` function.
 
 ```{r}
 vector1 <- c(1, 2, 3, 4, 5)
@@ -20,7 +26,12 @@ we can assign a name to each element in the vector by assigning a vector
 of names to the names() function
 
 ```{r}
-names(vector1) <- c("item1", "item2", "item3","item4","item5")
+names(vector1) <- c("item1", "item2", "item3", "item4", "item5")
+```
+
+or by providing them before the values when we create the vector.
+```{r}
+vector1 <- c("item1" = 1, "item2" = 2, "item3" = 3, "item4" = 4)
 ```
 
 the names() can also be used alone to check the names of a vector
@@ -31,7 +42,7 @@ names(vector1)
 
 all items in a vector must be of the same type if we try to mix, for
 instance letters and numbers, R will force all items to be the most
-general type. The character type is the most general type. anything
+general type. The character type is the most general type.
 
 ```{r}
 vector2 <- c(1,2L, 1+2i, "hi")
@@ -40,8 +51,7 @@ vector2 <- c(1,2L, 1+2i, "hi")
 ```{r}
 typeof(vector2)
 ```
-
-Try to come up with a case for why this could be problematic
+Try to come up with a case for why this could be problem. 
 
 ## lists
 
@@ -66,18 +76,18 @@ can contain lists of things while a vector will always expand to a
 1-dimensional flat structure
 
 ```{r}
-c(c(1,2),c(2,3))
+c(c(1,2),c(3,4))
 ```
 
 ```{r}
-list(list(1,2), list(2,3))
+list(list("1","2"), list("3","4"))
 ```
 
 try it yourself, create a list containing 3 items named item1, item2,
 item3 and print their names to screen. HINT: names in lists work
 similarly to vectors
 
-```{r}
+```{r class.source = 'fold-hide'}
 named_list<- list(1,2,3)
 names(named_list)<- c("item1", "item2", "item3")
 names(named_list)
@@ -106,7 +116,7 @@ matrix(data=c(1,4,7,2,5,8,3,6,9), nrow = 3, ncol = 3)
 
 naming a matrix has 2 layers of complexity,
 
-sing names() will give a name to each value in the matrix
+Using names() will give a name to each value in the matrix
 
 ```{r}
 named_matrix <- matrix(data=c(1,2,3,4), nrow = 2, ncol = 2)
@@ -170,15 +180,78 @@ script/console, not the data frame itself.
 
 ## S3, S4 and R6 object system
 
-More complex objects can be implemented in R. This is oten done to
-represent specialised objects . We will come across some example in
-session 3\*\*. For now, just be aware other data structures exist.
+More complex objects made of a collection of these structures can be implemented in R. This is often done to
+represent specialised objects^[for instance, base R makes very heavy use of S3 objects. we can see an
+example in the model class resulting from lm(). when plotting it, the S3
+system means the plot() function knows how to plot all the plots needed for a linear model.
+The reality is more complex and covered in [advanced r]()]. We will come across some in
+[session 3](session3.Rmd). For now, just be aware that we can combine structures exist.
 
+
+# Reading Tabular Data
+
+We have seen we can represent tabular data in R with a data frame, Bu how do we
+get such data into R? 
+
+There are two main formats to move tabular data.
+Tab separated values (.tsv)
+and comma separated values (.csv)
+Both are considered plain text files as they are simple text files with columns separated
+by a delimiter character. 
+In a csv file columns are separated by a comma, while a tsv file values are
+separated by a tab
+
+Both formats can be opened and saved in excel, although 
+you may need to specify the separator for TSV files.
+
+In R we can read a table from plain text file with `read.table()` we
+need to specify the separator, in the tab separated case it is `\t`
+Remember to assign the table to a variable to store the content of the
+file in memory as a data frame
+
+```{r, eval=FALSE}
+data <- read.table("table.txt", sep = "\t")
+```
+
+if we are reading a csv file we can use read.csv. There is no underlying
+difference with read.table but the defaults are adjusted for a csv file
+
+```{r, eval=FALSE}
+data <- read.csv("table.csv")
+```
+
+blank spaces as automatically treated as missing data. Other conventons exists,
+so we e can specify a character that is interpreted as missing values to ensure R
+can represent them as NA with `na_strings`
+
+```{r, eval=FALSE}
+data <- read.csv()
+```
+
+## Bioinformatics data in Base R
+
+Tab separated values are incredibly common in bioinformatics,
+For instance bed files, VCF and Maf files are all TSV. 
+Hover, sp,eto,es these formats have
+headers used to describe the content of which are not in table format.
+
+As headers start with a specific character we
+can tell R to ignore them with comment,
+Bbe careful as this will likely remove useful information from the file.
+
+now open the data_clinical_patient.tsv file from the setup folder and
+save it as data, mark \# as the comment character set the header argument to true
+with the header imported into R. Use "na" and "missing" as the na.strings argument
+Hint you can pass a vector to na.strings() Remember to set the working
+directory to the right location first!
+
+```{r}
+patients <- read.table("mel_ucla_2016/data_clinical_patient.txt", sep="\t", comment.char = "#", header=T)
+```
 
 # Maths
 
 maths operators in R work as expected
-
 ```{r}
 2+2
 ```
@@ -197,98 +270,41 @@ maths operators in R work as expected
 
 if we are interested in the integer part of a division we can use the
 integer division operator
-
 ```{r}
 7%/%2
 ```
 
 we can use the modulus operator `%%` to calculate the remainder
-
 ```{r}
 7%%2
 ```
 
 in R exponents are represented with `**` or `^`
-
 ```{r}
-10 **2
+10**2
 10^2
 ```
 
-10\^n can be shortened to `en`
-
+10ⁿ can be shortened to `en`
 ```{r}
 1e2
 ```
-We can apply maths to vectors too, in this case the opeartion will be applied to every element of the loop
+We can apply maths to vectors too, in this case the operation will be applied to every element of the vector. 
 
+For instance can increase
 ```{r}
-vector2+1
+vector2 + 1
 ```
 
-when using operations on 2 vectors, the longer object should be 
+when using operations on 2 vectors we apply it element by element.
 ```{r}
-c(2,3,3) +c(3,2)
-```
-
-# Reading Data
-
-There are two main formats for reading data into R. Tab separated values
-(.tsv although sometimes .txt or don't even have an extension) and comma
-separated values (.csv) these files are called plain text because they
-contain nothing but text, with records in a csv separated by a comma and
-in a tsv by tab Both formats can be opened and saved in excel, although 
-you will need to specify the separator for TSV files.
-
-In R we can read a table from plain text file with `read.table()` we
-need to specify the separator, in the tab separated case it is `\t`
-Remember to assign the table to a variable to store the content of the
-file in memory as a data frame
-
-```{r, eval=FALSE}
-data <- read.table("table.txt", sep = "\t")
-```
-
-if we are reading a csv file we can use read.csv. There is no underlying
-difference with read.table but the defaults are adjusted for a csv file
-
-```{r, eval=FALSE}
-data <- read.csv("table.csv")
-```
-
-blank spaces as automatically treated as missing data. We can also
-specify a character that is interpreted as missing values to ensure R
-can represent them as NA with `na_strings`
-
-```{r, eval=FALSE}
-data <- read.csv()
-```
-
-## Bioinformatics data in R
-
-Tab separated values are incredibly common in bioinformatics,.For instance the bed files
-used by IGV are actually TSV, as are VCF. However, these formats have
-headers used to describe the content of which are not in table format.
-
-As headers start with a specific character we
-can tell R to ignore them with comment,
-However, be careful as this will likely remove useful information from the file.
-
-now open the data_clinical_patient.tsv file from the setup folder and
-save it as data, mark \# as the comment character se the header as true
-with the header imported into R. use "na" and "missing" as na.strings()
-Hint you can pass a vector to na.strings() Remember to set the working
-directory to the right location first!
-
-```{r, warning=FALSE, class.source = 'fold-hide'}
-setwd("C:/Users/deange01/Downloads/mel_ucla_2016/")
-patients <- read.table("data_clinical_patient.txt", sep="\t", comment.char = "#", header=T)
+c(2, 3, 4) + c(3, 2, 4)
 ```
 
 # Subsetting data 
 
-Most of the times we are intested in only a subset of the data R makes
-subsetting very easy.
+Most of the times we are interested in only a subset of the data R makes
+
 
 ## Subsetting vectors
 
@@ -317,15 +333,19 @@ vector1[c(1:3,5)]
 
 for a table the [index] syntax will return the specified column(s)
 ```{r}
-frame[1]
+patients[1]
 ```
 
-to choose a inneed to provide both [row,column]
+We can get a specific record by to providing both a row and a column number in 
+the `[row, column]` order
+```{r}
+patients[3,1]
+```
 
 you can choose all rows or columns by not specifying anything before or after the comma, respectively.
-Thus this selects all rows for column 2.
+Thus this selects all rows for OS .
 ```{r}
-frame[,2]
+patients[,2]
 ```
 While here we get all the columns for row 2.
 ```{r}
@@ -374,7 +394,7 @@ Logical operators allow us to select all items that match a given
 condition.
 
 most operators are intuitive, although checking if something is equal is
-done with `==` rather than `=` because `=` is already used to assing
+done with `==` rather than `=` because `=` is already used to assign
 values to variables
 
 ```{r echo=FALSE, results='asis'}
@@ -382,7 +402,7 @@ knitr::kable(data.frame(c("==",">","<",">=","<="),c("equal to", "more than", "le
 ```
 
 
-So if 1 is smaller than 2, the following should be true
+So if 1 is bigger than 2, the following should be true
 
 ```{r}
 1>2
@@ -402,7 +422,7 @@ hence the two expression below are equivalent
 (!1==2)==(1!=2)
 ```
 
-comparisons with  
+comparisons with NAs return NA
 ```{r}
 1>NA
 ```
@@ -553,23 +573,23 @@ for more complex data it makes sense to have the data and metadata in separate t
 
 let's read two data frames
 
-```{r}
+```{r eval=F}
 data <- read.csv("C:/Users/deange01/Desktop/simple_data.csv")
 meta <- read.csv("C:/Users/deange01/Desktop/simple_meta.csv")
 ```
 
 
-```{r}
+```{r eval=F}
 cbind(data,meta[2])
 ```
 we can add further rows, for instance now we'll create a new data frame with samples 11 to 20, by adding
 10 to the sample name
-```{r}
+```{r eval=F}
 extra_data <- data
 extra_data$sample <- extra_data$sample+10
 ```
 we can now bind both data into a single data frame with rbind
-```{r}
+```{r eval = F}
 rbind(data, extra_data)
 ```
 
@@ -594,7 +614,7 @@ mean(missing, na.rm = T)
 We can manually remove all cases of NAs with na.omit(). if runnning on a data frame 
 it will remove the whole rows consisting of all incomplete cases.
 ```{r}
-na.omit(df)
+na.omit(as.data.frame(missing))
 ```
 
 DIY renove NAs from the table and save the new data in a variable called patients_complete
@@ -634,7 +654,7 @@ summary(factor_patients)
 ```
 
 we can explore how many elements are in an object with `length`.
-Similar to subsetting, length on a vector returns the number of columns
+Similar to subsetting, length on a data frame returns the number of columns
 ```{r}
 length(frame)
 ```
@@ -697,15 +717,18 @@ sd(patients_complete$OS_MONTHS)
 
 As a statistic language R is loaded with a library of built in
 statistical functions, we'll barely scratch the surface here! there are.
-Indeed for simplicity here we'll use both approaches to . In the real
+Indeed for simplicity here we'll use both approaches. In the real
 world we would make an educated guess at whether the data is
 approximately normal before choosing the parametric or non-parametric
 route and check whether assumptions are met before running any tests.
 
+We'll also very briefly discuss p-values. Note there is a whole world beyond p-values
+and lots of controversies over their (ab)use in biology [see this Nature Editorial](https://doi.org/10.1038/d41586-019-00874-8)
 
-### parametric
 
-by default it uses a Welch T-test assuming an unequal variance, often a safe assumption.
+### parametric tests
+
+The t-test is. In R, by default it uses the Welch variant that assumes an unequal variance, often a safe assumption.
 we need to provide 2 groups, we can do this by conditionally subsetting 
 ```{r}
 t.test(x=patients_complete[patients_complete$PREVIOUS_MAPKI=="No", "OS_MONTHS"], y = patients_complete[patients_complete$PREVIOUS_MAPKI=="Yes", "OS_MONTHS"])
@@ -715,7 +738,7 @@ we can store the p-value in a vector by choosing p.val from the result of the te
 p_vals <- t.test(x=patients_complete[patients_complete$PREVIOUS_MAPKI=="No", "OS_MONTHS"], y = patients_complete[patients_complete$PREVIOUS_MAPKI=="Yes", "OS_MONTHS"])$p.val
 ```
 
-we can get a one-way anova with the aov function. the syntax here is slighly odd, as we need to use the x ~ groups form. 
+we can get a one-way anova with the `aov` function. the syntax here is slighly odd, as we need to use the x ~ groups form. 
 we also need to call summary to extract the P values and other information
 ```{r}
 anova <- aov(patients_complete$OS_MONTHS ~ patients_complete$M_STAGE)
@@ -730,8 +753,8 @@ p_vals <- append(p_vals, summary(anova)[[1]][5][1,1])
 
 ### non-paramtetric staistical tests,
 
-the  Wilcoxon rank sum test is a non parametiric test simialr to a T-test.
-Indeed the `wilcox.test` works in a similar way
+the  Wilcoxon rank sum test is a non parametric test simialr to a T-test.
+Indeed the `wilcox.test()` function works in a similar way
 ```{r}
 wilcox.test(x=patients_complete[patients_complete$PREVIOUS_MAPKI=="No", "OS_MONTHS"], y = patients_complete[patients_complete$PREVIOUS_MAPKI=="Yes", "OS_MONTHS"])
 ```
@@ -740,8 +763,7 @@ We can again extract the p value an append it to our vector
 p_vals <- append(p_vals,wilcox.test(x=patients_complete[patients_complete$PREVIOUS_MAPKI=="No", "OS_MONTHS"], y = patients_complete[patients_complete$PREVIOUS_MAPKI=="Yes", "OS_MONTHS"])$p.val)
 ```
 
-
-The Kruskal-Wallis rank sum test is often referred as a non parametric anova. we can run one with `kruskal.test`
+The Kruskal-Wallis rank sum test is often referred as a non parametric anova. we can run one with `kruskal.test()`
 ```{r}
 kruskal.test(patients_complete$OS_MONTHS ~ patients_complete$M_STAGE)
 ```
@@ -754,39 +776,41 @@ p_vals <- append(p_vals, kruskal.test(patients_complete$OS_MONTHS ~ patients_com
 ### Adjusting the P-Value
 
 At the traditional level, we reject the null hypothesis at the p\<0.05
-level. However a p value of 0.05 represent a 1/20 chance of seeing a
+level. Such p value of 0.05 represent a 1/20 chance of seeing a
 difference as big or greater by chance alone. It follows on then that if
 we have 20 comparisons we can expect one to be true by chance.
 Therefore, we need to adjust the p value to consider the number of
 comparisons/ The "p-ajust()" function can then correct the observed p
 values for multiple comparisons with many methods.
-for instance we can use a  bonferroni correction
+for instance we can use a  bonferroni correction^[The bonferroni correction simply multiplies the p-value by the number of tests]
 ```{r}
 p.adjust(p_vals, method="bonferroni")
 ```
 
-now do the same but with the FDR rate. Hint type `?p.adjust` to see what
-methods corresponds to fdr
+now do the same but with the false discovery rate (FDR)^[The false discovery ratio is explained here instead] is. Hint type `?p.adjust` to see what
+methods corresponds to FDR
 ```{r class.source = 'fold-hide'}
 p.adjust(p_vals, method="fdr")
 ```
 
-The Bonferroni correction is more conservative than the FDR. Note that there is a whole world beyond p-values
-and lots of controversies over their (ab)use in biology [see this Nature Editorial](https://doi.org/10.1038/d41586-019-00874-8)
+We can see the Bonferroni correction is more conservative than the FDR^[Personally, as a rule of thumb I prefer using FDRs for everything that will get downstream validation, so that the odd false discovery will be spotted]
 
 # Base R Plots
 
-base R plots can be displayed in the plots pane of R studio. Sometimes R will refuse to draw a
-plot if the plot panel is too small. Simple R plots can be generated quickly with base functions but the ggplot2 package we'll use in session 2, can generate publication quality plots with less effort.
+base R plots can be displayed in the plots pane of R studio. Note R will refuse to draw a
+plot if the plot panel is too small. Simple R plots can be generated quickly with base functions but the ggplot2 package we'll use in session 2, can generate publication quality plots with less effort. 
+
+R tracks every time we create a new plot so any items added to a plot get added to 
+the lastly created plot.
 
 ## Scatter plot
 
-we can plot a scatter
+we can plot a scatter plot with `plot(x, y)`
 ```{r}
 plot(patients_complete$AGE_AT_DIAGNOSIS, patients_complete$OS_MONTHS)
 ```
 
-we can add a line with abline, following the format y=ax+b.
+we can add a trend line with `abline()`, following the format y=ax+b.
 ```{r eval=F}
 plot(patients_complete$AGE_AT_DIAGNOSIS, patients_complete$OS_MONTHS)
 abline(a=1,b=+1)
@@ -796,14 +820,13 @@ we can also add a vertical or horizontal line by specifying the intercept with h
 plot(patients_complete$AGE_AT_DIAGNOSIS, patients_complete$OS_MONTHS)
 abline(h=10)
 ```
-We can also fit a line from more complex modeling, for instance from a linear regression. note lm takes a y ~ x order  
+We can also fit a line from more complex modeling, for instance from a linear regression. note `lm` takes a y ~ x order  
 ```{r}
 plot(patients_complete$AGE_AT_DIAGNOSIS, patients_complete$OS_MONTHS)
 abline(lm(patients_complete$OS_MONTHS ~ patients_complete$AGE_AT_DIAGNOSIS))
 ```
 
-
-We can also change the two axis. ylim and xlim control the start and end of x and y axis. Be careful as R will clip off any value outside that range, again without warning
+We can change the two axis. ylim and xlim control the start and end of x and y axis. Be careful as R will clip off any value outside that range, again without warning
 ```{r}
 plot(patients_complete$AGE_AT_DIAGNOSIS, patients_complete$OS_MONTHS, ylim=c(0,100),xlim=c(30,80))
 ```
@@ -813,7 +836,6 @@ We can also add a title and some label to the axis. We do this with main, xlab a
 plot(patients_complete$AGE_AT_DIAGNOSIS, patients_complete$OS_MONTHS, main="this is the title", ylab="y axis", xlab="x axsis")
 ```
 
-
 ## Histograms
 
 Histograms can be used to visualize the distribution of a variable. In base r we can generate one with `hist`
@@ -821,20 +843,25 @@ Histograms can be used to visualize the distribution of a variable. In base r we
 ```{r}
 hist(patients_complete$OS_MONTHS)
 ```
-we can control the parameters, for instance we can manually specify the number of breaks rather than use what number R 
+Again, we can control several parameters, We can manually specify the number of breaks rather than use what number R thinks appropriate
 ```{r}
 hist(patients_complete$OS_MONTHS, breaks=4)
 ```
-we can also add a colour and a density line. To do so we need to switch to plotting probabilities with probability=T in the hist function
+we can also add a colour
+
+And add a density line. To do so we need to switch to plotting probabilities with probability=T in the hist function
 ```{r}
 hist(patients_complete$OS_MONTHS, col="pink", probability = T)
 lines(density(patients_complete$OS_MONTHS), col="purple")
 ```
-labels work similarly to the scatter plot above, try to redo the first histogram but change the labels so they are nicer
+Axis and plot labels work similarly to the scatter plot above, 
+try to redo the first histogram but change the labels so they are nicer
 ```{r}
 hist(patients_complete$OS_MONTHS, ylab = "Frequency", xlab="Overal Survivial (months)", main = "overall survival")
 ```
 ## Box plots
+
+Box Plots 
 
 ```{r}
 boxplot(patients_complete$OS_MONTHS~patients_complete$M_STAGE)
@@ -848,7 +875,7 @@ we can even control the shape of the outlier points with pch. `?points` reveal w
 boxplot(patients_complete$OS_MONTHS~patients_complete$M_STAGE, range=0.4, pch=18)
 ```
 
-Now let's add some colour to the plot. Try adding colours to teh plot above with the "col" argument. hint, if you don't want to have the groups use the same colour(s), specify a number of colours in the colour vector matching the number of groups
+Now let's add some colour to the plot. Try adding colours to the plot above with the "col" argument. hint, if you don't want to have the groups use the same colour(s), specify a number of colours in the colour vector matching the number of groups
 ```{r class.source = 'fold-hide'}
 boxplot(patients_complete$OS_MONTHS~patients_complete$M_STAGE, range=0.4, pch=18, col=c("red","green","blue","yellow"))
 ```
@@ -871,9 +898,8 @@ then generate your plot
 plot(mtcars$hp~mtcars$mpg)
 ```
 
-your plot is now in the device. it will not be printed in rstudio. you
-as before you can add elements to it, 
-for instance a trend line 
+your plot is now in the device. it will not be printed in rstudio.
+we can still add elements to it, for instance a trend line 
 
 ```{r, eval = F}
 abline(lm(mtcars$hp ~ mtcars$mpg))
@@ -891,29 +917,29 @@ mathematical formula.
 This means you can zoom the image without loosing
 quality and easily edit the individual elements of the plots later.
 Although manually editing images outside the R script is rarely a good idea as
-you loose the ability to reproduce the plot
+you loose the ability to reproduce the plot. Text remains editable too. 
+However, opening
+complex vector files (particularly those saved as svg) can be slow to view.
 
-Text remains editable too. However, opening
-complex vector files (particularly those saved as svg) can be slow.
 png/jpeg/tiff will produce raster images, these are similar to a photos,
 where unless it's a police TV show, you cannot zoom and get a sharper
-image
+image^["or use machine learning like [Google](https://ai.googleblog.com/2021/07/high-fidelity-image-generation-using.html?m=1)"]
 
 now go to your working directory and look for the plot. you should have gotten something like this 
 ```{r, class.source = 'fold-hide'}
 plot(mtcars$hp~mtcars$mpg)
 abline(lm(mtcars$hp ~ mtcars$mpg))
 ```
-These simple base R plots are not the prettiest but can get a lot of the job doen
 
 ## Saving data
 
-we can save files with write.table(). By default R add both rows and column names. row names can confuse Excel so should be avoided with row.names=F
+we can save files to a tabular format with write.table(). By default R add both rows and column names. row names can confuse Excel so should be avoided with row.names=F
 ```{r}
 write.table(frame, row.names = F, sep = ",", file="table.csv")
 ```
-By default. this ensures the characters avoid messing up with the separator 
-but can potentially be annoying to deal with for some tools.
+Again, the `write.csv()` function  is similar but has appropriate defaults for CSV files
+ 
+By default. this encloses any string in `""`  
 we can get rid of it by setting `quotes=FALSE`
 ```{r}
 write.table(frame, row.names = FALSE, sep = ",", file="table.csv", quote=FALSE)
@@ -921,9 +947,5 @@ write.table(frame, row.names = FALSE, sep = ",", file="table.csv", quote=FALSE)
 
 if append is true R will add the current data to the specified file without overwriting it.
 
-# Appendix & Ramblings 
+The `write.csv()` function  is similar but 
 
-\*\* actually base R makes very heavy use of S3 objects. we can see an
-example in the model class resulting from lm(). when plotting it, the S3
-system means the plot() function knows already which plots it needs to
-output and where the variables are in the model.

@@ -13,8 +13,8 @@
 
 <title>Reading and external resources</title>
 
-<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -290,8 +290,53 @@ $(document).ready(function () {
 
 </div>
 
+<div id="TOC">
+<ul>
+<li><a href="#further-resources">Further resources</a></li>
+<li><a href="#further-packages-of-interest">Further packages of interest</a>
+<ul>
+<li><a href="#data.table">data.table</a></li>
+<li><a href="#tidymodels">tidymodels</a></li>
+<li><a href="#shiny">Shiny</a></li>
+</ul></li>
+</ul>
+</div>
 
-<p>Work in progress! please come back later</p>
+<p>Congratulations! You have reached the end of the course! Feel free to leave feedback and suggestions as issues on <a href="">github</a></p>
+<div id="further-resources" class="section level1">
+<h1>Further resources</h1>
+<p>If crave more R, This is a list of external resources and open access books that go beyond what can be covered in 3 sessions.</p>
+<ul>
+<li><a href="https://tinystats.github.io/teacups-giraffes-and-statistics/">teacups-giraffes-and-statistics</a> A narrative-driven introduction to both R and Statistics.</li>
+<li><a href="https://www.data-to-viz.com/">Data to Viz</a> A guide to help understand which visualisation is appropriate for your data, with links to Python, R and JavaScript code for to reproduce them</li>
+<li><a href="https://www.r-graph-gallery.com/index.html">R Graph Gallery</a> A collection of base R and ggplot2 plots with code to reproduce them<br />
+</li>
+<li><a href="https://r4ds.had.co.nz/">R for Data Science</a> The introduction to data science in r, from a tidy R perspective</li>
+<li><a href="https://rstats.wtf/">What they forgot to teach you about R</a> A good book to fill the gaps that inevitably form when you are learning R on your own</li>
+<li><a href="">R Markdown: The Definitive Guide</a> A guide to R markdown</li>
+<li><a href="https://ggplot2-book.org/index.html">ggplot book</a> Describes ggplot’s Grammar of Graphics and ggplot2</li>
+<li><a href="https://bioconductor.github.io/BiocWorkshops/">The Bioconductor 2018 Workshop Compilation</a> A collection of workshops on bioconductor packages from the 2018 bioconductor conference. Might be slighly out of date.</li>
+<li><a href="https://adv-r.hadley.nz/">Advanced R, second edition</a> for those wishing to delve deeper into R</li>
+<li><a href="">The R Inferno</a> An essential guide to the trouble spots and oddities of R.</li>
+</ul>
+<p>Have a favorite R resource not included here? open an issue (or even better a pull request) and add it on <a href="">github</a></p>
+</div>
+<div id="further-packages-of-interest" class="section level1">
+<h1>Further packages of interest</h1>
+<p>Here are some packages that might be of interest</p>
+<div id="data.table" class="section level2">
+<h2>data.table</h2>
+<p>similar in spirit to dplyr in that it extends data frames for easy manipulation, but with emphasis on a concise syntax and speed. It is consistently <a href="https://h2oai.github.io/db-benchmark/">one of the fastest packages</a> for manipulating data frames. It can even be mixed with dplyr so I would consider using ‘data.table::fread()’ if <code>read.table()</code> or <code>read.csv()</code> gets too slow.</p>
+</div>
+<div id="tidymodels" class="section level2">
+<h2>tidymodels</h2>
+<p>An ecosystem for working with statistical models in a tidy format</p>
+</div>
+<div id="shiny" class="section level2">
+<h2>Shiny</h2>
+<p>A framework to generate web apps from R.</p>
+</div>
+</div>
 
 
 

@@ -10,7 +10,9 @@ This video shows how to install R and Rstudio on your pc/mac/linux
 If you are on a BCI IT managed windows machine you should be able to install R and R studio 
 without needing admin access. A recent version of R studio is available in the software centre 
 (downloading R studio from the internet requires admin access)
-However, you will need to install R separately as the version on the software centre is not up to date
+However, you will need to install R separately as the version on the software centre is not up to date.
+
+Note this tutorial has been designed for R version 4 and higher.
 
 ## Introducing Rstudio
 
@@ -19,178 +21,195 @@ RStudio has 4 panels
 1. Editor. This is where you write your scripts 
 2. Console. This is the command line interface where you can run R code, or where the code you select from the script with ctrl+enter (pc) / cmd+enter (mac) get sent to
 3. environment pane. This is where the variables you create during the R session get displayed.
-4. "magic" pane. This is a panel of many functions, depending on the selected tab it can display the files in the working directory, any plots you produce, a list of packages and an help panel. 
+4. fourth pane. This is a panel of many functions, depending on the selected tab it can display the files in the working directory, any plots you produce, a list of packages and an help panel. 
 
 ![RStudio main interface](images/rstudio.PNG)
 
-Within Rstudio there are 2 ways to interact with R. You can execute code from a script by selecting it and pressing ctrl+enter (pc) / cmd+enter (mac). This is the best way as the code you execute remains on the script and you can easily run multiple lines. Or you can type your command directly in the console. 
+Within Rstudio there are 2 ways to interact with R. You can execute code from a script by selecting it and pressing ctrl+enter (pc) / cmd+enter (mac).  
+This is the best way as the code you execute remains on the script and you can easily run multiple lines. Or you can type your command directly in the console. 
 
 # Introducing R 
 
-before the first session let's introduce some really basic concepts in R which will make following the webinar easy 
+before the first session let's introduce some really basic concepts in R.
 
 ## Variables 
 
-Computers have memory. There are two kinds of memory: RAM and Disk memory. The first is where
-programes keep the information they need to compute, the second is where the resulting files are kept,
-To save something in the computing memory you need to assign its value to a variables. 
-Variables can be assigned using <- or = , try to keep it consistent in your scripts
+To save something in the computing memory we need to assign its value to a variables. 
+In R Variables can be assigned using `name <- value`.
+
+for instance we can create a variable to count the amount of apples
 
 ```{r}
 apples <- 1
 ```
 
-While R allows any variable name starting with a letter and not containing symbols there are numerous conventions to
-keep variable naming consistent.
-This introduces the concept of style, which is how your code looks like to another person, rather than whether it runs correctly.
-Keeping a consistent style can help you and others understand your code and avoid bugs. what constitutes a good style 
-is a subjective matter, with different conventions used by different projects.
-If you are interested see the section about style in the reading tab. 
+R variable names must start with a letter but can then have letters, numbers and the speacial characters `.` or `_`
 
-for now we'll stick to lowercase variable names, with words separated by a `_`
+variables  can contain spaces but using SPACES IN VARIABLE NAMES IS A BAD IDEA. 
+There are 2 ways to separate words within a name, `SnakeCase` and `camel_case`.
+In R the second is normally used. 
+
+This introduces the concept of style, which is how your code looks to someone else.
+Style is a subjective matter, see the relevant section in the [reading](reading.Rmd) tab for links to some guides.
+Try to find something you like and stick to it. Consistency helps avoid bugs and helps people understand your code.
 
 ```{r}
-foo_bar <- 42
+n_samples <- 42
 ```
 
-Note R will happily overwrite values in a variable without any warning
+Note: R will happily overwrite values in a variable without any warning
+
 ```{r}
-a <- 1
-a <- 2
-a
+n_samples <- 1
+n_samples <- 2
+n_samples 
 ```
-
 ### Listing and Removing Variables
 
-R handles memory automatically so there is usually no need to manually remove variables. 
-Sometimes it is useful to manually remove unused variables to clear the environment pane.
-This is done with rm(variable). i.e 
+We can remove variables with `rm(variable)`. i.e 
 ```{r}
-rm(a)
+rm(apples)
 ```
 
-you can use ls() to list all the variables in the environment
+Although RStudio will list all variables in the environment panel, we can use ls() to list all the variables in the environment. Notice we have removed apples.
 ```{r}
 ls()
 ```
 combine it with rm to remove everything.
 USE THIS WITH CARE
+
 ```{r}
 rm(list = ls())
 ```
 
+## Data Modes 
 
-### Data Modes 
+Computers store all information in binary form as 0s and 1s. However, the exact way depends of the type of variable, for instance text is stored differently than numbers.
+R is a dynamically typed language which means there is no need to specify what type
+a variable is -R does a pretty good job at figuring what type each variable is while running your code
 
-Computers store all information as 0s and 1s. 
-R is a dynamically typed language which means R does a pretty good job at figuring what type each variable is while running your code
-so there is no normally no need to specify a type, or worry about them.
+There is normally no need to worry about type and chances are this is the most boring part of the workshops. However, as type errors where your code expects a variable of a different type
+are very common, understanding how R stores  variables under the hood can save the day. 
 
-There are 4 main data modes in r
+Generally speaking variables are of different types:
 
-- logical 
-- numeric
-- complex
-- character
+- characters/strings for text
+- int for integers
+- floats for real numbers
+- Boolean for True/False
+
+These are present - with different variations on the theme - in most if not all programming languages. In the context of R data types are grouped into 4 main data modes, 
+confusingly R variables can also have a type:
+
+| Mode | type | content | Example | 
+| --- | --- | --- |
+| logical | logical | Boolean values or NA | NA |
+| numeric | real |real | 1.3 |
+| numeric | integer |integer| 1L |
+
+| complex | complex |numbers | i+2i |
+| character | character | letters and strings of text | "hello world" |
+
+Note: in R all numbers are real unless we add the `L` suffix to specify an integer 
 
 we can check the mode of a variable using `mode(variable)`
 ```{r}
-mode(1)
+mode(1L)
 ```
+and the type with `typeof()`
 
-#### Logical Data
-
-logical data can be TRUE (T), FALSE (F) or NA
-
-NA is the way R deals with missing data. we can declare something as not available with `NA`
-```{r}
-result <- NA
-```
-
-```{r}
-typeof(result)
-```
-#### Numeric 
-
-numeric data can come in 2 types: real numbers (double*) and integers.
-
-by default numbers in R are real  
-```{r}
-typeof(1)
-```
-To get an integer we add a `L` after the number
 ```{r}
 typeof(1L)
 ```
-there is normally no reason to worry about this distinction beyond noting that factors are integers.
 
-#### Complex Numbers
+### Converting types
 
-complex numbers can be represented by adding the imaginary part to a real number
+R often converts or coerce values between types automatically, for instance we can happily remove 0.5 from an integer and get a real number back 
+
 ```{r}
-typeof(2+1i)
+1L+0.4
 ```
-#### Characters
+We can also explicitly convert between types or cast values with one of the `as.type()` functions
 
-R can store text in variable with the character type
-R characters are equivalent to what in most languages are called strings. To create a character we quote our text with either single '' or double "" quotes
 ```{r}
-character<- "hello"
+as.numeric("3")
+```
+
+Of course the value must make sense in the new type, else we get a `NA` which is R way to represent missing values.
+
+```{r}
+as.numeric("three")
+```
+
+### Characters
+
+R characters contain letters or strings of text are equivalent to what in most languages are called strings and it is common to see R code refer to characters as strings.
+To create a character we quote our text with either single '' or double "" quotes
+
+```{r}
+name <- "hello"
 ```
 else R will look for a variable of that name 
 ```{r ,error=TRUE}
 character <- hello
 ```
-every ' must be closed by another ', as so does every ". don't mix the two 
+every ' must be closed by another ', as so does every ". don't mix the two.  
 ```{r ,error=TRUE}
 character <- "hello'
+```
+This is useful if you need to store a string with double quotes in it, you can wrap it around single quotes to do so
+```{r}
+character <- '"Hi!", they said'
+```
+
+Alternatively we can use '\' to force R to treat the '"' as a normal character and ignore its special meaning. In programming this is known as "escaping".
+```{r}
+character <- "\"Hi!\", they said"
 ```
 
 ## Factors
 
 Traditionally R has represented categorical variables as factors rather
-than characters. In factors each category (named level) is assigned an
-integer value.
+than characters^[Both because of R's origin as a statistical language and because there was a memory advantage to storing strings as factors].
+In factors each category (named level) is assigned an integer value.
 
-you can create factors by using the factor() function.
+We create factors by using the factor() function.
 ```{r}
-factor1 <- factor(c("red","green","blue"))
+colours <- factor(c("red","green","blue"))
+```
+note the `c()` syntax here creates a collection of elements
+```{r}
+colours
 ```
 
+checking a factor mode and type reveals their underlying representation as integers 
 ```{r}
-factor1
+mode(colours)
+typeof(colours)
 ```
 
-checking a factor mode and type reveals their underlying representation 
-```{r}
-mode(factor1)
-typeof(factor1)
-```
+historically R would automatically convert any character to factors, unless told not
+to. From R 4.0 `read.table()` and `data.frame()` have stopped doing so.
+Factors can be very useful for plotting and modeling, see [r for data science](https://r4ds.had.co.nz/factors.html). 
 
-Originally, there was a memory advantage to this and historically R
-would automatically convert any character to factors, unless told not
-to. From R 4.0 the read.file() and data.frame() have. Although most functions can nowadays
-accept characters instead of factors, they can still be useful in some
-cases, see [r for data science](https://r4ds.had.co.nz/factors.html).
-
-Remember while some functions have special methods for dealing with factors, 
-some treat factors as strings, other as numbers
+But be careful! While some functions have special methods for dealing with factors, 
+some treat factors as strings, other as numbers.
 
 for instance the median function will correctly refuse to work on a factor but IQR will happily 
 calculate an inter quantile range based on the integer value
 ```{r, error=T}
-median(factor1)
+median(colours)
 ```
 ```{r}
-IQR(factor1)
+IQR(colours)
 ```
 
 # Functions 
 
-R has a library of functions, these are commands you use to perform a specific action. In R functions have a name and some arguments.
-You can call a function by using its name and (argument1, argument2). For now focus on the pattern in the calls, we'll see these functions again in session 1. 
+We have seen functions before, these are commands you use to perform a specific action.
+So far we have seen functions with one argument but functions can have multiple arguments separated by a comma.
 
-for instance we can call sum to add some numbers
+For instance we can call sum to add some numbers
 ```{r}
 sum(1, 3, 5, 7)
 ```
@@ -198,59 +217,79 @@ sum(1, 3, 5, 7)
 functions have often default values where there is no need to specify an argument 
 unless we need a different value from the default
 
-for instance the sequence `seq` function needs only needs a start and an end
+The sequence `seq` function needs only needs a start and an end
 number to produce a sequence from 0 to 10
 ```{r}
 seq(0,10)
 ```
 
-we can however replace the default increment of 1 with 2 by specifying `by = 2`
-Think of it as assigning the value to a variable that will be passed to the function . 
-Note here we use only = not <- 
+We can replace the default increment of 1 with 2 by specifying `by = 2`
+Think of it as assigning the value to a variable named `by` that will be passed to the function.
+Note here we use `=` not `<-`.
+
 ```{r}
 seq(0,10,by = 2)
 ```
-we can use the name of the arguments to ignore their order, but avoid this as it can get confusing 
+We can even explicitly state the name of all the arguments to ignore their order, but avoid it as it become confusing.
 ```{r}
 seq(by = 2, to = 10, from = 0)
 ```
 
-the ability to change orders becomes useful when we want to leave some arguments in the middle as the default.
+The ability to specify argument names becomes useful when we want to leave some arguments in the middle as the default. 
+If we relied on position alone there would be no way to do so.
 
-Some functions do not require any arguments. However you must still add an empty ().
-For instance, getwd() will return the working directory (i.e the folder R is currently opening -- which may be different from the folder your script is)
-
+Some functions do not require any arguments, either because they have all default arguments or don't need any. We must still add an empty `()`.
+`getwd()` will return the working directory (i.e the folder R is currently opening -- which may be different from the folder your script is).
 ```{r}
 getwd()
 ```
-if you forget the (), R will print some information about the function itself, rather than calling it
+if you forget the `()`, R will print some information about the function itself, rather than calling it.
 ```{r}
 getwd
 ```
 
 ## Setting the working directory 
 
-We have seen getwd() will print the working directory to the screen.
-to change the working directory we can use setwd(). 
+We have seen `getwd()` will print the working directory to the screen.
+to change the working directory we can use `setwd()`.  
 
-Windows paths use `\`, this however has a special meaning in R (an Unix tools in general) as a
-character to ignore the next special character, so you need a `\` to tell r to ignore the `\` in the path.
-```{r}
-setwd("c:\\Users\\deange01\\Documents\\Bioinformatics-cafe-tutorials\\")
+### Notes on file paths 
+
+Windows paths use `\`, but remember this has a special meaning in R so we can use `\` to tell r to escape^[Our new fancy way to say ignore] the special character. Hence, the path separator becomes `\\`
+```{r eval=FALSE}
+setwd("c:\\Users\\username\\Documents\\Bioinformatics-cafe-tutorials\\")
+```
+However R can use Linux/Mac style paths using `/`  on windows too.
+```{r eval=FALSE}
+setwd("c:/Users/username/Documents/Bioinformatics-cafe-tutorials/")
 ```
 
-However R can use Linux/Mac style paths using `/` work windows too.
-```{r}
-setwd("c:/Users/deange01/Documents/Bioinformatics-cafe-tutorials/")
+Mac/Linux paths begin with a `/` rather than `letter:\`
+for Macs^[Linux paths are similar but the home directory is usually under /home/user and the paths are usually case-sensitive so /home is not the same as /Home] the same locations should look like this
+```{r eval=FALSE}
+setwd("/username/home/Documents/Bioinformatics-cafe-tutorials/")
 ```
 
-Similarly, by convention the `~` at the beginning of a path points to the home directory on Linux/Mac but 
-in R in Windows it points to the document folder.
+Or we can use `~` to automatically get to our user home directory on Linux and Mac
+```{r eval=FALSE}
+setwd("~/Documents/Bioinformatics-cafe-tutorials/")
+```
+
+Windows has traditionally no concept of a home directory. But *in R on windows* `~` points to your document folder ^[Note: this is an R convention not necessarily shared by other software, python - another popular language for programming and data analysis refuses to recognise `~` on Windows. Other programs use `~` to  point to your user folder rather than your Document folder]
+
+The paths above are known as absolute paths i.e they start from the first directory of your computer and make sense regardless of the current folder.
+Alternatively we can use relative paths to point to a folder on the basis of where we are now. imagine we have a sub-folder named session 1.
+```{r eval=FALSE}
+setwd("session 1")
+```
+
+To help navigate relative paths remember `.` points to the current folder and 
+`..` points to the folder above the current one.
 
 ## Help 
 
 if you are ever stuck with a function adding ? before its name will open the help panel for you. The help panel will describe a function, its
-arguments and defaults, often a summary of the methods used, and a usage example.  
+arguments and defaults, often a summary of the methods used, and a usage example.
 
 for instance, 
 ```{r}
@@ -260,15 +299,15 @@ returns
 
 ![help page for the hist (histogram) function](images/help_hist.PNG)
 
-The information on these help panels can sometimes be very concise and may be confusing at first.
-However, as you familiarize with R and the functios they will eventually make sense and can be very good as a quick reference
-(i.e if you forget how an argument is named or what it should contain)
+The information on these help panels can be very concise and confusing at first.
+However, as you familiarize with R they will eventually make sense and become good as a quick reference
+(i.e if you forgot the exact name of an argument, how is it formatted or what the function actually does).
 
 ## how do the sessions work. 
 
-These workshop are in the spirit of the carpentries [see their material here](https://carpentries.org/), therefore we encourage everyone to run their code alongside the webinar.
+These workshop are in the spirit of the carpenteries [see their material here](https://carpentries.org/), 
 
-During the tutorials you'll sometimes be asked to answer
+During the tutorials you'll sometimes be asked to try something.
 in this case the solution will be initially hidden. Try to come up with your answer
 and run it to check the output before un hiding the code to check it
 
@@ -276,10 +315,7 @@ This is an example of hidden code
 ```{r class.source = 'fold-hide'}
 print("hello world")
 ```
+
 ## Data Files 
 
-the data files for the 3 sessions are available on [Google Drive](https://drive.google.com/drive/folders/1FQvgPYSPPBNEC8ytuQ2MXUES4H9sHj3c?usp=sharing)
-
-If you have any questions please post them in the Google document for your session, details will be provided with the webinar.
-
-* in R all numbers are 64 bit long, they have double the precision of a 32 bit floating point so that is where double comes from
+the data files for the 3 sessions are available on [Google Drive](https://drive.google.com/drive/folders/1FQvgPYSPPBNEC8ytuQ2MXUES4H9sHj3c?usp=sharing)s
