@@ -29,6 +29,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
@@ -222,6 +225,75 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
 
 </head>
 
@@ -229,6 +301,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -290,40 +372,19 @@ $(document).ready(function () {
 
 </div>
 
-<div id="TOC">
-<ul>
-<li><a href="#installing-packages">Installing packages</a></li>
-<li><a href="#using-packages">Using packages</a>
-<ul>
-<li><a href="#documentation">Documentation</a></li>
-<li><a href="#citing-packages">citing packages</a></li>
-</ul></li>
-<li><a href="#key-packages">key packages</a>
-<ul>
-<li><a href="#tidyverse">Tidyverse</a></li>
-<li><a href="#ggplot2">ggplot2</a></li>
-<li><a href="#bioconductor">Bioconductor</a></li>
-<li><a href="#r-markdown">R markdown</a></li>
-</ul></li>
-<li><a href="#namespaces">Namespaces</a></li>
-<li><a href="#packages-for-session-2">Packages for session 2</a></li>
-</ul>
-</div>
 
 <p>So far we’ve only used functions supplied as part of base R. However the real power of R comes from the ability to import functions the community of R programmers has built. These come in packages, which are a series of related functions bundled together</p>
 <p>Generally speaking before implementing your function it is always worth checking if there is a well-maintained and documented package that performs what you would like to do.</p>
 <div id="installing-packages" class="section level1">
 <h1>Installing packages</h1>
-<p>Most R packages belong to a repository known as CRAN. CRAN packages can be installed with a function</p>
-<pre class="r"><code>install.packages(&quot;package_name&quot;)</code></pre>
+<p>Most R packages belong to a repository known as CRAN. CRAN packages can be installed with <code>install.packages("package_name")</code></p>
 <p>Often R will ask for your permission to install packages compiled from source rather than binary releases <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. If you want to use the absolutely most recent version say yes, if you’re in a hurry say no. Installing packages from source on Windows requires an additional component: <a href="https://cran.r-project.org/bin/windows/Rtools/">RTools</a>.</p>
 </div>
 <div id="using-packages" class="section level1">
 <h1>Using packages</h1>
-<p>packages can be loaded by using the library function. Conventionally, packages are loaded at the beginning of a script, to make which packages are required clear.</p>
+<p>packages can be loaded by using the library function. Conventionally, packages are loaded at the beginning of a script, to make obvious which packages are needed.</p>
 <pre class="r"><code>library(ggplot2)</code></pre>
-<p>once loaded you can use the functions in the package as we have done so far</p>
-<p>We can use sessionInfo() to display information on R and the loaded packages.</p>
+<p>once loaded you can use the functions in the package as we have done so far We can use sessionInfo() to display information on R and the loaded packages.</p>
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>## R version 4.1.0 (2021-05-18)
 ## Platform: x86_64-w64-mingw32/x64 (64-bit)
@@ -340,38 +401,37 @@ $(document).ready(function () {
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] docstring_1.0.0 forcats_0.5.1   stringr_1.4.0   purrr_0.3.4     readr_2.0.1     tidyr_1.1.3    
-##  [7] tibble_3.1.3    tidyverse_1.3.1 dplyr_1.0.7     ggplot2_3.3.5  
+##  [1] docstring_1.0.0 forcats_0.5.1   stringr_1.4.0   purrr_0.3.4     readr_2.0.2     tidyr_1.1.4    
+##  [7] tibble_3.1.5    tidyverse_1.3.1 dplyr_1.0.7     ggplot2_3.3.5  
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] tidyselect_1.1.1 xfun_0.26        bslib_0.3.0      haven_2.4.3      colorspace_2.0-2
-##  [6] vctrs_0.3.8      generics_0.1.0   htmltools_0.5.2  yaml_2.2.1       utf8_1.2.2      
-## [11] rlang_0.4.11     jquerylib_0.1.4  pillar_1.6.3     glue_1.4.2       withr_2.4.2     
-## [16] DBI_1.1.1        dbplyr_2.1.1     modelr_0.1.8     readxl_1.3.1     lifecycle_1.0.1 
-## [21] cellranger_1.1.0 munsell_0.5.0    gtable_0.3.0     rvest_1.0.1      evaluate_0.14   
-## [26] knitr_1.34       tzdb_0.1.2       fastmap_1.1.0    fansi_0.5.0      highr_0.9       
-## [31] broom_0.7.9      Rcpp_1.0.7       scales_1.1.1     backports_1.2.1  jsonlite_1.7.2  
-## [36] fs_1.5.0         hms_1.1.1        digest_0.6.28    stringi_1.7.3    grid_4.1.0      
-## [41] cli_3.0.1        tools_4.1.0      magrittr_2.0.1   sass_0.4.0       crayon_1.4.1    
-## [46] pkgconfig_2.0.3  ellipsis_0.3.2   xml2_1.3.2       reprex_2.0.1     lubridate_1.7.10
-## [51] roxygen2_7.1.2   rstudioapi_0.13  assertthat_0.2.1 rmarkdown_2.11   httr_1.4.2      
-## [56] R6_2.5.1         compiler_4.1.0</code></pre>
+##  [1] Rcpp_1.0.7       lubridate_1.8.0  assertthat_0.2.1 digest_0.6.28    utf8_1.2.2       R6_2.5.1        
+##  [7] cellranger_1.1.0 backports_1.2.1  reprex_2.0.1     evaluate_0.14    httr_1.4.2       highr_0.9       
+## [13] pillar_1.6.3     rlang_0.4.11     readxl_1.3.1     rstudioapi_0.13  jquerylib_0.1.4  rmarkdown_2.11  
+## [19] bit_4.0.4        munsell_0.5.0    broom_0.7.9      compiler_4.1.0   modelr_0.1.8     xfun_0.26       
+## [25] pkgconfig_2.0.3  htmltools_0.5.2  tidyselect_1.1.1 roxygen2_7.1.2   fansi_0.5.0      crayon_1.4.1    
+## [31] tzdb_0.1.2       dbplyr_2.1.1     withr_2.4.2      grid_4.1.0       jsonlite_1.7.2   gtable_0.3.0    
+## [37] lifecycle_1.0.1  DBI_1.1.1        magrittr_2.0.1   scales_1.1.1     cli_3.0.1        stringi_1.7.5   
+## [43] impute_1.66.0    vroom_1.5.5      fs_1.5.0         xml2_1.3.2       bslib_0.3.1      ellipsis_0.3.2  
+## [49] generics_0.1.0   vctrs_0.3.8      tools_4.1.0      bit64_4.0.5      glue_1.4.2       hms_1.1.1       
+## [55] fastmap_1.1.0    yaml_2.2.1       colorspace_2.0-2 rvest_1.0.2      knitr_1.36       haven_2.4.3     
+## [61] sass_0.4.0</code></pre>
 <div id="documentation" class="section level2">
 <h2>Documentation</h2>
-<p>all packages have more or less extensive documentation. A quick Google search of your package and R or CRAN should bring up a documentation page similar to the one for <a href="https://cran.r-project.org/web/packages/cowplot/index.html">cowplot</a>. All packages have a reference manual, detailing one by one the use of all the functions. This is the same information that the help panel uses so it can be quite dry. Additionally most packages have a vignette, introducing the package and showing how to actually use it to solve a problem</p>
-<p>we can also view the documentation from R with</p>
+<p>all packages have more or less extensive documentation. A quick Google search of your package and R or CRAN should bring up a documentation page similar to the one for <a href="https://cran.r-project.org/web/packages/cowplot/index.html">cowplot</a>. All packages have a reference manual, detailing one by one the use of all the functions. This is the same information that the help panel uses so it can be quite dry.</p>
+<p>Additionally most packages have a vignette, introducing the package and showing how to actually use it to solve a problem.</p>
+<p>we can also view the documentation from R with:</p>
 <pre class="r"><code>browseVignettes(&quot;tidyverse&quot;) # shows the vignette
 ?cowplot # shows the reference manual</code></pre>
 </div>
 <div id="citing-packages" class="section level2">
 <h2>citing packages</h2>
-<p>Citing the packages used in your work is important, for reproducibility and to acknowledge the work done by the package authors, in R more often than not, academics. You should always make an effort to cite the packages used in your analysis.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> We can use the <code>citation("package")</code> function to retrieve the citation information</p>
+<p>Package authors, particularly in bioinformatics are often Academics. If you use a package consider citing any paper in which they presented their work <a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>. We can use the <code>citation("package")</code> function to retrieve the citation information.</p>
 <p>for instance the IRanges package suggests you cite a PLOS Computational Biology</p>
 <pre class="r"><code>citation(&quot;IRanges&quot;)</code></pre>
 <pre><code>## 
-##   Lawrence M, Huber W, Pag\`es H, Aboyoun P, Carlson M, et al. (2013) Software for
-##   Computing and Annotating Genomic Ranges. PLoS Comput Biol 9(8): e1003118.
-##   doi:10.1371/journal.pcbi.1003118
+##   Lawrence M, Huber W, Pag\`es H, Aboyoun P, Carlson M, et al. (2013) Software for Computing and
+##   Annotating Genomic Ranges. PLoS Comput Biol 9(8): e1003118. doi:10.1371/journal.pcbi.1003118
 ## 
 ## A BibTeX entry for LaTeX users is
 ## 
@@ -389,11 +449,12 @@ $(document).ready(function () {
 </div>
 <div id="key-packages" class="section level1">
 <h1>key packages</h1>
-<p>This section will introduce some key packages for data analysis.</p>
+<p>This section will introduce some key packages,</p>
 <div id="tidyverse" class="section level2">
 <h2>Tidyverse</h2>
-<p>the tidyverse is a collection of closely related packages designed that an be installed and loaded as one tidyverse They share a similar philosophy and can be very powerful for data manipulation. Note that the way of doing things in tidy R is often quite different from how you would operate in base R.</p>
-<p>The tidyverse packages provide functions to clean and manipulate data. The concept of tidy data is the key concpet in all tidy packages. In tidy data:</p>
+<p>the tidyverse is a collection of closely related packages for Data Science. They can be installed and loaded as one with `install.packages(“tidyverse”). The</p>
+<p>The tidyverse packages provide functions to clean, manipulate, analyse and visualise data.</p>
+<p>In tidy data:</p>
 <ol style="list-style-type: decimal">
 <li>Every column is a variable.</li>
 <li>Every row is an observation.</li>
@@ -415,7 +476,7 @@ $(document).ready(function () {
 <div id="ggplot2" class="section level2">
 <h2>ggplot2</h2>
 <p>ggplot2 is a plotting package. while base R plots can become very beautiful with lots of customisation, ggplot2 can easily produces publication quality graphics with comparatively little effort</p>
-<p>GGplot is based on the grammar of graphics, a whole theory of how to describe a plot whose explanation is best left to the <a href="https://ggplot2-book.org/index.html">official book</a>. in short a ggplot2 graph is composed of 3 main elements: data, a geometry representing the individual data points and a mapping</p>
+<p>GGplot is based on the grammar of graphics, a whole theory of how to describe a plot whose explanation is best left to the <a href="https://ggplot2-book.org/index.html">official book</a>. In short a ggplot2 graph is composed of 3 main elements: data, a geometry representing the individual data points and a mapping</p>
 <p>for a gallery of what is possible with ggplot and other plotting packages see <a href="https://www.r-graph-gallery.com/histogram">r graph gallery</a> ggplot2’s grammar can appear complex at first, so we’ll cover some common plots in session 2.</p>
 </div>
 <div id="bioconductor" class="section level2">
@@ -436,8 +497,7 @@ BiocManager::install()</code></pre>
 </div>
 <div id="namespaces" class="section level1">
 <h1>Namespaces</h1>
-<p>Functions are conventionally named with a short, descriptive verb. Sometimes two packages use the same name for a function. In this case the most recently loaded package will overwrite the previous one</p>
-<p>A very common case is the filter function in dplyr which overrides the default R function. Despite the shared name they do very different things.</p>
+<p>Functions are conventionally named with a short, descriptive verb. Sometimes two packages use the same name for a function. In this case the most recently loaded package will overwrite the previous one s A very common case is the filter function in dplyr which overrides the default R function. Despite the shared name they do very different things.</p>
 <p>The base R filter function applies a linear filter to a time series</p>
 <pre class="r"><code>x &lt;- 1:100
 filter(x, rep(1, 3))</code></pre>
@@ -458,11 +518,10 @@ stats::filter(x, rep(1, 3))</code></pre>
 ## Start = 1 
 ## End = 100 
 ## Frequency = 1 
-##   [1]  NA   6   9  12  15  18  21  24  27  30  33  36  39  42  45  48  51  54  57  60  63  66  69  72
-##  [25]  75  78  81  84  87  90  93  96  99 102 105 108 111 114 117 120 123 126 129 132 135 138 141 144
-##  [49] 147 150 153 156 159 162 165 168 171 174 177 180 183 186 189 192 195 198 201 204 207 210 213 216
-##  [73] 219 222 225 228 231 234 237 240 243 246 249 252 255 258 261 264 267 270 273 276 279 282 285 288
-##  [97] 291 294 297  NA</code></pre>
+##   [1]  NA   6   9  12  15  18  21  24  27  30  33  36  39  42  45  48  51  54  57  60  63  66  69  72  75  78
+##  [27]  81  84  87  90  93  96  99 102 105 108 111 114 117 120 123 126 129 132 135 138 141 144 147 150 153 156
+##  [53] 159 162 165 168 171 174 177 180 183 186 189 192 195 198 201 204 207 210 213 216 219 222 225 228 231 234
+##  [79] 237 240 243 246 249 252 255 258 261 264 267 270 273 276 279 282 285 288 291 294 297  NA</code></pre>
 <p>Arguably, it can be worth to use the <code>::</code> operator when you use a function from a package to explicitly state what packages are required and isolate that code from whatever package we have loaded with library. This is suggested by the <a href="https://google.github.io/styleguide/Rguide.html">Google R Style Guide</a>.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
 </div>
 <div id="packages-for-session-2" class="section level1">
@@ -484,6 +543,8 @@ install.packages(c(&quot;tidyverse&quot;, &quot;ggplot2&quot;, &quot;cowplot&quo
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -521,6 +582,35 @@ $(document).ready(function () {
 });
 </script>
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

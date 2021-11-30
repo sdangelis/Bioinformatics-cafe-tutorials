@@ -11,7 +11,7 @@
 
 
 
-<title>session 1</title>
+<title>Session 1</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -29,6 +29,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
@@ -222,6 +225,75 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
 
 </head>
 
@@ -229,6 +301,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -286,94 +368,45 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">session 1</h1>
+<h1 class="title toc-ignore">Session 1</h1>
 
 </div>
 
-<div id="TOC">
-<ul>
-<li><a href="#data-structures">Data Structures</a></li>
-<li><a href="#vectors">vectors</a>
-<ul>
-<li><a href="#lists">lists</a></li>
-<li><a href="#matrices">matrices</a></li>
-<li><a href="#data-frames">data frames</a></li>
-<li><a href="#s3-s4-and-r6-object-system">S3, S4 and R6 object system</a></li>
-</ul></li>
-<li><a href="#reading-tabular-data">Reading Tabular Data</a>
-<ul>
-<li><a href="#bioinformatics-data-in-base-r">Bioinformatics data in Base R</a></li>
-</ul></li>
-<li><a href="#maths">Maths</a></li>
-<li><a href="#subsetting-data">Subsetting data</a>
-<ul>
-<li><a href="#subsetting-vectors">Subsetting vectors</a></li>
-<li><a href="#subsetting-matrices-and-data-frames">Subsetting matrices and data frames</a></li>
-<li><a href="#subsetting-with">Subsetting with <code>[[]]</code></a></li>
-<li><a href="#reverse-subsetting">Reverse subsetting</a></li>
-</ul></li>
-<li><a href="#boolean-expressions">Boolean expressions</a>
-<ul>
-<li><a href="#subsetting-with-boolean-expressions">subsetting with boolean expressions</a></li>
-</ul></li>
-<li><a href="#data-wrangling-and-manipulation">Data wrangling and manipulation</a>
-<ul>
-<li><a href="#recoding-values">Recoding values</a></li>
-<li><a href="#adding-rows-and-columns">adding rows and columns</a></li>
-<li><a href="#dealing-with-nas">dealing with NAs</a></li>
-<li><a href="#transposing">transposing</a></li>
-</ul></li>
-<li><a href="#data-analysis">Data Analysis</a>
-<ul>
-<li><a href="#summary-statistics">summary statistics</a></li>
-<li><a href="#common-statistical-tests">common statistical tests:</a>
-<ul>
-<li><a href="#parametric-tests">parametric tests</a></li>
-<li><a href="#non-paramtetric-staistical-tests">non-paramtetric staistical tests,</a></li>
-<li><a href="#adjusting-the-p-value">Adjusting the P-Value</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#base-r-plots">Base R Plots</a>
-<ul>
-<li><a href="#scatter-plot">Scatter plot</a></li>
-<li><a href="#histograms">Histograms</a></li>
-<li><a href="#saving-plots">Saving plots</a></li>
-<li><a href="#saving-data">Saving data</a></li>
-</ul></li>
-</ul>
-</div>
 
 <p>Welcome to the First session! By now the basic thing</p>
-<p>Today, We’ll go over how variables can be and start analysing some patient data from TGCA.</p>
+<p>Today, We’ll go over how variables can be stored together and start analyzing some patient data from The Cancer Genome Atlas.</p>
 <div id="data-structures" class="section level1">
 <h1>Data Structures</h1>
-<p>We have seen variables can contain more than a single value. Depending on how many dimensions we need, there are several</p>
-</div>
-<div id="vectors" class="section level1">
-<h1>vectors</h1>
-<p>a vector is a collection of items<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. we create a vector by using the <code>c(item1,item2,item3)</code> function.</p>
-<pre class="r"><code>vector1 &lt;- c(1, 2, 3, 4, 5)</code></pre>
-<p>we can assign a name to each element in the vector by assigning a vector of names to the names() function</p>
-<pre class="r"><code>names(vector1) &lt;- c(&quot;item1&quot;, &quot;item2&quot;, &quot;item3&quot;, &quot;item4&quot;, &quot;item5&quot;)</code></pre>
+<p>So far we have seen variables made of single values. R has some pretty powerful data structures to store multiple, related values</p>
+<div id="vectors" class="section level2">
+<h2>vectors</h2>
+<p>a vector is a collection of items<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. We create a vector by using the <code>c(item1,item2,item3)</code> function.</p>
+<pre class="r"><code>numbers &lt;- c(1, 2, 3, 4, 5)</code></pre>
+<p>we can assign a name to each element in the vector by assigning a vector of names to the <code>names()</code> function. Note <code>names()</code> assigns the name in place<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, i.e it doesn’t create a new vector with the names we have to assign to a variable</p>
+<pre class="r"><code>names(numbers) &lt;- c(&quot;n1&quot;, &quot;n2&quot;, &quot;n3&quot;, &quot;n4&quot;, &quot;n5&quot;)</code></pre>
 <p>or by providing them before the values when we create the vector.</p>
-<pre class="r"><code>vector1 &lt;- c(&quot;item1&quot; = 1, &quot;item2&quot; = 2, &quot;item3&quot; = 3, &quot;item4&quot; = 4)</code></pre>
-<p>the names() can also be used alone to check the names of a vector</p>
-<pre class="r"><code>names(vector1)</code></pre>
-<pre><code>## [1] &quot;item1&quot; &quot;item2&quot; &quot;item3&quot; &quot;item4&quot;</code></pre>
-<p>all items in a vector must be of the same type if we try to mix, for instance letters and numbers, R will force all items to be the most general type. The character type is the most general type.</p>
-<pre class="r"><code>vector2 &lt;- c(1,2L, 1+2i, &quot;hi&quot;)</code></pre>
-<pre class="r"><code>typeof(vector2)</code></pre>
+<pre class="r"><code>numbers &lt;- c(&quot;n1&quot; = 1, &quot;n2&quot; = 2, &quot;n3&quot; = 3, &quot;n4&quot; = 4)</code></pre>
+<p>The <code>names()</code> function can also be used alone to get the names of a vector</p>
+<pre class="r"><code>names(numbers)</code></pre>
+<pre><code>## [1] &quot;n1&quot; &quot;n2&quot; &quot;n3&quot; &quot;n4&quot;</code></pre>
+<p>All items in a vector must be of the same type. if we try to mix instance letters and numbers, R will force (coherce) all items to be the most general type. The character type is always the most general type.</p>
+<pre class="r"><code>numbers2 &lt;- c(1,2L, 1+2i, &quot;three&quot;)</code></pre>
+<pre class="r"><code>typeof(numbers2)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<p>Try to come up with a case for why this could be problem.</p>
+<p>Try to come up with a case for why this could be a problem.</p>
+<p>Your turn, create a vector to store the first 6 letters of the alphabet. What will be the resulting type?</p>
+<pre class="r"><code>(letters &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;))</code></pre>
+<pre><code>## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot;</code></pre>
+</div>
 <div id="lists" class="section level2">
 <h2>lists</h2>
-<p>Lists are similar to vectors but can contain items of different types, without the need to cohere to the most general type</p>
+<p>Lists are similar to vectors but can contain items of different types, without the need to cohere to the most general type.</p>
 <pre class="r"><code>list &lt;- list(2,1,&quot;a&quot;)</code></pre>
-<p>because of this lists are as whole of type list,</p>
+<p>Because of this lists are as whole of type list,</p>
 <pre class="r"><code>typeof(list)</code></pre>
 <pre><code>## [1] &quot;list&quot;</code></pre>
-<p>the environment panel of RStudio can be used to easily see what a list contains</p>
-<p>Another difference from vectors is that lists are recursive i.e a list can contain lists of things while a vector will always expand to a 1-dimensional flat structure</p>
+<p>The environment panel of RStudio can be used to easily see what a list contains.<br />
+Another difference from vectors is that lists are recursive i.e a list can contain lists of things while a vector will always expand to a 1-dimensional flat structure</p>
 <pre class="r"><code>c(c(1,2),c(3,4))</code></pre>
 <pre><code>## [1] 1 2 3 4</code></pre>
 <pre class="r"><code>list(list(&quot;1&quot;,&quot;2&quot;), list(&quot;3&quot;,&quot;4&quot;))</code></pre>
@@ -392,296 +425,429 @@ $(document).ready(function () {
 ## [[2]][[2]]
 ## [1] &quot;4&quot;</code></pre>
 <p>try it yourself, create a list containing 3 items named item1, item2, item3 and print their names to screen. HINT: names in lists work similarly to vectors</p>
-<pre class="r fold-hide"><code>named_list&lt;- list(1,2,3)
-names(named_list)&lt;- c(&quot;item1&quot;, &quot;item2&quot;, &quot;item3&quot;)
+<pre class="r fold-hide"><code>named_list &lt;- list(1, 2, 3)
+names(named_list) &lt;- c(&quot;item1&quot;, &quot;item2&quot;, &quot;item3&quot;)
 names(named_list)</code></pre>
 <pre><code>## [1] &quot;item1&quot; &quot;item2&quot; &quot;item3&quot;</code></pre>
 </div>
-<div id="matrices" class="section level2">
-<h2>matrices</h2>
-<p>matrices are tables, or precisely 2 dimensional vectors. Like vectors they can contain only one type of data we can create a matrix of sizes i, j by calling <code>matrix(vector_with_data, nrow=i, ncol=j)</code>. unless we specify <code>byrow = T</code>, matrices are populated column by column</p>
-<pre class="r"><code>matrix(data=c(1,2,3,4), nrow = 2, ncol = 2)</code></pre>
-<pre><code>##      [,1] [,2]
-## [1,]    1    3
-## [2,]    2    4</code></pre>
-<pre class="r"><code>matrix(data=c(1,2,3,4), nrow = 2, ncol = 2, byrow = T)</code></pre>
-<pre><code>##      [,1] [,2]
-## [1,]    1    2
-## [2,]    3    4</code></pre>
-<p>try to reproduce the matrix below</p>
-<pre class="r fold-hide"><code>matrix(data=c(1,4,7,2,5,8,3,6,9), nrow = 3, ncol = 3)</code></pre>
-<pre><code>##      [,1] [,2] [,3]
-## [1,]    1    2    3
-## [2,]    4    5    6
-## [3,]    7    8    9</code></pre>
-<p>naming a matrix has 2 layers of complexity,</p>
-<p>Using names() will give a name to each value in the matrix</p>
-<pre class="r"><code>named_matrix &lt;- matrix(data=c(1,2,3,4), nrow = 2, ncol = 2)
-names(named_matrix) &lt;- c(&quot;item1&quot;, &quot;item2&quot;, &quot;item3&quot;,&quot;item4&quot;)
-names(named_matrix)</code></pre>
-<pre><code>## [1] &quot;item1&quot; &quot;item2&quot; &quot;item3&quot; &quot;item4&quot;</code></pre>
-<p>To name rows and columns we need to call <code>row.names</code> or <code>colnames</code> respectively Note adding data, such as a sample id, in row names is a bad idea as row names are treated differently by many functions. You should use a specific column to store sample names and/or IDs .</p>
-<pre class="r"><code>row.names(named_matrix) &lt;- c(&quot;row1&quot;,&quot;row2&quot;)
-colnames(named_matrix) &lt;- c(&quot;col1&quot;,&quot;col2&quot;)</code></pre>
-<p>so now our matrix becomes</p>
-<pre class="r"><code>named_matrix</code></pre>
-<pre><code>##      col1 col2
-## row1    1    3
-## row2    2    4
-## attr(,&quot;names&quot;)
-## [1] &quot;item1&quot; &quot;item2&quot; &quot;item3&quot; &quot;item4&quot;</code></pre>
-<p>note how value names are stored as a attribute. Because column names and row id should identify each item in a matrix you will rarely come across a use for named values in a matrix.</p>
-</div>
 <div id="data-frames" class="section level2">
 <h2>data frames</h2>
-<p>data frames are the most commonly used structure in R as they are the closest to a spreadsheet or a table. like matrices they are 2-dimensional but can contain elements of different types, as long as all the values in each column are the same type.</p>
-<p>we can create a data frame with data.frame, with columns separated by a comma</p>
-<pre class="r"><code>data.frame(c(2,3),c(3,3),c(&quot;hi&quot;, &quot;hello&quot;))</code></pre>
-<pre><code>##   c.2..3. c.3..3. c..hi....hello..
-## 1       2       3               hi
-## 2       3       3            hello</code></pre>
-<p>we can also bundle vectors to create a data frame.</p>
-<pre class="r"><code>vector1 &lt;- c(&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;,&quot;E&quot;)
-vector2 &lt;- c(1,3,4,5,2)
-frame &lt;- data.frame(vector1, vector2)
-frame</code></pre>
-<pre><code>##   vector1 vector2
-## 1       A       1
-## 2       B       3
-## 3       C       4
-## 4       D       5
-## 5       E       2</code></pre>
-<p>as with matrices we can rename the two columns. Try renaming the first column to sample and the second to position.</p>
-<pre class="r fold-hide"><code>colnames(frame)&lt;- c(&quot;sample&quot;, &quot;position&quot;)
-frame</code></pre>
-<pre><code>##   sample position
-## 1      A        1
-## 2      B        3
-## 3      C        4
-## 4      D        5
-## 5      E        2</code></pre>
-<p>Remember, Unlike excel however, formulas are recorded in your script/console, not the data frame itself.</p>
+<p>data frames are the most commonly used structure in R. Think of them as tables in a spreadsheet. They are 2-dimensional. The only constraint is that all the values in each column must be of the same type.</p>
+<p>We can create a data frame with <code>data.frame()</code>. Each column is specified with the <code>name = vector</code> syntax. We separate columns with a commma</p>
+<pre class="r"><code>(cells &lt;- data.frame(&quot;plate&quot; = c(1, 2, 3, 4), &quot;Doubling_time&quot; = c(10, 20, 10, 40), &quot;cell_line&quot; = c(&quot;HC70&quot;, &quot;HCC1400&quot;, &quot;HCC1500&quot;, &quot;BT-20&quot;)))</code></pre>
+<pre><code>##   plate Doubling_time cell_line
+## 1     1            10      HC70
+## 2     2            20   HCC1400
+## 3     3            10   HCC1500
+## 4     4            40     BT-20</code></pre>
+<p>Of course we can define the vectors separately and then bundle them.</p>
+<pre class="r"><code>plate = c(1, 2, 3, 4)
+Doubling_time = c(10, 20, 10, 40)
+cell_line = c(&quot;HC70&quot;, &quot;HCC1400&quot;, &quot;HCC1500&quot;, &quot;BT-20&quot;)
+cells &lt;- (data.frame(plate, Doubling_time, cell_line))</code></pre>
+<p>Names in a data table have 3 layers. - column names - row names - item names</p>
+<p>We can view column names with <code>colnames(frame)</code> and edit them with <code>colnames(frame) &lt;- names</code>.<br />
+for instance, we can rename all columns in our cells to consistently start with a capital letter<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p>
+<pre class="r"><code>colnames(cells) &lt;- c(&quot;Plate&quot;, &quot;Doubling_time&quot;, &quot;Cell_line&quot;)
+cells</code></pre>
+<pre><code>##   Plate Doubling_time Cell_line
+## 1     1            10      HC70
+## 2     2            20   HCC1400
+## 3     3            10   HCC1500
+## 4     4            40     BT-20</code></pre>
+<p>Row names work like column names but we use the <code>rownames(frame)</code> function It is tempting to use row names to encode an identifier instead of using an ID column (in our example this was Plate). some - old style - R functions expect this. However these days doing so is discouraged as row names cannot be accessed as if they were a normal column.</p>
+<p>Like with vectors <code>names()</code> allows us to edit and access the name of individual items.<br />
+Usually indidivual names are not useful as we should be able to identify each value by column and row.</p>
+<p>Finally, there are some other useful functions with dataframes. <code>dim()</code> returns the dimensions (rows, columns) of a data frame</p>
+<pre class="r"><code>dim(cells)</code></pre>
+<pre><code>## [1] 4 3</code></pre>
+<p>while <code>nrow()</code>,<code>ncol()</code> return the number of rows and columns, respectively</p>
+<pre class="r"><code>nrow(cells)</code></pre>
+<pre><code>## [1] 4</code></pre>
+<pre class="r"><code>ncol(cells)</code></pre>
+<pre><code>## [1] 3</code></pre>
+<p>Remember, Unlike excel however, formulas are recorded in your script/console, not the data frame itself. The frame simply stores values</p>
+</div>
+<div id="matrices" class="section level2">
+<h2>matrices</h2>
+<p>a matrix is a table, or precisely a 2 dimensional vector. Like vectors they can contain only one type of data. we can create a matrix of sizes i, j by calling <code>matrix(vector_with_data, nrow=i, ncol=j, dimnames(list_of_names))</code>.</p>
+<pre class="r"><code>matrix(data = c(1,2,3,4), nrow = 2, ncol = 2, dimnames = list(list(&quot;a&quot;,&quot;b&quot;), list(&quot;c&quot;, &quot;d&quot;)))</code></pre>
+<pre><code>##   c d
+## a 1 3
+## b 2 4</code></pre>
+<p>unless we specify <code>byrow = T</code>, matrices are populated column by column. Dimension names are always taken row names then columns</p>
+<pre class="r"><code>matrix(data = c(1,2,3,4), nrow = 2, ncol = 2, dimnames = list(list(&quot;a&quot;,&quot;b&quot;), list(&quot;c&quot;, &quot;d&quot;)), byrow = T)</code></pre>
+<pre><code>##   c d
+## a 1 2
+## b 3 4</code></pre>
+<p>Matrices are not very flexible as a place to store data but are really good for mathematical operations, which is what they tend to be used for.</p>
+</div>
+<div id="maths-on-vectors-matrices-and-data-frames" class="section level2">
+<h2>Maths on Vectors, matrices and data frames</h2>
+<p>We can apply maths to vectors too, in this case the operation will be applied to every element of the vector.</p>
+<p>For instance can increase all numbers by 1</p>
+<pre class="r"><code>numbers = c(1, 2, 3, 4, 5)
+numbers + 1</code></pre>
+<pre><code>## [1] 2 3 4 5 6</code></pre>
+<p>when using operations on 2 vectors we apply it element by element.</p>
+<pre class="r"><code>c(2, 3, 4) + c(3, 2, 4)</code></pre>
+<pre><code>## [1] 5 5 8</code></pre>
+<p>R vectors have a somewhat surprising behavior when we operate on items of different length. we have seen a length of 1 leads to the item being recycled Else the longer one should be a multiple of the longer</p>
+<pre class="r"><code>c(1,2,3,4) * c(1,2)</code></pre>
+<pre><code>## [1] 1 4 3 8</code></pre>
+<p>However, because we can do it, it doesn’t mean we should be typically. Think about how the result will look like before doing so.</p>
+<p>similarly we can apply mathematical operations on a whole matrix</p>
+<pre class="r"><code>numbers_matrix &lt;- matrix(data = c(1,2,3,4), nrow = 2, ncol = 2, dimnames = list(list(&quot;a&quot;,&quot;b&quot;), list(&quot;c&quot;, &quot;d&quot;)))</code></pre>
+<pre class="r"><code>numbers_matrix * 2</code></pre>
+<pre><code>##   c d
+## a 2 6
+## b 4 8</code></pre>
+<p>Data frames are a bit tricker, as not all columns are numbers.</p>
+<pre class="r"><code>cells+1</code></pre>
+<pre><code>## Error in FUN(left, right): non-numeric argument to binary operator</code></pre>
+<p>We’ll see some ways to only select the columns we need.</p>
+</div>
+<div id="arrays" class="section level2">
+<h2>Arrays</h2>
+<p>Arrays are higher dimensional objects. In fact, vectors are just a special 1-dimensional array, matrices are a 2-dimensional array. Be aware they exist.</p>
 </div>
 <div id="s3-s4-and-r6-object-system" class="section level2">
 <h2>S3, S4 and R6 object system</h2>
-<p>More complex objects made of a collection of these structures can be implemented in R. This is often done to represent specialised objects<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>. We will come across some in <a href="session3.Rmd">session 3</a>. For now, just be aware that we can combine structures exist.</p>
+<p>More complex objects made of a collection of these structures can be implemented in R. This is often done to represent specialized objects that have associated methods, or specialized variants of a function<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>. We will come across some examples of this in <a href="session3.Rmd">session 3</a>. For now just be aware that more complex structures can exist.</p>
+</div>
+</div>
+<div id="subsetting" class="section level1">
+<h1>Subsetting</h1>
+<div id="subestting-vectors" class="section level2">
+<h2>Subestting vectors</h2>
+<p>In R items are numbered from 1 <a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>. We can use the <code>vector[index]</code> operator to get the element at that index</p>
+<p>Remember the numbers vector, we can get the second number with</p>
+<pre class="r"><code>numbers[2]</code></pre>
+<pre><code>## [1] 2</code></pre>
+<p>try to select numbers 1 and 3. Hint you can use a vector of indices with as your index</p>
+<pre class="r"><code>numbers[c(1,3)]</code></pre>
+<pre><code>## [1] 1 3</code></pre>
+<p>we can also use <code>:</code> to return a sequence of numbers and use it to choose all elements from x to y. In R sequences are inclusive<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
+<pre class="r"><code>numbers[2:4]</code></pre>
+<pre><code>## [1] 2 3 4</code></pre>
+<p><em>Note</em> if you come from Python, you might be used to not needing a start or an end for <code>[:]</code> to get all the items from/to an index. This doesn`t work in R.</p>
+<pre class="r"><code>numbers[:3]</code></pre>
+<pre><code>## Error: &lt;text&gt;:1:9: unexpected &#39;:&#39;
+## 1: numbers[:
+##             ^</code></pre>
+<p>We can combine sequences and single values Now try selecting all items from 1 to 3 and item 5.</p>
+<pre class="r"><code>numbers[c(1:3,5)]</code></pre>
+<pre><code>## [1] 1 2 3 5</code></pre>
+<p>We can also remove values at an index by using <code>[-index]</code>. try to remove the 3rd item.</p>
+<pre class="r"><code>numbers[[3]]</code></pre>
+<pre><code>## [1] 3</code></pre>
+</div>
+<div id="subsetting-lists" class="section level2">
+<h2>Subsetting lists</h2>
+<p>Indices in lists work largely in the same way as in vectors. However, since lists are composed of other lists sub-setting with <code>[]</code> returns a list</p>
+<pre class="r"><code>list[1]</code></pre>
+<pre><code>## [[1]]
+## [1] 2</code></pre>
+<p>to get the actual elements we can use the double bracket <code>[[]]</code> operator. it works like <code>[]</code> but does not support negative indexes.</p>
+<pre class="r"><code>list[[1]]</code></pre>
+<pre><code>## [1] 2</code></pre>
+<p>If we have a named list, we can use <code>[[]]</code> for names too.</p>
+<pre class="r"><code>named_list[[&quot;item1&quot;]]</code></pre>
+<pre><code>## [1] 1</code></pre>
+<p>Although typically we use the <code>$name</code> shortcut</p>
+<pre class="r"><code>named_list$item1</code></pre>
+<pre><code>## [1] 1</code></pre>
+</div>
+<div id="subsetting-matrices" class="section level2">
+<h2>Subsetting matrices</h2>
+<p>matrices work like vectors but we can choose from 2 dimensions with <code>[row,column]</code></p>
+<pre class="r"><code>numbers_matrix[1,2]</code></pre>
+<pre><code>## [1] 3</code></pre>
+<p>we can omit the row, or column but not the comma to get all columns or rows, respectively. So we can get all columns for the firt row with</p>
+<pre class="r"><code>numbers_matrix[1,]</code></pre>
+<pre><code>## c d 
+## 1 3</code></pre>
+<p>Or all the rows in the first column</p>
+<pre class="r"><code>numbers_matrix[,1]</code></pre>
+<pre><code>## a b 
+## 1 2</code></pre>
+<p>since matrices are vectors, we can select the individual elements without specifying columns or rows</p>
+<pre class="r"><code>numbers_matrix[4]</code></pre>
+<pre><code>## [1] 4</code></pre>
+</div>
+<div id="data-frames-1" class="section level2">
+<h2>Data Frames</h2>
+<p>Data frames behave like matrices with <code>[row, column]</code> indices. Unlike matrices or lists, the <code>[]</code> operator can return either a vector or a data frame. <em>Normally</em> there is no need to worry about this.</p>
+<pre class="r"><code>cells[1,3]</code></pre>
+<pre><code>## [1] &quot;HC70&quot;</code></pre>
+<p>The matrix trick to get all columns or rows for a given row or column trick works here too</p>
+<pre class="r"><code>cells[1,]</code></pre>
+<pre><code>##   Plate Doubling_time Cell_line
+## 1     1            10      HC70</code></pre>
+<pre class="r"><code>cells[,1]</code></pre>
+<pre><code>## [1] 1 2 3 4</code></pre>
+<p>For a data frame the <code>[index]</code> syntax will return the specified column(s) as a data frame</p>
+<pre class="r"><code>cells[1]</code></pre>
+<pre><code>##   Plate
+## 1     1
+## 2     2
+## 3     3
+## 4     4</code></pre>
+<p><code>[[]]</code> is less useful for data frames. it does not support the empty row/column syntax</p>
+<pre class="r"><code>cells[[1,]]</code></pre>
+<pre><code>## Error in `[[.data.frame`(cells, 1, ): argument &quot;..2&quot; is missing, with no default</code></pre>
+<pre class="r"><code>cells[[,1]]</code></pre>
+<pre><code>## Error in `[[.data.frame`(cells, , 1): argument &quot;..1&quot; is missing, with no default</code></pre>
+<p>but <code>[[index]]</code> returns a vector with the column, rather than a data frame with the column</p>
+<pre class="r"><code>cells[[1]]</code></pre>
+<pre><code>## [1] 1 2 3 4</code></pre>
+<p>As for named lists, <code>$name</code> returns the column as a vector</p>
+<pre class="r"><code>cells$Plate</code></pre>
+<pre><code>## [1] 1 2 3 4</code></pre>
+<p>If we assign values to a column that doesn’t exist we can add it to the data frame (like <code>names()</code> this happens in place<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>). Traditionally we use <code>$name</code> here to create a new column with the given name. <em>NOTE</em> The cell lines, their features and their sources here are fictional.</p>
+<pre class="r"><code>cells$source &lt;- c(&quot;ATCC&quot;, &quot;ATCC&quot;, &quot;ECACC&quot;, &quot;ATCC&quot;)</code></pre>
+<p>now our table has an extra row:</p>
+<pre class="r"><code>cells</code></pre>
+<pre><code>##   Plate Doubling_time Cell_line source
+## 1     1            10      HC70   ATCC
+## 2     2            20   HCC1400   ATCC
+## 3     3            10   HCC1500  ECACC
+## 4     4            40     BT-20   ATCC</code></pre>
+<p>Assigning a column to <code>NULL</code> deletes it.</p>
+<pre class="r"><code>cells$source &lt;- NULL</code></pre>
+<pre class="r"><code>cells</code></pre>
+<pre><code>##   Plate Doubling_time Cell_line
+## 1     1            10      HC70
+## 2     2            20   HCC1400
+## 3     3            10   HCC1500
+## 4     4            40     BT-20</code></pre>
 </div>
 </div>
 <div id="reading-tabular-data" class="section level1">
 <h1>Reading Tabular Data</h1>
-<p>We have seen we can represent tabular data in R with a data frame, Bu how do we get such data into R?</p>
-<p>There are two main formats to move tabular data. Tab separated values (.tsv) and comma separated values (.csv) Both are considered plain text files as they are simple text files with columns separated by a delimiter character. In a csv file columns are separated by a comma, while a tsv file values are separated by a tab</p>
-<p>Both formats can be opened and saved in excel, although you may need to specify the separator for TSV files.</p>
-<p>In R we can read a table from plain text file with <code>read.table()</code> we need to specify the separator, in the tab separated case it is <code>\t</code> Remember to assign the table to a variable to store the content of the file in memory as a data frame</p>
-<pre class="r"><code>data &lt;- read.table(&quot;table.txt&quot;, sep = &quot;\t&quot;)</code></pre>
-<p>if we are reading a csv file we can use read.csv. There is no underlying difference with read.table but the defaults are adjusted for a csv file</p>
-<pre class="r"><code>data &lt;- read.csv(&quot;table.csv&quot;)</code></pre>
-<p>blank spaces as automatically treated as missing data. Other conventons exists, so we e can specify a character that is interpreted as missing values to ensure R can represent them as NA with <code>na_strings</code></p>
-<pre class="r"><code>data &lt;- read.csv()</code></pre>
-<div id="bioinformatics-data-in-base-r" class="section level2">
-<h2>Bioinformatics data in Base R</h2>
-<p>Tab separated values are incredibly common in bioinformatics, For instance bed files, VCF and Maf files are all TSV. Hover, sp,eto,es these formats have headers used to describe the content of which are not in table format.</p>
-<p>As headers start with a specific character we can tell R to ignore them with comment, Bbe careful as this will likely remove useful information from the file.</p>
-<p>now open the data_clinical_patient.tsv file from the setup folder and save it as data, mark # as the comment character set the header argument to true with the header imported into R. Use “na” and “missing” as the na.strings argument Hint you can pass a vector to na.strings() Remember to set the working directory to the right location first!</p>
-<pre class="r"><code>patients &lt;- read.table(&quot;mel_ucla_2016/data_clinical_patient.txt&quot;, sep=&quot;\t&quot;, comment.char = &quot;#&quot;, header=T)</code></pre>
-</div>
-</div>
-<div id="maths" class="section level1">
-<h1>Maths</h1>
-<p>maths operators in R work as expected</p>
-<pre class="r"><code>2+2</code></pre>
-<pre><code>## [1] 4</code></pre>
-<pre class="r"><code>2-1</code></pre>
-<pre><code>## [1] 1</code></pre>
-<pre class="r"><code>1*5</code></pre>
-<pre><code>## [1] 5</code></pre>
-<pre class="r"><code>1/5</code></pre>
-<pre><code>## [1] 0.2</code></pre>
-<p>if we are interested in the integer part of a division we can use the integer division operator</p>
-<pre class="r"><code>7%/%2</code></pre>
-<pre><code>## [1] 3</code></pre>
-<p>we can use the modulus operator <code>%%</code> to calculate the remainder</p>
-<pre class="r"><code>7%%2</code></pre>
-<pre><code>## [1] 1</code></pre>
-<p>in R exponents are represented with <code>**</code> or <code>^</code></p>
-<pre class="r"><code>10**2</code></pre>
-<pre><code>## [1] 100</code></pre>
-<pre class="r"><code>10^2</code></pre>
-<pre><code>## [1] 100</code></pre>
-<p>10ⁿ can be shortened to <code>en</code></p>
-<pre class="r"><code>1e2</code></pre>
-<pre><code>## [1] 100</code></pre>
-<p>We can apply maths to vectors too, in this case the operation will be applied to every element of the vector.</p>
-<p>For instance can increase</p>
-<pre class="r"><code>vector2 + 1</code></pre>
-<pre><code>## [1] 2 4 5 6 3</code></pre>
-<p>when using operations on 2 vectors we apply it element by element.</p>
-<pre class="r"><code>c(2, 3, 4) + c(3, 2, 4)</code></pre>
-<pre><code>## [1] 5 5 8</code></pre>
-</div>
-<div id="subsetting-data" class="section level1">
-<h1>Subsetting data</h1>
-<p>Most of the times we are interested in only a subset of the data R makes</p>
-<div id="subsetting-vectors" class="section level2">
-<h2>Subsetting vectors</h2>
-<p>In R items are numbered from 1 (unlike most programming languages which start from 0). we can use the <code>[index]</code> operator to retrieve the element at that index</p>
-<pre class="r"><code>vector1[2]</code></pre>
-<pre><code>## [1] &quot;B&quot;</code></pre>
-<p>try to select items 1 and 3 from vector1. Hint you can use a vector of indices as your index</p>
-<pre class="r"><code>vector1[c(1,3)]</code></pre>
-<pre><code>## [1] &quot;A&quot; &quot;C&quot;</code></pre>
-<p>we can also use <code>:</code> to return a sequence of numbers and use it to choose all elements from x to y (inclusive)</p>
-<pre class="r"><code>vector1[2:4]</code></pre>
-<pre><code>## [1] &quot;B&quot; &quot;C&quot; &quot;D&quot;</code></pre>
-<p>Now try selecting all items from 1 to 3 and item 5.</p>
-<pre class="r"><code>vector1[c(1:3,5)]</code></pre>
-<pre><code>## [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;E&quot;</code></pre>
-</div>
-<div id="subsetting-matrices-and-data-frames" class="section level2">
-<h2>Subsetting matrices and data frames</h2>
-<p>for a table the [index] syntax will return the specified column(s)</p>
-<pre class="r"><code>patients[1]</code></pre>
-<pre><code>##    PATIENT_ID
-## 1         Pt1
-## 2        Pt10
-## 3        Pt11
-## 4        Pt12
-## 5        Pt13
-## 6        Pt14
-## 7        Pt15
-## 8        Pt16
-## 9        Pt17
-## 10       Pt18
-## 11       Pt19
-## 12        Pt2
-## 13       Pt20
-## 14       Pt21
-## 15       Pt22
-## 16       Pt23
-## 17       Pt24
-## 18       Pt25
-## 19       Pt26
-## 20       Pt27
-## 21       Pt28
-## 22       Pt29
-## 23        Pt3
-## 24       Pt30
-## 25       Pt31
-## 26       Pt32
-## 27       Pt33
-## 28       Pt34
-## 29       Pt35
-## 30       Pt36
-## 31       Pt37
-## 32       Pt38
-## 33        Pt4
-## 34        Pt5
-## 35        Pt6
-## 36        Pt7
-## 37        Pt8
-## 38        Pt9</code></pre>
-<p>We can get a specific record by to providing both a row and a column number in the <code>[row, column]</code> order</p>
-<pre class="r"><code>patients[3,1]</code></pre>
-<pre><code>## [1] &quot;Pt11&quot;</code></pre>
-<p>you can choose all rows or columns by not specifying anything before or after the comma, respectively. Thus this selects all rows for OS .</p>
-<pre class="r"><code>patients[,2]</code></pre>
-<pre><code>##  [1] &quot;1:DECEASED&quot; &quot;0:LIVING&quot;   &quot;1:DECEASED&quot; &quot;1:DECEASED&quot; &quot;0:LIVING&quot;   &quot;0:LIVING&quot;   &quot;1:DECEASED&quot;
-##  [8] &quot;1:DECEASED&quot; &quot;1:DECEASED&quot; &quot;0:LIVING&quot;   &quot;0:LIVING&quot;   &quot;0:LIVING&quot;   &quot;1:DECEASED&quot; &quot;1:DECEASED&quot;
-## [15] &quot;1:DECEASED&quot; &quot;1:DECEASED&quot; &quot;1:DECEASED&quot; &quot;1:DECEASED&quot; &quot;0:LIVING&quot;   &quot;0:LIVING&quot;   &quot;1:DECEASED&quot;
-## [22] &quot;1:DECEASED&quot; &quot;1:DECEASED&quot; &quot;1:DECEASED&quot; &quot;0:LIVING&quot;   &quot;1:DECEASED&quot; &quot;0:LIVING&quot;   &quot;0:LIVING&quot;  
-## [29] &quot;0:LIVING&quot;   &quot;1:DECEASED&quot; &quot;0:LIVING&quot;   &quot;0:LIVING&quot;   &quot;0:LIVING&quot;   &quot;0:LIVING&quot;   &quot;0:LIVING&quot;  
-## [36] &quot;1:DECEASED&quot; &quot;0:LIVING&quot;   &quot;0:LIVING&quot;</code></pre>
-<p>While here we get all the columns for row 2.</p>
-<pre class="r"><code>frame[2,]</code></pre>
-<pre><code>##   sample position
-## 2      B        3</code></pre>
-</div>
-<div id="subsetting-with" class="section level2">
-<h2>Subsetting with <code>[[]]</code></h2>
-<p>we use [[]] to return one value rather than a vector, a data frame or a list containing the values we choose.</p>
-<p>Note a column in a data frame is considered one value</p>
-<pre class="r"><code>frame[[1]]</code></pre>
-<pre><code>## [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot;</code></pre>
-<p><code>$</code> is a shorthand for <code>[[]]</code> in data frames. We can use it conveniently select a column by name.</p>
-<pre class="r"><code>frame$sample</code></pre>
-<pre><code>## [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot;</code></pre>
-</div>
-<div id="reverse-subsetting" class="section level2">
-<h2>Reverse subsetting</h2>
-<p>we can also operate in reverse i.e choose what to eliminate by adding - to the elements we do not wish to keep</p>
-<pre class="r"><code>frame[-1,]</code></pre>
-<pre><code>##   sample position
-## 2      B        3
-## 3      C        4
-## 4      D        5
-## 5      E        2</code></pre>
-<p>sadly we cannot mix both approaches within the same selection</p>
-<pre class="r"><code>frame[c(-1,2),1]</code></pre>
-<pre><code>## Error in xj[i]: only 0&#39;s may be mixed with negative subscripts</code></pre>
-<p>although we get away with it if we use a consistent approach</p>
-<pre class="r"><code>frame[-3,1]</code></pre>
-<pre><code>## [1] &quot;A&quot; &quot;B&quot; &quot;D&quot; &quot;E&quot;</code></pre>
-</div>
-</div>
-<div id="boolean-expressions" class="section level1">
-<h1>Boolean expressions</h1>
-<p>subsetting becomes very powerful when used with logical operators. Logical operators allow us to select all items that match a given condition.</p>
-<p>most operators are intuitive, although checking if something is equal is done with <code>==</code> rather than <code>=</code> because <code>=</code> is already used to assign values to variables</p>
+<p>We have seen how to create and represent tabular data in R with a data frame, Typically we load a data set from a file.</p>
+<p>There are packages to load Excel files but typically we remove all the Excel specific information and export tabular data as a plain text file. In these files each line represents a row, with the columns within each line separated by a delimiter character. if the delimiter is a tab character we get a tab separated value (tsv) file, if the delimiter is a comma we get a comma separated value (csv) file. For instance, a stock room table like this</p>
 <table>
 <thead>
 <tr class="header">
-<th align="left">symbol</th>
-<th align="left">operator</th>
+<th>Item</th>
+<th>cabinet</th>
+<th>shelf</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">==</td>
-<td align="left">equal to</td>
+<td>TAE</td>
+<td>A</td>
+<td>1</td>
 </tr>
 <tr class="even">
-<td align="left">&gt;</td>
-<td align="left">more than</td>
+<td>Agarose</td>
+<td>A</td>
+<td>2</td>
 </tr>
 <tr class="odd">
-<td align="left">&lt;</td>
-<td align="left">less than</td>
-</tr>
-<tr class="even">
-<td align="left">&gt;=</td>
-<td align="left">more than or equal to</td>
-</tr>
-<tr class="odd">
-<td align="left">&lt;=</td>
-<td align="left">less than or equal to</td>
+<td>Ladder</td>
+<td>B</td>
+<td>1</td>
 </tr>
 </tbody>
 </table>
-<p>So if 1 is bigger than 2, the following should be true</p>
-<pre class="r"><code>1&gt;2</code></pre>
+<p>Would be represented as this in a csv file:</p>
+<p>Item,Cabinet,Shelf<br />
+TAE,A,1<br />
+Agarose,A,2<br />
+Ladder,B,1</p>
+<p>TSV and CSV can be opened and saved in excel but you may need to specify the separator for TSV files and the resulting files might have be saved as <code>.txt</code> rather than <code>.tsv</code>.</p>
+<p>In R we can read a table from plain text file with <code>read.table()</code>. we need to specify the separator, in the tab separated case it is <code>\t</code> Remember to store the table in a variable!</p>
+<pre class="r"><code>data &lt;- read.table(&quot;table.txt&quot;, sep = &quot;\t&quot;)</code></pre>
+<p>if we are reading a csv file we can use read.csv. There is no difference with read.table but the default arguments match a typical csv file.</p>
+<pre class="r"><code>data &lt;- read.csv(&quot;table.csv&quot;)</code></pre>
+<p>blank spaces as automa tically treated as missing data. Other conventions exists, so we e can specify a character that is interpreted as missing values to ensure R can represent them as NA with <code>na_strings</code>.</p>
+<pre class="r"><code>data &lt;- read.csv()</code></pre>
+</div>
+<div id="analysis-of-tgca-data" class="section level1">
+<h1>Analysis of TGCA data</h1>
+<p>Now we undserstand how to get data into R, let’s try to open the data_clinical_patient.tsv file from the setup folder and save it as <code>patients</code>. This file has a header, a comment at the start and some missing values encoded as <code>na</code> or <code>missing</code> so we need to adjust some parametrs:</p>
+<ol style="list-style-type: decimal">
+<li>set # as the comment character (use the <code>comment.char</code> argument)</li>
+<li>set the header argument to TRUE.</li>
+<li>Use “na” and “missing” as the na.strings argument Hint you can pass a vector to na.strings()</li>
+</ol>
+<p>Remember to set the working directory to the right location first!</p>
+<pre class="r"><code>patients &lt;- read.table(&quot;mel_ucla_2016/data_clinical_patient.txt&quot;, sep=&quot;\t&quot;, comment.char = &quot;#&quot;, header = T )</code></pre>
+<div id="exploring-the-data" class="section level2">
+<h2>Exploring the data</h2>
+<p>let’s start by checking the dimensions of the table. Remeber a function to do that?</p>
+<pre class="r"><code>dim(patients)</code></pre>
+<pre><code>## [1] 38  9</code></pre>
+<p>we can use <code>summary()</code> to get a quick summary of the data.</p>
+<pre class="r"><code>summary(patients)</code></pre>
+<pre><code>##   PATIENT_ID         OS_STATUS           OS_MONTHS         SEX            AGE_AT_DIAGNOSIS  TREATMENT        
+##  Length:38          Length:38          Min.   : 1.80   Length:38          Min.   :19.00    Length:38         
+##  Class :character   Class :character   1st Qu.:11.00   Class :character   1st Qu.:55.00    Class :character  
+##  Mode  :character   Mode  :character   Median :18.00   Mode  :character   Median :61.50    Mode  :character  
+##                                        Mean   :20.97                      Mean   :60.53                      
+##                                        3rd Qu.:31.00                      3rd Qu.:69.75                      
+##                                        Max.   :71.40                      Max.   :84.00                      
+##                                        NA&#39;s   :1                                                             
+##  DURABLE_CLINICAL_BENEFIT   M_STAGE          PREVIOUS_MAPKI    
+##  Length:38                Length:38          Length:38         
+##  Class :character         Class :character   Class :character  
+##  Mode  :character         Mode  :character   Mode  :character  
+##                                                                
+##                                                                
+##                                                                
+## </code></pre>
+<p>The resulting information is most useful for numerical columns or, as we’ll see in the next session facrtors.</p>
+<p>We can use table to get counts for each value</p>
+<pre class="r"><code>table(patients$OS_STATUS)</code></pre>
+<pre><code>## 
+##   0:LIVING 1:DECEASED 
+##         19         19</code></pre>
+<p>now try using table with the metastatic stage (M_STAGE)</p>
+<pre class="r"><code>table(patients$M_STAGE)</code></pre>
+<pre><code>## 
+##  M0 M1a M1b M1c 
+##   1   5   4  28</code></pre>
+<p>We can combine <code>nrow()</code> and maths to get to percentages. We even get to keep the name of the values</p>
+<pre class="r"><code>table(patients$M_STAGE)/nrow(patients)*100</code></pre>
+<pre><code>## 
+##        M0       M1a       M1b       M1c 
+##  2.631579 13.157895 10.526316 73.684211</code></pre>
+<p>For numerical variables we can use <code>min()</code>, <code>max()</code> and <code>range()</code> to get the minimum, maximum or both values for a column</p>
+<pre class="r"><code>range(patients$AGE_AT_DIAGNOSIS)</code></pre>
+<pre><code>## [1] 19 84</code></pre>
+<p>Depending on whether we expect our variable to be normally distributed or not we can start looking at how values are distributed A normal distribution looks like this - there is central value that is the most commonly observed and the remaining values are symmetrically distributed at either side of it:</p>
+<pre class="r"><code>d &lt;- density(rnorm(1e6))
+plot(d, ylab = &quot;Density&quot;, xlab = &quot;Value&quot;, main = &quot;Density plot for a normal distribution&quot;)</code></pre>
+<p><img src="session1_files/figure-html/unnamed-chunk-63-1.png" width="672" /> Compare that with a non normal distribution.</p>
+<pre class="r"><code>d &lt;- density(rbeta(1e6,shape1 = 5, shape2 = 2))
+plot(d, ylab = &quot;Density&quot;, xlab = &quot;Value&quot;, main = &quot;Density plot for a non normal distribution&quot;)</code></pre>
+<p><img src="session1_files/figure-html/unnamed-chunk-64-1.png" width="672" /> While there are formal tests for whether an observation follows a normal distribution, more often than not a quick histogram will let us judge if something is normal enough - we’ll see how to generate them.</p>
+<div id="normal-variables" class="section level3">
+<h3>Normal variables</h3>
+<p>For now let’s assume the age at diagnosis is normally distributed. In this case we want the mean and standard deviation to represent the central value and the spread of our data. Remember in a normal distribution ~68% of the data will be in the mean ± sd range, ~ 95% of the data will be in the mean ± 2 sd range and ~99.7% within mean ± 3 sd We can get the mean and standard deviation with the <code>mean()</code> and <code>sd()</code> function.</p>
+<pre class="r"><code>mean(patients$AGE_AT_DIAGNOSIS)</code></pre>
+<pre><code>## [1] 60.52632</code></pre>
+<pre class="r"><code>sd(patients$AGE_AT_DIAGNOSIS)</code></pre>
+<pre><code>## [1] 14.42171</code></pre>
+</div>
+<div id="non-normal-variables" class="section level3">
+<h3>Non-normal variables</h3>
+<p>If instead we assume the age at diagnosis is not normally distributed, the central tendency and spread of our data is better represented by the median and the quantiles.<br />
+<code>median()</code> will happily give us the median</p>
+<pre class="r"><code>median(patients$AGE_AT_DIAGNOSIS)</code></pre>
+<pre><code>## [1] 61.5</code></pre>
+<p>the <code>quantile()</code> function will show us the values for 4 quantiles The N-th quantile represents the value that contains n % of the samples</p>
+<pre class="r"><code>quantile(patients$AGE_AT_DIAGNOSIS)</code></pre>
+<pre><code>##    0%   25%   50%   75%  100% 
+## 19.00 55.00 61.50 69.75 84.00</code></pre>
+<p>In this case the 75% of the values are contained between 19 and 69.75 75%.<br />
+And <code>IQR()</code> will return the inter quantile range</p>
+<pre class="r"><code>IQR(patients$AGE_AT_DIAGNOSIS)</code></pre>
+<pre><code>## [1] 14.75</code></pre>
+</div>
+<div id="dealing-with-missigness" class="section level3">
+<h3>Dealing with missigness</h3>
+<p>What if we’re intersted in how many months of overall survival?</p>
+<pre class="r"><code>mean(patients$OS_MONTHS)</code></pre>
+<pre><code>## [1] NA</code></pre>
+<p>Looks like something is off. Looking at the summary, we have a <code>NA</code> value. NAs propagate through calculations <a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a></p>
+<p>We can simply deal with NA by either removing or ignoring them Imputation, or the art of predicting missing values is beyond the scope of this tutorial.</p>
+<pre class="r"><code>missing &lt;- c(NA,NA,NA,NA,1,2,1,1,1,2,3)</code></pre>
+<p>Some functions, such as mean can be told to remove NAs from using <code>na.rm = T</code></p>
+<pre class="r"><code>mean(missing, na.rm = T)</code></pre>
+<pre><code>## [1] 1.571429</code></pre>
+<p>We can also manually remove all NAs with <code>na.omit()</code>.</p>
+<pre class="r"><code>missing &lt;- na.omit(missing)</code></pre>
+<p>W</p>
+<p>If running on a data frame it will remove the whole rows consisting of any incomplete cases.</p>
+<p>Now remove NAs from the table and save the new data frame in a variable called patients_complete. Na.omit on a data frame it will remove the whole rows consisting of any incomplete cases.</p>
+<pre class="r fold-hide"><code>patients_complete &lt;- na.omit(patients)</code></pre>
+<p>Whether we should ignore NA values from calculations or drop any case with a missing value is an analysis choice. Personally, I think it makes sense to ignore NAs if they are very sporadic. If NAs are concentrated in one or more columns, it may make sense to ignore columms where we have lots of missingness. Sometimes, especially if the NA values are in key columns we might want to consider complete cases only</p>
+</div>
+</div>
+</div>
+<div id="conditions" class="section level1">
+<h1>Conditions</h1>
+<p>We have seen we can get a column or a row by manually providing an index for the values we need. We can ask R to choose all that match one or more conditions Some of this will be familiar if you. Even if you’re familiar with it might be worth going quickly through this</p>
+<div id="relational-operators" class="section level2">
+<h2>Relational Operators</h2>
+<p>We can use relational operators to ask about the relationship between two values. Most operators are intuitive but checking if something is equal is done with <code>==</code> rather than <code>=</code> because <code>=</code> is already used to assign values to variables</p>
+<table>
+<thead>
+<tr class="header">
+<th>operators</th>
+<th>function</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>==</td>
+<td>equal to</td>
+</tr>
+<tr class="even">
+<td>!=</td>
+<td>not equal to</td>
+</tr>
+<tr class="odd">
+<td>&gt;</td>
+<td>more than</td>
+</tr>
+<tr class="even">
+<td>&gt;=</td>
+<td>more or equal to</td>
+</tr>
+<tr class="odd">
+<td>&lt;</td>
+<td>less than</td>
+</tr>
+<tr class="even">
+<td>&lt;=</td>
+<td>less or equal to</td>
+</tr>
+<tr class="odd">
+<td>%in%</td>
+<td>check in</td>
+</tr>
+<tr class="even">
+<td>is.na()</td>
+<td>check for NA values</td>
+</tr>
+</tbody>
+</table>
+<p>So if a is bigger than b, the following should be TRUE</p>
+<pre class="r"><code>a = 1 
+b = 2
+1 &gt; 2</code></pre>
 <pre><code>## [1] FALSE</code></pre>
-<p>A special case is the not operator or <code>!</code>, put it before any expression to invert the result</p>
-<pre class="r"><code>!(1&gt;2)</code></pre>
-<pre><code>## [1] TRUE</code></pre>
-<p><code>==</code> and <code>!</code> can be combined as <code>!=</code>, hence the two expression below are equivalent</p>
-<pre class="r"><code>(!1==2)==(1!=2)</code></pre>
-<pre><code>## [1] TRUE</code></pre>
-<p>comparisons with NAs return NA</p>
-<pre class="r"><code>1&gt;NA</code></pre>
+<p>Comparisons with NAs return NA</p>
+<pre class="r"><code>a &gt; NA</code></pre>
 <pre><code>## [1] NA</code></pre>
 <p>to check if something is NA we cannot use <code>==</code> but need to use <code>is.na()</code></p>
-<pre class="r"><code>NA==NA</code></pre>
+<pre class="r"><code>NA == NA</code></pre>
 <pre><code>## [1] NA</code></pre>
 <pre class="r"><code>is.na(NA)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
-<p><code>%in%</code> attempts to match elements from a in b, regardless of the order in b</p>
-<pre class="r"><code>c(1,2,3) %in% c(3,2,1)</code></pre>
+<p><code>%in%</code> attempts to match elements from the two vectors, regardless of their order or length</p>
+<pre class="r"><code>c(1, 2, 3) %in% c(3, 2, 1)</code></pre>
 <pre><code>## [1] TRUE TRUE TRUE</code></pre>
-<p>Whereas <code>==</code> would return false for 1 and 3</p>
-<pre class="r"><code>c(1,2,3) == c(3,2,1)</code></pre>
+<p>Whereas <code>==</code> works element by element in order and would return FALSE for 1 and 3</p>
+<pre class="r"><code>c(1, 2, 3) == c(3, 2, 1)</code></pre>
 <pre><code>## [1] FALSE  TRUE FALSE</code></pre>
-<p>operators work on characters too, but in a slighly different way</p>
-<p><code>&gt;, &lt;, &lt;=, &gt;=</code> work on alphabetical order</p>
+<p>Operators work on <code>TRUE</code> and <code>FALSE</code> values too. There is a slight distinction between using <code>==</code> and <code>isTRUE</code> and <code>isFALSE</code>. Using <code>==</code> 0 is interpreted as FALSE and 1 as TRUE.</p>
+<pre class="r"><code>1 == T</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>0 == F</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p>isTRUE and isFALSE check for an actual logical TRUE or FALSE value.</p>
+<pre class="r"><code>isTRUE(1)</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<p>like maths and relational operators boolean operators can compare two vectors element by element</p>
+<pre class="r"><code>c(1,2,3) &lt; c(2,3,4)</code></pre>
+<pre><code>## [1] TRUE TRUE TRUE</code></pre>
+<p>operators work on characters too, but in a slightly different way: <code>&gt;, &lt;, &lt;=, &gt;=</code> work on alphabetical order</p>
 <pre class="r"><code>&quot;a&quot;&gt;&quot;b&quot;</code></pre>
 <pre><code>## [1] FALSE</code></pre>
 <pre class="r"><code>&quot;barts&quot; &lt; &quot;blizzard&quot;</code></pre>
@@ -689,313 +855,159 @@ frame</code></pre>
 <p>However matching characters gets funny, and we’ll see how to deal with them in session 2.</p>
 <pre class="r"><code>&quot;a&quot; %in% &quot;aereoplane&quot;</code></pre>
 <pre><code>## [1] FALSE</code></pre>
-<p>Multiple operators can be combined with And <code>&amp;</code> is true only when both expressions are true</p>
-<pre class="r"><code>1&lt;2 &amp; 3&gt;4</code></pre>
+</div>
+<div id="conditional-subsetting" class="section level2">
+<h2>Conditional subsetting</h2>
+<p>To conditionally subset a vector we can provide a condition for itself Remember our numbers vector, we can choose all numbers &gt; 2</p>
+<pre class="r"><code>numbers[numbers &gt; 2]</code></pre>
+<pre><code>## [1] 3 4 5</code></pre>
+<p>for a data frame, we typically want to choose some or all rows where a specific column matches a condition.</p>
+<pre class="r"><code>patients[patients$AGE_AT_DIAGNOSIS &lt; 40,]</code></pre>
+<pre><code>##   PATIENT_ID  OS_STATUS OS_MONTHS    SEX AGE_AT_DIAGNOSIS     TREATMENT DURABLE_CLINICAL_BENEFIT M_STAGE
+## 3       Pt11 1:DECEASED      15.3   Male               37 Pembrolizumab                       PD     M1c
+## 6       Pt14   0:LIVING       1.8 Female               27 Pembrolizumab                       PD     M1c
+## 8       Pt16 1:DECEASED       6.1   Male               19 Pembrolizumab                       PD     M1b
+##   PREVIOUS_MAPKI
+## 3             No
+## 6             No
+## 8            Yes</code></pre>
+<p>Now let’s try to subset our table to choose only patients (rows) that were diagnosed after 65.</p>
+<pre class="r fold-hide"><code>patients[patients$AGE_AT_DIAGNOSIS &gt; 65,]</code></pre>
+<pre><code>##    PATIENT_ID  OS_STATUS OS_MONTHS    SEX AGE_AT_DIAGNOSIS     TREATMENT DURABLE_CLINICAL_BENEFIT M_STAGE
+## 1         Pt1 1:DECEASED      19.9 Female               66 Pembrolizumab                       PD     M1b
+## 7        Pt15 1:DECEASED      32.1   Male               70 Pembrolizumab                       PR     M1b
+## 9        Pt17 1:DECEASED      31.2   Male               67 Pembrolizumab                       PD     M1a
+## 17       Pt24 1:DECEASED      31.9   Male               70 Pembrolizumab                       PR     M1c
+## 18       Pt25 1:DECEASED       8.6   Male               74 Pembrolizumab                       PD     M1c
+## 19       Pt26   0:LIVING      43.8   Male               71 Pembrolizumab                       CR     M1c
+## 20       Pt27   0:LIVING      18.0   Male               83 Pembrolizumab                       CR     M1c
+## 21       Pt28 1:DECEASED      14.4   Male               82 Pembrolizumab                       PR     M1c
+## 22       Pt29 1:DECEASED       8.8   Male               84 Pembrolizumab                       PD     M1c
+## 24       Pt30 1:DECEASED       3.3 Female               80 Pembrolizumab                       PD     M1c
+## 27       Pt33   0:LIVING      71.4 Female               80     Nivolumab                       CR     M1a
+## 31       Pt37   0:LIVING      11.9 Female               70 Pembrolizumab                       PR     M1c
+## 37        Pt8   0:LIVING        NA   Male               69 Pembrolizumab                       CR     M1a
+## 38        Pt9   0:LIVING      34.6   Male               68 Pembrolizumab                       CR      M0
+##    PREVIOUS_MAPKI
+## 1              No
+## 7             Yes
+## 9              No
+## 17             No
+## 18            Yes
+## 19            Yes
+## 20             No
+## 21             No
+## 22            Yes
+## 24             No
+## 27             No
+## 31            Yes
+## 37             No
+## 38             No</code></pre>
+<p>Here the difference between <code>%in%</code> and <code>==</code> is crucial as the data frame will most likely be not ordered by the column we subset by</p>
+</div>
+<div id="logical-operators" class="section level2">
+<h2>Logical operators</h2>
+<p>The next step is to combine multiple conditions. They follow Boolean logic, with the exception of <code>NAs</code> that always propagate through</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Name</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&amp;</td>
+<td>and</td>
+<td>TRUE if both TRUE</td>
+</tr>
+<tr class="even">
+<td>|</td>
+<td>or</td>
+<td>TRUE if A is TRUE or B is TRUE, or both are TRUE</td>
+</tr>
+<tr class="odd">
+<td>xor()</td>
+<td>exclusive (disjunctive) or</td>
+<td>TRUE only if either A is TRUE OR b is TRUE</td>
+</tr>
+<tr class="even">
+<td>!</td>
+<td>negate</td>
+<td>Negates the following expression</td>
+</tr>
+</tbody>
+</table>
+<p><code>&amp;</code> is TRUE only when both expressions are TRUE</p>
+<pre class="r"><code>1 &lt; 2 &amp; 3 &gt; 4</code></pre>
 <pre><code>## [1] FALSE</code></pre>
-<p>Or <code>|</code> is true when any expression is true, including when both are true</p>
-<pre class="r"><code>1&lt;2 | 3&gt;4</code></pre>
+<p><code>|</code> is TRUE when any expression is TRUE</p>
+<pre class="r"><code>1 &lt; 2 | 3 &gt; 4 </code></pre>
 <pre><code>## [1] TRUE</code></pre>
-<p>or is also true when both are true</p>
-<pre class="r"><code>1&lt;2 | 3&lt;4</code></pre>
+<p><code>|</code> is also TRUE when both are TRUE</p>
+<pre class="r"><code>1 &lt; 2 | 3 &lt; 4</code></pre>
 <pre><code>## [1] TRUE</code></pre>
-<p>if we want to return false when both are true we can use the exclusive or <code>xor(expression 1, expression 2)</code></p>
-<pre class="r"><code>xor(1&lt;2, 3&lt;4)</code></pre>
+<p>if we want to return FALSE when both are TRUE we can use the exclusive or <code>xor(expression 1, expression 2)</code></p>
+<pre class="r"><code>xor(1 &lt; 2, 3 &lt; 4)</code></pre>
 <pre><code>## [1] FALSE</code></pre>
-<p>like maths operators when used on vectors, the logical operators can compare two vectors element by element based on their index</p>
-<pre class="r"><code>c(1,2,3)&lt;c(2,3,4)</code></pre>
-<pre><code>## [1] TRUE TRUE TRUE</code></pre>
-<p>Again, the 2 vectors should have the same length, or be a multiple of each other.</p>
-<pre class="r"><code>c(1,2,3,4)&lt;c(2,3,4,5) &amp; c(2,3)&gt;(c(1,2))</code></pre>
-<pre><code>## [1] TRUE TRUE TRUE TRUE</code></pre>
-<p>If we are only interested in the first element we can use <code>&amp;&amp;</code> or <code>||</code> to only examine the first element. USE AT YOUR OWN RISK</p>
-<pre class="r"><code>c(1,2,3)&lt;c(2,3,4) &amp;&amp; c(2,3,3)&gt;(c(1,2,3))</code></pre>
+<p>! negates whatever follows</p>
+<pre class="r"><code>!1 &gt; 2  </code></pre>
 <pre><code>## [1] TRUE</code></pre>
-<div id="subsetting-with-boolean-expressions" class="section level2">
-<h2>subsetting with boolean expressions</h2>
-<p>Now let’s try to subset our table to choose only patients (rows) that were diagnosed after 65. Hint: you will need to use a boolean expression for the AGE_AT_DIAGNOSIS column within the row subsetting of the patients data frame and use , to select all rows.</p>
-<pre class="r fold-hide"><code>patients[patients$AGE_AT_DIAGNOSIS&gt;65,]</code></pre>
-<pre><code>##    PATIENT_ID  OS_STATUS OS_MONTHS    SEX AGE_AT_DIAGNOSIS     TREATMENT DURABLE_CLINICAL_BENEFIT
-## 1         Pt1 1:DECEASED      19.9 Female               66 Pembrolizumab                       PD
-## 7        Pt15 1:DECEASED      32.1   Male               70 Pembrolizumab                       PR
-## 9        Pt17 1:DECEASED      31.2   Male               67 Pembrolizumab                       PD
-## 17       Pt24 1:DECEASED      31.9   Male               70 Pembrolizumab                       PR
-## 18       Pt25 1:DECEASED       8.6   Male               74 Pembrolizumab                       PD
-## 19       Pt26   0:LIVING      43.8   Male               71 Pembrolizumab                       CR
-## 20       Pt27   0:LIVING      18.0   Male               83 Pembrolizumab                       CR
-## 21       Pt28 1:DECEASED      14.4   Male               82 Pembrolizumab                       PR
-## 22       Pt29 1:DECEASED       8.8   Male               84 Pembrolizumab                       PD
-## 24       Pt30 1:DECEASED       3.3 Female               80 Pembrolizumab                       PD
-## 27       Pt33   0:LIVING      71.4 Female               80     Nivolumab                       CR
-## 31       Pt37   0:LIVING      11.9 Female               70 Pembrolizumab                       PR
-## 37        Pt8   0:LIVING        NA   Male               69 Pembrolizumab                       CR
-## 38        Pt9   0:LIVING      34.6   Male               68 Pembrolizumab                       CR
-##    M_STAGE PREVIOUS_MAPKI
-## 1      M1b             No
-## 7      M1b            Yes
-## 9      M1a             No
-## 17     M1c             No
-## 18     M1c            Yes
-## 19     M1c            Yes
-## 20     M1c             No
-## 21     M1c             No
-## 22     M1c            Yes
-## 24     M1c             No
-## 27     M1a             No
-## 31     M1c            Yes
-## 37     M1a             No
-## 38      M0             No</code></pre>
+<p>As with other operators, they work on vectors too</p>
+<pre class="r"><code>c(F, F, T) | c(T, F, F)</code></pre>
+<pre><code>## [1]  TRUE FALSE  TRUE</code></pre>
+<p>Now try selecting all the patients from the complete case table (<code>patients_complete</code>) with age of diagnosis below 40 <em>OR</em> above 65</p>
+<pre class="r"><code>patients_complete[patients_complete$AGE_AT_DIAGNOSIS &lt; 40 | patients_complete$AGE_AT_DIAGNOSIS &gt; 65,]</code></pre>
+<pre><code>##    PATIENT_ID  OS_STATUS OS_MONTHS    SEX AGE_AT_DIAGNOSIS     TREATMENT DURABLE_CLINICAL_BENEFIT M_STAGE
+## 1         Pt1 1:DECEASED      19.9 Female               66 Pembrolizumab                       PD     M1b
+## 3        Pt11 1:DECEASED      15.3   Male               37 Pembrolizumab                       PD     M1c
+## 6        Pt14   0:LIVING       1.8 Female               27 Pembrolizumab                       PD     M1c
+## 7        Pt15 1:DECEASED      32.1   Male               70 Pembrolizumab                       PR     M1b
+## 8        Pt16 1:DECEASED       6.1   Male               19 Pembrolizumab                       PD     M1b
+## 9        Pt17 1:DECEASED      31.2   Male               67 Pembrolizumab                       PD     M1a
+## 17       Pt24 1:DECEASED      31.9   Male               70 Pembrolizumab                       PR     M1c
+## 18       Pt25 1:DECEASED       8.6   Male               74 Pembrolizumab                       PD     M1c
+## 19       Pt26   0:LIVING      43.8   Male               71 Pembrolizumab                       CR     M1c
+## 20       Pt27   0:LIVING      18.0   Male               83 Pembrolizumab                       CR     M1c
+## 21       Pt28 1:DECEASED      14.4   Male               82 Pembrolizumab                       PR     M1c
+## 22       Pt29 1:DECEASED       8.8   Male               84 Pembrolizumab                       PD     M1c
+## 24       Pt30 1:DECEASED       3.3 Female               80 Pembrolizumab                       PD     M1c
+## 27       Pt33   0:LIVING      71.4 Female               80     Nivolumab                       CR     M1a
+## 31       Pt37   0:LIVING      11.9 Female               70 Pembrolizumab                       PR     M1c
+## 38        Pt9   0:LIVING      34.6   Male               68 Pembrolizumab                       CR      M0
+##    PREVIOUS_MAPKI
+## 1              No
+## 3              No
+## 6              No
+## 7             Yes
+## 8             Yes
+## 9              No
+## 17             No
+## 18            Yes
+## 19            Yes
+## 20             No
+## 21             No
+## 22            Yes
+## 24             No
+## 27             No
+## 31            Yes
+## 38             No</code></pre>
 </div>
 </div>
-<div id="data-wrangling-and-manipulation" class="section level1">
-<h1>Data wrangling and manipulation</h1>
-<p>Often most of the work in R involves manipulating the data until it is in a usable format. Base R has many although not all. For easier manipulation we’ll introduce the tidyr package in session2.</p>
-<div id="recoding-values" class="section level2">
-<h2>Recoding values</h2>
-<p>Sometimes we may need to recede a value, either because R has not identified it as NA or as part of routine data manipulation. We can recode all values by subsetting the values needed and assigning their replacemnet value</p>
-<p>for instance we can replace the sample in the dataframe we made at the beginning with a number</p>
-<pre class="r"><code>frame[frame$sample==&quot;A&quot;,&quot;sample&quot;] &lt;- &quot;sample A&quot;
-frame[frame$sample==&quot;B&quot;,&quot;sample&quot;] &lt;- &quot;sample B&quot;
-frame[frame$sample==&quot;C&quot;,&quot;sample&quot;] &lt;- &quot;sample C&quot;
-frame[frame$sample==&quot;D&quot;,&quot;sample&quot;] &lt;- &quot;sample D&quot;
-frame[frame$sample==&quot;E&quot;,&quot;sample&quot;] &lt;- &quot;sample E&quot;
-frame</code></pre>
-<pre><code>##     sample position
-## 1 sample A        1
-## 2 sample B        3
-## 3 sample C        4
-## 4 sample D        5
-## 5 sample E        2</code></pre>
-<p>try. HINT select</p>
-<p>Sometimes we can have a NA or a character which forces, for instance. we can get rid of that by recoding it to a number.</p>
-<p>However, this does not force everything to become a number again, for that we need to convert the with the as.numeric() function.</p>
-</div>
-<div id="adding-rows-and-columns" class="section level2">
-<h2>adding rows and columns</h2>
-<p>we can add rows to an existing columns</p>
-<p>A common use case of this is to bring data and metadata together in a single table. for instance we have the condition and doubling time information for a series of samples in 2 different tables. This is of course a toy example and it makes no sense to split those table but for more complex data it makes sense to have the data and metadata in separate table</p>
-<p>let’s read two data frames</p>
-<pre class="r"><code>data &lt;- read.csv(&quot;C:/Users/deange01/Desktop/simple_data.csv&quot;)
-meta &lt;- read.csv(&quot;C:/Users/deange01/Desktop/simple_meta.csv&quot;)</code></pre>
-<pre class="r"><code>cbind(data,meta[2])</code></pre>
-<p>we can add further rows, for instance now we’ll create a new data frame with samples 11 to 20, by adding 10 to the sample name</p>
-<pre class="r"><code>extra_data &lt;- data
-extra_data$sample &lt;- extra_data$sample+10</code></pre>
-<p>we can now bind both data into a single data frame with rbind</p>
-<pre class="r"><code>rbind(data, extra_data)</code></pre>
-<p>For now this relies on the rows being identical and all in the same order we’ll see how to deal with partial matches, and how to reconcile tables by an id variable in session 2.</p>
-</div>
-<div id="dealing-with-nas" class="section level2">
-<h2>dealing with NAs</h2>
-<pre class="r"><code>missing &lt;- c(NA,NA,NA,NA,1,2,1,1,1,2,3)</code></pre>
-<p>NAs can confound some calculations</p>
-<pre class="r"><code>mean(missing)</code></pre>
-<pre><code>## [1] NA</code></pre>
-<p>Some functions, such as mean can be told to remove NAs from the computation using <code>na.rm = T</code></p>
-<pre class="r"><code>mean(missing, na.rm = T)</code></pre>
-<pre><code>## [1] 1.571429</code></pre>
-<p>We can manually remove all cases of NAs with na.omit(). if runnning on a data frame it will remove the whole rows consisting of all incomplete cases.</p>
-<pre class="r"><code>na.omit(as.data.frame(missing))</code></pre>
-<pre><code>##    missing
-## 5        1
-## 6        2
-## 7        1
-## 8        1
-## 9        1
-## 10       2
-## 11       3</code></pre>
-<p>DIY renove NAs from the table and save the new data in a variable called patients_complete</p>
-<pre class="r fold-hide"><code>patients_complete &lt;- na.omit(patients)</code></pre>
-</div>
-<div id="transposing" class="section level2">
-<h2>transposing</h2>
-<p>the transpose operator <code>t()</code> swaps the columns and the rows in a dataframe</p>
-<pre class="r"><code>t(patients)</code></pre>
-<pre><code>##                          [,1]            [,2]            [,3]            [,4]           
-## PATIENT_ID               &quot;Pt1&quot;           &quot;Pt10&quot;          &quot;Pt11&quot;          &quot;Pt12&quot;         
-## OS_STATUS                &quot;1:DECEASED&quot;    &quot;0:LIVING&quot;      &quot;1:DECEASED&quot;    &quot;1:DECEASED&quot;   
-## OS_MONTHS                &quot;19.9&quot;          &quot;12.7&quot;          &quot;15.3&quot;          &quot;10.7&quot;         
-## SEX                      &quot;Female&quot;        &quot;Male&quot;          &quot;Male&quot;          &quot;Male&quot;         
-## AGE_AT_DIAGNOSIS         &quot;66&quot;            &quot;60&quot;            &quot;37&quot;            &quot;59&quot;           
-## TREATMENT                &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot;
-## DURABLE_CLINICAL_BENEFIT &quot;PD&quot;            &quot;PD&quot;            &quot;PD&quot;            &quot;PD&quot;           
-## M_STAGE                  &quot;M1b&quot;           &quot;M1a&quot;           &quot;M1c&quot;           &quot;M1c&quot;          
-## PREVIOUS_MAPKI           &quot;No&quot;            &quot;Yes&quot;           &quot;No&quot;            &quot;No&quot;           
-##                          [,5]            [,6]            [,7]            [,8]           
-## PATIENT_ID               &quot;Pt13&quot;          &quot;Pt14&quot;          &quot;Pt15&quot;          &quot;Pt16&quot;         
-## OS_STATUS                &quot;0:LIVING&quot;      &quot;0:LIVING&quot;      &quot;1:DECEASED&quot;    &quot;1:DECEASED&quot;   
-## OS_MONTHS                &quot;30.1&quot;          &quot; 1.8&quot;          &quot;32.1&quot;          &quot; 6.1&quot;         
-## SEX                      &quot;Female&quot;        &quot;Female&quot;        &quot;Male&quot;          &quot;Male&quot;         
-## AGE_AT_DIAGNOSIS         &quot;53&quot;            &quot;27&quot;            &quot;70&quot;            &quot;19&quot;           
-## TREATMENT                &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot;
-## DURABLE_CLINICAL_BENEFIT &quot;CR&quot;            &quot;PD&quot;            &quot;PR&quot;            &quot;PD&quot;           
-## M_STAGE                  &quot;M1c&quot;           &quot;M1c&quot;           &quot;M1b&quot;           &quot;M1b&quot;          
-## PREVIOUS_MAPKI           &quot;No&quot;            &quot;No&quot;            &quot;Yes&quot;           &quot;Yes&quot;          
-##                          [,9]            [,10]           [,11]           [,12]          
-## PATIENT_ID               &quot;Pt17&quot;          &quot;Pt18&quot;          &quot;Pt19&quot;          &quot;Pt2&quot;          
-## OS_STATUS                &quot;1:DECEASED&quot;    &quot;0:LIVING&quot;      &quot;0:LIVING&quot;      &quot;0:LIVING&quot;     
-## OS_MONTHS                &quot;31.2&quot;          &quot;35.4&quot;          &quot;34.8&quot;          &quot;30.4&quot;         
-## SEX                      &quot;Male&quot;          &quot;Male&quot;          &quot;Male&quot;          &quot;Male&quot;         
-## AGE_AT_DIAGNOSIS         &quot;67&quot;            &quot;64&quot;            &quot;45&quot;            &quot;55&quot;           
-## TREATMENT                &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot;
-## DURABLE_CLINICAL_BENEFIT &quot;PD&quot;            &quot;PR&quot;            &quot;PR&quot;            &quot;PR&quot;           
-## M_STAGE                  &quot;M1a&quot;           &quot;M1c&quot;           &quot;M1c&quot;           &quot;M1c&quot;          
-## PREVIOUS_MAPKI           &quot;No&quot;            &quot;No&quot;            &quot;No&quot;            &quot;No&quot;           
-##                          [,13]           [,14]           [,15]           [,16]          
-## PATIENT_ID               &quot;Pt20&quot;          &quot;Pt21&quot;          &quot;Pt22&quot;          &quot;Pt23&quot;         
-## OS_STATUS                &quot;1:DECEASED&quot;    &quot;1:DECEASED&quot;    &quot;1:DECEASED&quot;    &quot;1:DECEASED&quot;   
-## OS_MONTHS                &quot;11.0&quot;          &quot;31.0&quot;          &quot; 6.0&quot;          &quot; 3.4&quot;         
-## SEX                      &quot;Female&quot;        &quot;Male&quot;          &quot;Male&quot;          &quot;Male&quot;         
-## AGE_AT_DIAGNOSIS         &quot;63&quot;            &quot;60&quot;            &quot;55&quot;            &quot;63&quot;           
-## TREATMENT                &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot;
-## DURABLE_CLINICAL_BENEFIT &quot;PD&quot;            &quot;PR&quot;            &quot;PD&quot;            &quot;PD&quot;           
-## M_STAGE                  &quot;M1c&quot;           &quot;M1b&quot;           &quot;M1c&quot;           &quot;M1c&quot;          
-## PREVIOUS_MAPKI           &quot;No&quot;            &quot;No&quot;            &quot;No&quot;            &quot;Yes&quot;          
-##                          [,17]           [,18]           [,19]           [,20]          
-## PATIENT_ID               &quot;Pt24&quot;          &quot;Pt25&quot;          &quot;Pt26&quot;          &quot;Pt27&quot;         
-## OS_STATUS                &quot;1:DECEASED&quot;    &quot;1:DECEASED&quot;    &quot;0:LIVING&quot;      &quot;0:LIVING&quot;     
-## OS_MONTHS                &quot;31.9&quot;          &quot; 8.6&quot;          &quot;43.8&quot;          &quot;18.0&quot;         
-## SEX                      &quot;Male&quot;          &quot;Male&quot;          &quot;Male&quot;          &quot;Male&quot;         
-## AGE_AT_DIAGNOSIS         &quot;70&quot;            &quot;74&quot;            &quot;71&quot;            &quot;83&quot;           
-## TREATMENT                &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot;
-## DURABLE_CLINICAL_BENEFIT &quot;PR&quot;            &quot;PD&quot;            &quot;CR&quot;            &quot;CR&quot;           
-## M_STAGE                  &quot;M1c&quot;           &quot;M1c&quot;           &quot;M1c&quot;           &quot;M1c&quot;          
-## PREVIOUS_MAPKI           &quot;No&quot;            &quot;Yes&quot;           &quot;Yes&quot;           &quot;No&quot;           
-##                          [,21]           [,22]           [,23]           [,24]          
-## PATIENT_ID               &quot;Pt28&quot;          &quot;Pt29&quot;          &quot;Pt3&quot;           &quot;Pt30&quot;         
-## OS_STATUS                &quot;1:DECEASED&quot;    &quot;1:DECEASED&quot;    &quot;1:DECEASED&quot;    &quot;1:DECEASED&quot;   
-## OS_MONTHS                &quot;14.4&quot;          &quot; 8.8&quot;          &quot;22.7&quot;          &quot; 3.3&quot;         
-## SEX                      &quot;Male&quot;          &quot;Male&quot;          &quot;Male&quot;          &quot;Female&quot;       
-## AGE_AT_DIAGNOSIS         &quot;82&quot;            &quot;84&quot;            &quot;58&quot;            &quot;80&quot;           
-## TREATMENT                &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot;
-## DURABLE_CLINICAL_BENEFIT &quot;PR&quot;            &quot;PD&quot;            &quot;PR&quot;            &quot;PD&quot;           
-## M_STAGE                  &quot;M1c&quot;           &quot;M1c&quot;           &quot;M1c&quot;           &quot;M1c&quot;          
-## PREVIOUS_MAPKI           &quot;No&quot;            &quot;Yes&quot;           &quot;No&quot;            &quot;No&quot;           
-##                          [,25]           [,26]           [,27]       [,28]           [,29]          
-## PATIENT_ID               &quot;Pt31&quot;          &quot;Pt32&quot;          &quot;Pt33&quot;      &quot;Pt34&quot;          &quot;Pt35&quot;         
-## OS_STATUS                &quot;0:LIVING&quot;      &quot;1:DECEASED&quot;    &quot;0:LIVING&quot;  &quot;0:LIVING&quot;      &quot;0:LIVING&quot;     
-## OS_MONTHS                &quot;23.1&quot;          &quot; 5.6&quot;          &quot;71.4&quot;      &quot;13.7&quot;          &quot;14.0&quot;         
-## SEX                      &quot;Male&quot;          &quot;Male&quot;          &quot;Female&quot;    &quot;Male&quot;          &quot;Female&quot;       
-## AGE_AT_DIAGNOSIS         &quot;47&quot;            &quot;47&quot;            &quot;80&quot;        &quot;42&quot;            &quot;65&quot;           
-## TREATMENT                &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot; &quot;Nivolumab&quot; &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot;
-## DURABLE_CLINICAL_BENEFIT &quot;PD&quot;            &quot;PD&quot;            &quot;CR&quot;        &quot;CR&quot;            &quot;PR&quot;           
-## M_STAGE                  &quot;M1c&quot;           &quot;M1c&quot;           &quot;M1a&quot;       &quot;M1c&quot;           &quot;M1c&quot;          
-## PREVIOUS_MAPKI           &quot;No&quot;            &quot;Yes&quot;           &quot;No&quot;        &quot;Yes&quot;           &quot;Yes&quot;          
-##                          [,30]        [,31]           [,32]           [,33]           [,34]          
-## PATIENT_ID               &quot;Pt36&quot;       &quot;Pt37&quot;          &quot;Pt38&quot;          &quot;Pt4&quot;           &quot;Pt5&quot;          
-## OS_STATUS                &quot;1:DECEASED&quot; &quot;0:LIVING&quot;      &quot;0:LIVING&quot;      &quot;0:LIVING&quot;      &quot;0:LIVING&quot;     
-## OS_MONTHS                &quot;27.4&quot;       &quot;11.9&quot;          &quot;14.7&quot;          &quot;31.1&quot;          &quot;14.4&quot;         
-## SEX                      &quot;Female&quot;     &quot;Female&quot;        &quot;Female&quot;        &quot;Male&quot;          &quot;Male&quot;         
-## AGE_AT_DIAGNOSIS         &quot;61&quot;         &quot;70&quot;            &quot;57&quot;            &quot;62&quot;            &quot;61&quot;           
-## TREATMENT                &quot;Nivolumab&quot;  &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot;
-## DURABLE_CLINICAL_BENEFIT &quot;PD&quot;         &quot;PR&quot;            &quot;PR&quot;            &quot;PR&quot;            &quot;PR&quot;           
-## M_STAGE                  &quot;M1a&quot;        &quot;M1c&quot;           &quot;M1c&quot;           &quot;M1c&quot;           &quot;M1c&quot;          
-## PREVIOUS_MAPKI           &quot;No&quot;         &quot;Yes&quot;           &quot;Yes&quot;           &quot;Yes&quot;           &quot;No&quot;           
-##                          [,35]           [,36]           [,37]           [,38]          
-## PATIENT_ID               &quot;Pt6&quot;           &quot;Pt7&quot;           &quot;Pt8&quot;           &quot;Pt9&quot;          
-## OS_STATUS                &quot;0:LIVING&quot;      &quot;1:DECEASED&quot;    &quot;0:LIVING&quot;      &quot;0:LIVING&quot;     
-## OS_MONTHS                &quot;28.9&quot;          &quot;21.7&quot;          NA              &quot;34.6&quot;         
-## SEX                      &quot;Male&quot;          &quot;Female&quot;        &quot;Male&quot;          &quot;Male&quot;         
-## AGE_AT_DIAGNOSIS         &quot;51&quot;            &quot;55&quot;            &quot;69&quot;            &quot;68&quot;           
-## TREATMENT                &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot; &quot;Pembrolizumab&quot;
-## DURABLE_CLINICAL_BENEFIT &quot;PR&quot;            &quot;PD&quot;            &quot;CR&quot;            &quot;CR&quot;           
-## M_STAGE                  &quot;M1c&quot;           &quot;M1c&quot;           &quot;M1a&quot;           &quot;M0&quot;           
-## PREVIOUS_MAPKI           &quot;Yes&quot;           &quot;No&quot;            &quot;No&quot;            &quot;No&quot;</code></pre>
-<p>This becomes particularly useful with genome data as some tools will require each patient to be its own row or column, depending on how it is designed.</p>
-</div>
-</div>
-<div id="data-analysis" class="section level1">
-<h1>Data Analysis</h1>
-<p>we can now start to explore the rows in our table</p>
-<div id="summary-statistics" class="section level2">
-<h2>summary statistics</h2>
-<p>we can get an overall summary of all the values with the summary() function</p>
-<pre class="r"><code>summary(frame)</code></pre>
-<pre><code>##     sample             position
-##  Length:5           Min.   :1  
-##  Class :character   1st Qu.:2  
-##  Mode  :character   Median :3  
-##                     Mean   :3  
-##                     3rd Qu.:4  
-##                     Max.   :5</code></pre>
-<pre class="r"><code>summary(patients)</code></pre>
-<pre><code>##   PATIENT_ID         OS_STATUS           OS_MONTHS         SEX            AGE_AT_DIAGNOSIS
-##  Length:38          Length:38          Min.   : 1.80   Length:38          Min.   :19.00   
-##  Class :character   Class :character   1st Qu.:11.00   Class :character   1st Qu.:55.00   
-##  Mode  :character   Mode  :character   Median :18.00   Mode  :character   Median :61.50   
-##                                        Mean   :20.97                      Mean   :60.53   
-##                                        3rd Qu.:31.00                      3rd Qu.:69.75   
-##                                        Max.   :71.40                      Max.   :84.00   
-##                                        NA&#39;s   :1                                          
-##   TREATMENT         DURABLE_CLINICAL_BENEFIT   M_STAGE          PREVIOUS_MAPKI    
-##  Length:38          Length:38                Length:38          Length:38         
-##  Class :character   Class :character         Class :character   Class :character  
-##  Mode  :character   Mode  :character         Mode  :character   Mode  :character  
-##                                                                                   
-##                                                                                   
-##                                                                                   
-## </code></pre>
-<p>this is not the case for factors where the summary function returns an useful summary of how many times each factor occurs. For instance we can create a new data frame with the first 3 rows and ask R to treat them as a factor with <code>stringsAsFactors = T</code></p>
-<pre class="r"><code>factor_patients &lt;- data.frame(patients$PATIENT_ID, patients$OS_STATUS, patients$OS_MONTHS, stringsAsFactors = T)
-summary(factor_patients)</code></pre>
-<pre><code>##  patients.PATIENT_ID  patients.OS_STATUS patients.OS_MONTHS
-##  Pt1    : 1          0:LIVING  :19       Min.   : 1.80     
-##  Pt10   : 1          1:DECEASED:19       1st Qu.:11.00     
-##  Pt11   : 1                              Median :18.00     
-##  Pt12   : 1                              Mean   :20.97     
-##  Pt13   : 1                              3rd Qu.:31.00     
-##  Pt14   : 1                              Max.   :71.40     
-##  (Other):32                              NA&#39;s   :1</code></pre>
-<p>we can explore how many elements are in an object with <code>length</code>. Similar to subsetting, length on a data frame returns the number of columns</p>
-<pre class="r"><code>length(frame)</code></pre>
-<pre><code>## [1] 2</code></pre>
-<p>we can explicitly check how many rows and columns a data frame has with nrow and ncol</p>
-<pre class="r"><code>nrow(frame)</code></pre>
-<pre><code>## [1] 5</code></pre>
-<pre class="r"><code>ncol(frame)</code></pre>
-<pre><code>## [1] 2</code></pre>
-<p>for instance how many rows are there in the patient data frame before and after removing incomplete cases?</p>
-<pre class="r fold-hide"><code>nrow(patients)</code></pre>
-<pre><code>## [1] 38</code></pre>
-<pre class="r fold-hide"><code>nrow(patients_complete)</code></pre>
-<pre><code>## [1] 37</code></pre>
-<p>Makes sense, given there was a single NA in the data.</p>
-<p>for categorical variables, factor or characters, we can use the table() function to return the counts of each items.</p>
-<pre class="r"><code>table(frame$sample)</code></pre>
-<pre><code>## 
-## sample A sample B sample C sample D sample E 
-##        1        1        1        1        1</code></pre>
-<p>let’s explore the metastatic stage (in the M_STAGE column) of the patients</p>
-<pre class="r"><code>table(patients_complete$M_STAGE)</code></pre>
-<pre><code>## 
-##  M0 M1a M1b M1c 
-##   1   4   4  28</code></pre>
-<p>Using table on numeric values is silly at best, for numbers we can use median or mean to get a measure of the central tendency of the data</p>
-<pre class="r"><code>median(patients_complete$OS_MONTHS)</code></pre>
-<pre><code>## [1] 18</code></pre>
-<pre class="r"><code>mean(patients_complete$OS_MONTHS)</code></pre>
-<pre><code>## [1] 20.97027</code></pre>
-<p>we can use min() and max() to get the minimum and maximum values</p>
-<pre class="r"><code>min(patients_complete$OS_MONTHS)</code></pre>
-<pre><code>## [1] 1.8</code></pre>
-<pre class="r"><code>max(patients_complete$OS_MONTHS)</code></pre>
-<pre><code>## [1] 71.4</code></pre>
-<p>they can be combined with a single call to range()</p>
-<pre class="r"><code>range(patients_complete$OS_MONTHS)</code></pre>
-<pre><code>## [1]  1.8 71.4</code></pre>
-<p>we can calculate the interquartile range or the standard deviation with <code>IQR</code> and <code>sd</code>, respectively</p>
-<pre class="r"><code>IQR(patients_complete$OS_MONTHS)</code></pre>
-<pre><code>## [1] 20</code></pre>
-<pre class="r"><code>sd(patients_complete$OS_MONTHS)</code></pre>
-<pre><code>## [1] 14.02496</code></pre>
-</div>
-<div id="common-statistical-tests" class="section level2">
-<h2>common statistical tests:</h2>
-<p>As a statistic language R is loaded with a library of built in statistical functions, we’ll barely scratch the surface here! there are. Indeed for simplicity here we’ll use both approaches. In the real world we would make an educated guess at whether the data is approximately normal before choosing the parametric or non-parametric route and check whether assumptions are met before running any tests.</p>
-<p>We’ll also very briefly discuss p-values. Note there is a whole world beyond p-values and lots of controversies over their (ab)use in biology <a href="https://doi.org/10.1038/d41586-019-00874-8">see this Nature Editorial</a></p>
-<div id="parametric-tests" class="section level3">
-<h3>parametric tests</h3>
-<p>The t-test is. In R, by default it uses the Welch variant that assumes an unequal variance, often a safe assumption. we need to provide 2 groups, we can do this by conditionally subsetting</p>
-<pre class="r"><code>t.test(x=patients_complete[patients_complete$PREVIOUS_MAPKI==&quot;No&quot;, &quot;OS_MONTHS&quot;], y = patients_complete[patients_complete$PREVIOUS_MAPKI==&quot;Yes&quot;, &quot;OS_MONTHS&quot;])</code></pre>
+<div id="common-statistical-tests" class="section level1">
+<h1>Common statistical tests:</h1>
+<p>Now we can create groups, we can start to explore their differences. As a statistic language R is loaded with a library of built-in statistical functions, we’ll barely scratch the surface here! There are 2 main families of tests: Parametric (for normally distributed variables) and non parametric (for non normally distributed ones) Before using a test we also need to check whether the assumptions are met before running any tests.</p>
+<p>We’ll also very briefly discuss p-values. Note there is a whole world beyond p-values and lots of controversies over their (ab)use in biology <a href="https://doi.org/10.1038/d41586-019-00874-8">see this Nature Editorial</a> For simplicity we’ll use both non parametric and parametirc test on the same data.</p>
+<div id="parametric-tests" class="section level2">
+<h2>Parametric tests</h2>
+<p>The t-test compares the means between two groups. In R, It uses the Welch variant that assumes an unequal variance, often a safe assumption. we need to provide 2 groups, we can do this by conditionally sub-setting</p>
+<pre class="r"><code>t.test(x = patients_complete[patients_complete$PREVIOUS_MAPKI == &quot;No&quot;, &quot;OS_MONTHS&quot;], y = patients_complete[patients_complete$PREVIOUS_MAPKI == &quot;Yes&quot;, &quot;OS_MONTHS&quot;])</code></pre>
 <pre><code>## 
 ##  Welch Two Sample t-test
 ## 
@@ -1008,8 +1020,8 @@ summary(factor_patients)</code></pre>
 ## mean of x mean of y 
 ##  23.50000  16.81429</code></pre>
 <p>we can store the p-value in a vector by choosing p.val from the result of the test.</p>
-<pre class="r"><code>p_vals &lt;- t.test(x=patients_complete[patients_complete$PREVIOUS_MAPKI==&quot;No&quot;, &quot;OS_MONTHS&quot;], y = patients_complete[patients_complete$PREVIOUS_MAPKI==&quot;Yes&quot;, &quot;OS_MONTHS&quot;])$p.val</code></pre>
-<p>we can get a one-way anova with the <code>aov</code> function. the syntax here is slighly odd, as we need to use the x ~ groups form. we also need to call summary to extract the P values and other information</p>
+<pre class="r"><code>p_vals &lt;- t.test(x = patients_complete[patients_complete$PREVIOUS_MAPKI == &quot;No&quot;, &quot;OS_MONTHS&quot;], y = patients_complete[patients_complete$PREVIOUS_MAPKI == &quot;Yes&quot;, &quot;OS_MONTHS&quot;])$p.val</code></pre>
+<p>The one-way anova tests the means between multiple groups, In R we can use the <code>aov</code> function. the syntax here is slightly odd, as we need to use the x ~ groups form. we also need to call summary to extract the P values and other information.</p>
 <pre class="r"><code>anova &lt;- aov(patients_complete$OS_MONTHS ~ patients_complete$M_STAGE)
 summary(anova)</code></pre>
 <pre><code>##                           Df Sum Sq Mean Sq F value Pr(&gt;F)  
@@ -1018,15 +1030,14 @@ summary(anova)</code></pre>
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>we can add our P value to the p values vector, to avoid overwriting we use the <code>append</code> function. Note <code>summary(anova)</code> returns a list, we can then subset until we get our P value.</p>
-<pre class="r"><code>anova &lt;- aov(patients_complete$OS_MONTHS ~ patients_complete$M_STAGE)
-p_vals &lt;- append(p_vals, summary(anova)[[1]][5][1,1])</code></pre>
+<pre class="r"><code>p_vals &lt;- append(p_vals, summary(anova)[[1]][5][1,1])</code></pre>
 </div>
-<div id="non-paramtetric-staistical-tests" class="section level3">
-<h3>non-paramtetric staistical tests,</h3>
-<p>the Wilcoxon rank sum test is a non parametric test simialr to a T-test. Indeed the <code>wilcox.test()</code> function works in a similar way</p>
-<pre class="r"><code>wilcox.test(x=patients_complete[patients_complete$PREVIOUS_MAPKI==&quot;No&quot;, &quot;OS_MONTHS&quot;], y = patients_complete[patients_complete$PREVIOUS_MAPKI==&quot;Yes&quot;, &quot;OS_MONTHS&quot;])</code></pre>
-<pre><code>## Warning in wilcox.test.default(x = patients_complete[patients_complete$PREVIOUS_MAPKI == : cannot
-## compute exact p-value with ties</code></pre>
+<div id="non-paramtetric-statistical-tests" class="section level2">
+<h2>Non-paramtetric statistical tests</h2>
+<p>the Wilcox rank sum test is a non parametric test similar to a T-test. Indeed the <code>wilcox.test()</code> function works in a similar way</p>
+<pre class="r"><code>wilcox.test(x=patients_complete[patients_complete$PREVIOUS_MAPKI == &quot;No&quot;, &quot;OS_MONTHS&quot;], y = patients_complete[patients_complete$PREVIOUS_MAPKI == &quot;Yes&quot;, &quot;OS_MONTHS&quot;])</code></pre>
+<pre><code>## Warning in wilcox.test.default(x = patients_complete[patients_complete$PREVIOUS_MAPKI == : cannot compute
+## exact p-value with ties</code></pre>
 <pre><code>## 
 ##  Wilcoxon rank sum test with continuity correction
 ## 
@@ -1034,10 +1045,10 @@ p_vals &lt;- append(p_vals, summary(anova)[[1]][5][1,1])</code></pre>
 ## W = 210, p-value = 0.1288
 ## alternative hypothesis: true location shift is not equal to 0</code></pre>
 <p>We can again extract the p value an append it to our vector</p>
-<pre class="r"><code>p_vals &lt;- append(p_vals,wilcox.test(x=patients_complete[patients_complete$PREVIOUS_MAPKI==&quot;No&quot;, &quot;OS_MONTHS&quot;], y = patients_complete[patients_complete$PREVIOUS_MAPKI==&quot;Yes&quot;, &quot;OS_MONTHS&quot;])$p.val)</code></pre>
-<pre><code>## Warning in wilcox.test.default(x = patients_complete[patients_complete$PREVIOUS_MAPKI == : cannot
-## compute exact p-value with ties</code></pre>
-<p>The Kruskal-Wallis rank sum test is often referred as a non parametric anova. we can run one with <code>kruskal.test()</code></p>
+<pre class="r"><code>p_vals &lt;- append(p_vals,wilcox.test(x=patients_complete[patients_complete$PREVIOUS_MAPKI == &quot;No&quot;, &quot;OS_MONTHS&quot;], y = patients_complete[patients_complete$PREVIOUS_MAPKI == &quot;Yes&quot;, &quot;OS_MONTHS&quot;])$p.val)</code></pre>
+<pre><code>## Warning in wilcox.test.default(x = patients_complete[patients_complete$PREVIOUS_MAPKI == : cannot compute
+## exact p-value with ties</code></pre>
+<p>The Kruskal-Wallis rank sum test is often referred as a non parametric one way anova. we can run one with <code>kruskal.test()</code></p>
 <pre class="r"><code>kruskal.test(patients_complete$OS_MONTHS ~ patients_complete$M_STAGE)</code></pre>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
@@ -1047,72 +1058,67 @@ p_vals &lt;- append(p_vals, summary(anova)[[1]][5][1,1])</code></pre>
 <p>getting the p-value is as easy as for the t and Wilcoxon tests</p>
 <pre class="r"><code>p_vals &lt;- append(p_vals, kruskal.test(patients_complete$OS_MONTHS ~ patients_complete$M_STAGE)$p.val)</code></pre>
 </div>
-<div id="adjusting-the-p-value" class="section level3">
-<h3>Adjusting the P-Value</h3>
-<p>At the traditional level, we reject the null hypothesis at the p&lt;0.05 level. Such p value of 0.05 represent a 1/20 chance of seeing a difference as big or greater by chance alone. It follows on then that if we have 20 comparisons we can expect one to be true by chance. Therefore, we need to adjust the p value to consider the number of comparisons/ The “p-ajust()” function can then correct the observed p values for multiple comparisons with many methods. for instance we can use a bonferroni correction<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
-<pre class="r"><code>p.adjust(p_vals, method=&quot;bonferroni&quot;)</code></pre>
+<div id="adjusting-the-p-value" class="section level2">
+<h2>Adjusting the P-Value</h2>
+<p>Traditionally, we reject the null hypothesis at the p&lt;0.05 level. This value represents a 1/20 chance of seeing a difference as big or greater by chance alone. It follows then that if we have 20 comparisons we can expect one to be TRUE by chance. Therefore, we need to adjust the p value to consider the number of comparisons. The “p-ajust()” function can then correct the observed p values for multiple comparisons with many methods. for instance we can use a bonferroni correction<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></p>
+<pre class="r"><code>p.adjust(p_vals, method = &quot;bonferroni&quot;)</code></pre>
 <pre><code>## [1] 0.5795994 0.3378689 0.5151183 0.9487212</code></pre>
-<p>now do the same but with the false discovery rate (FDR)<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> is. Hint type <code>?p.adjust</code> to see what methods corresponds to FDR</p>
-<pre class="r fold-hide"><code>p.adjust(p_vals, method=&quot;fdr&quot;)</code></pre>
+<p>now do the same but with the FALSE discovery rate (FDR)<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> is. Hint type <code>?p.adjust</code> to see what methods corresponds to FDR</p>
+<pre class="r fold-hide"><code>p.adjust(p_vals, method = &quot;fdr&quot;)</code></pre>
 <pre><code>## [1] 0.1931998 0.1931998 0.1931998 0.2371803</code></pre>
-<p>We can see the Bonferroni correction is more conservative than the FDR<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
-</div>
+<p>We can see the Bonferroni correction is more conservative than the FDR<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a></p>
 </div>
 </div>
 <div id="base-r-plots" class="section level1">
 <h1>Base R Plots</h1>
-<p>base R plots can be displayed in the plots pane of R studio. Note R will refuse to draw a plot if the plot panel is too small. Simple R plots can be generated quickly with base functions but the ggplot2 package we’ll use in session 2, can generate publication quality plots with less effort.</p>
+<p>base R plots can be displayed in the plots pane of R studio. *Note R will refuse to draw a plot if the plot panel is too small. Simple R plots can be generated quickly with base functions and can be extensively customised. We’ll also introduce the ggplot package that can generate publication quality plots with less effort in session 2.</p>
 <p>R tracks every time we create a new plot so any items added to a plot get added to the lastly created plot.</p>
-<div id="scatter-plot" class="section level2">
-<h2>Scatter plot</h2>
+<div id="scatter-plots" class="section level2">
+<h2>Scatter plots</h2>
 <p>we can plot a scatter plot with <code>plot(x, y)</code></p>
 <pre class="r"><code>plot(patients_complete$AGE_AT_DIAGNOSIS, patients_complete$OS_MONTHS)</code></pre>
-<p><img src="session1_files/figure-html/unnamed-chunk-110-1.png" width="672" /></p>
-<p>we can add a trend line with <code>abline()</code>, following the format y=ax+b.</p>
+<p><img src="session1_files/figure-html/unnamed-chunk-108-1.png" width="672" /> we can add a trend line with <code>abline()</code>, following the format y=ax+b.</p>
 <pre class="r"><code>plot(patients_complete$AGE_AT_DIAGNOSIS, patients_complete$OS_MONTHS)
-abline(a=1,b=+1)</code></pre>
+abline(a = 1,b =+ 1)</code></pre>
 <p>we can also add a vertical or horizontal line by specifying the intercept with h or v.</p>
 <pre class="r"><code>plot(patients_complete$AGE_AT_DIAGNOSIS, patients_complete$OS_MONTHS)
-abline(h=10)</code></pre>
-<p><img src="session1_files/figure-html/unnamed-chunk-112-1.png" width="672" /> We can also fit a line from more complex modeling, for instance from a linear regression. note <code>lm</code> takes a y ~ x order</p>
+abline(h = 10)</code></pre>
+<p><img src="session1_files/figure-html/unnamed-chunk-110-1.png" width="672" /> We can also fit a line from more complex modeling, for instance from a linear regression. note <code>lm()</code> takes the y ~ x order.</p>
 <pre class="r"><code>plot(patients_complete$AGE_AT_DIAGNOSIS, patients_complete$OS_MONTHS)
 abline(lm(patients_complete$OS_MONTHS ~ patients_complete$AGE_AT_DIAGNOSIS))</code></pre>
+<p><img src="session1_files/figure-html/unnamed-chunk-111-1.png" width="672" /> We can change the two axis. ylim and xlim control the start and end of x and y axis. Be careful as R will clip off any value outside that range, again without warning</p>
+<pre class="r"><code>plot(patients_complete$AGE_AT_DIAGNOSIS, patients_complete$OS_MONTHS, ylim = c(0,100), xlim = c(30,80))</code></pre>
+<p><img src="session1_files/figure-html/unnamed-chunk-112-1.png" width="672" /> We can also add a title and some label to the axis. We do this with main, xlab and ylab</p>
+<pre class="r"><code>plot(patients_complete$AGE_AT_DIAGNOSIS, patients_complete$OS_MONTHS, main = &quot;this is the title&quot;, ylab = &quot;y axis&quot;, xlab = &quot;x axsis&quot;)</code></pre>
 <p><img src="session1_files/figure-html/unnamed-chunk-113-1.png" width="672" /></p>
-<p>We can change the two axis. ylim and xlim control the start and end of x and y axis. Be careful as R will clip off any value outside that range, again without warning</p>
-<pre class="r"><code>plot(patients_complete$AGE_AT_DIAGNOSIS, patients_complete$OS_MONTHS, ylim=c(0,100),xlim=c(30,80))</code></pre>
-<p><img src="session1_files/figure-html/unnamed-chunk-114-1.png" width="672" /></p>
-<p>We can also add a title and some label to the axis. We do this with main, xlab and ylab</p>
-<pre class="r"><code>plot(patients_complete$AGE_AT_DIAGNOSIS, patients_complete$OS_MONTHS, main=&quot;this is the title&quot;, ylab=&quot;y axis&quot;, xlab=&quot;x axsis&quot;)</code></pre>
-<p><img src="session1_files/figure-html/unnamed-chunk-115-1.png" width="672" /></p>
 </div>
 <div id="histograms" class="section level2">
 <h2>Histograms</h2>
-<p>Histograms can be used to visualize the distribution of a variable. In base r we can generate one with <code>hist</code></p>
+<p>Histograms can be used to visualize the distribution of values in a variable. In base r we can generate one with <code>hist()</code></p>
 <pre class="r"><code>hist(patients_complete$OS_MONTHS)</code></pre>
-<p><img src="session1_files/figure-html/unnamed-chunk-116-1.png" width="672" /> Again, we can control several parameters, We can manually specify the number of breaks rather than use what number R thinks appropriate</p>
+<p><img src="session1_files/figure-html/unnamed-chunk-114-1.png" width="672" /> Again, we can control several parameters, We can manually specify the number of breaks rather than use what number R thinks appropriate</p>
 <pre class="r"><code>hist(patients_complete$OS_MONTHS, breaks=4)</code></pre>
-<p><img src="session1_files/figure-html/unnamed-chunk-117-1.png" width="672" /> we can also add a colour</p>
-<p>And add a density line. To do so we need to switch to plotting probabilities with probability=T in the hist function</p>
+<p><img src="session1_files/figure-html/unnamed-chunk-115-1.png" width="672" /> we can also add a colour and add a density line. To do so we need to switch to plotting probabilities with probability=T in the hist function.</p>
 <pre class="r"><code>hist(patients_complete$OS_MONTHS, col=&quot;pink&quot;, probability = T)
 lines(density(patients_complete$OS_MONTHS), col=&quot;purple&quot;)</code></pre>
-<p><img src="session1_files/figure-html/unnamed-chunk-118-1.png" width="672" /> Axis and plot labels work similarly to the scatter plot above, try to redo the first histogram but change the labels so they are nicer</p>
+<p><img src="session1_files/figure-html/unnamed-chunk-116-1.png" width="672" /> Axis and plot labels work similarly to the scatter plot above, try to redo the first histogram but change the labels so they are nicer</p>
 <pre class="r"><code>hist(patients_complete$OS_MONTHS, ylab = &quot;Frequency&quot;, xlab=&quot;Overal Survivial (months)&quot;, main = &quot;overall survival&quot;)</code></pre>
-<p><img src="session1_files/figure-html/unnamed-chunk-119-1.png" width="672" /> ## Box plots</p>
-<p>Box Plots</p>
+<p><img src="session1_files/figure-html/unnamed-chunk-117-1.png" width="672" /> ## Box plots</p>
+<p>Box Plots show the median value and distribution of a variable between 2 or more groups. We can use the <code>boxplot()</code> function for this.</p>
 <pre class="r"><code>boxplot(patients_complete$OS_MONTHS~patients_complete$M_STAGE)</code></pre>
-<p><img src="session1_files/figure-html/unnamed-chunk-120-1.png" width="672" /> By default the whiskers extend to 1.5x the interquartile range of each gruop. we can change the multiplier by specifying it to range.</p>
+<p><img src="session1_files/figure-html/unnamed-chunk-118-1.png" width="672" /> By default the whiskers extend to 1.5x the interquartile range of each gruop. we can change the multiplier by specifying it to range.</p>
 <pre class="r"><code>boxplot(patients_complete$OS_MONTHS~patients_complete$M_STAGE, range=0.4)</code></pre>
-<p><img src="session1_files/figure-html/unnamed-chunk-121-1.png" width="672" /> we can even control the shape of the outlier points with pch. <code>?points</code> reveal what each value corresponds to.</p>
+<p><img src="session1_files/figure-html/unnamed-chunk-119-1.png" width="672" /> We can even control the shape of the outlier points with pch. <code>?points</code> reveal what each value corresponds to.</p>
 <pre class="r"><code>boxplot(patients_complete$OS_MONTHS~patients_complete$M_STAGE, range=0.4, pch=18)</code></pre>
-<p><img src="session1_files/figure-html/unnamed-chunk-122-1.png" width="672" /></p>
+<p><img src="session1_files/figure-html/unnamed-chunk-120-1.png" width="672" /></p>
 <p>Now let’s add some colour to the plot. Try adding colours to the plot above with the “col” argument. hint, if you don’t want to have the groups use the same colour(s), specify a number of colours in the colour vector matching the number of groups</p>
-<pre class="r fold-hide"><code>boxplot(patients_complete$OS_MONTHS~patients_complete$M_STAGE, range=0.4, pch=18, col=c(&quot;red&quot;,&quot;green&quot;,&quot;blue&quot;,&quot;yellow&quot;))</code></pre>
-<p><img src="session1_files/figure-html/unnamed-chunk-123-1.png" width="672" /></p>
+<pre class="r fold-hide"><code>boxplot(patients_complete$OS_MONTHS~patients_complete$M_STAGE, range = 0.4, pch = 18, col = c(&quot;red&quot;,&quot;green&quot;,&quot;blue&quot;,&quot;yellow&quot;))</code></pre>
+<p><img src="session1_files/figure-html/unnamed-chunk-121-1.png" width="672" /></p>
 </div>
 <div id="saving-plots" class="section level2">
 <h2>Saving plots</h2>
 <p>In RStudio there are 2 ways to save a plot. you can select the export button on the plots panel. this opens a save window where you can save as pdf or image.</p>
-<p>Alternatively, you can save plots automatically from your script. there are 2 step for this approach. first you need to choose a graphic device</p>
+<p>Alternatively, you can save plots automatically from your script. there are 2 step for this approach. first you need to choose a graphic device i.e <code>pdf("filename")</code></p>
 <pre class="r"><code>pdf(&quot;plot.pdf&quot;)</code></pre>
 <p>then generate your plot</p>
 <pre class="r"><code>plot(mtcars$hp~mtcars$mpg)</code></pre>
@@ -1120,39 +1126,46 @@ lines(density(patients_complete$OS_MONTHS), col=&quot;purple&quot;)</code></pre>
 <pre class="r"><code>abline(lm(mtcars$hp ~ mtcars$mpg))</code></pre>
 <p>to save your plot you need to release the graphic devices</p>
 <pre class="r"><code>dev.off()</code></pre>
-<p>the choice of device changes the output format. pdf() and svg() produce vector image where the each element of the plot is represented as a mathematical formula. This means you can zoom the image without loosing quality and easily edit the individual elements of the plots later. Although manually editing images outside the R script is rarely a good idea as you loose the ability to reproduce the plot. Text remains editable too. However, opening complex vector files (particularly those saved as svg) can be slow to view.</p>
-<p>png/jpeg/tiff will produce raster images, these are similar to a photos, where unless it’s a police TV show, you cannot zoom and get a sharper image<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
-<p>now go to your working directory and look for the plot. you should have gotten something like this</p>
+<p>The choice of device changes the output format. <code>pdf()</code> and <code>svg()</code> produce vector images where you can zoom the image without loosing quality and potentially edit the elements in Inkscape or Illustrator <a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a> However, complex vector files (particularly of saved as svg) can get quite slow.</p>
+<p><code>png()</code> will produce raster images, these are similar to photos, where you can’t zoom and get a sharperimage</p>
+<p>Now go to your working directory and look for the plot. you should have gotten something like this</p>
 <pre class="r fold-hide"><code>plot(mtcars$hp~mtcars$mpg)
 abline(lm(mtcars$hp ~ mtcars$mpg))</code></pre>
-<p><img src="session1_files/figure-html/unnamed-chunk-128-1.png" width="672" /></p>
+<p><img src="session1_files/figure-html/unnamed-chunk-126-1.png" width="672" /></p>
 </div>
-<div id="saving-data" class="section level2">
-<h2>Saving data</h2>
-<p>we can save files to a tabular format with write.table(). By default R add both rows and column names. row names can confuse Excel so should be avoided with row.names=F</p>
-<pre class="r"><code>write.table(frame, row.names = F, sep = &quot;,&quot;, file=&quot;table.csv&quot;)</code></pre>
-<p>Again, the <code>write.csv()</code> function is similar but has appropriate defaults for CSV files</p>
+</div>
+<div id="saving-data" class="section level1">
+<h1>Saving data</h1>
+<p>we can save files to a tabular format with write.table(). By default R add both rows and column names. Normally row names are not meaningful so we can omit them wuth <code>row.names = F</code>.</p>
+<pre class="r"><code>write.table(cells, row.names = F, sep = &quot;,&quot;, file = &quot;table.csv&quot;)</code></pre>
+<p>As with <code>read.csv()</code>, the <code>write.csv()</code> function is similar but has appropriate defaults for CSV files.</p>
 <p>By default. this encloses any string in <code>""</code><br />
-we can get rid of it by setting <code>quotes=FALSE</code></p>
-<pre class="r"><code>write.table(frame, row.names = FALSE, sep = &quot;,&quot;, file=&quot;table.csv&quot;, quote=FALSE)</code></pre>
-<p>if append is true R will add the current data to the specified file without overwriting it.</p>
-<p>The <code>write.csv()</code> function is similar but</p>
-</div>
+we can get rid of it by setting <code>quotes=FALSE</code>. There is normally no real need to do this.</p>
+<pre class="r"><code>write.table(cells, row.names = FALSE, sep = &quot;,&quot;, file = &quot;table.csv&quot;, quote = FALSE)</code></pre>
+<p>if append is TRUE R will add the current data to the specified file without overwriting it.</p>
 </div>
 <div class="footnotes">
 <hr />
 <ol>
 <li id="fn1"><p>In fact, unlike most languages in R any single variable that is not NULL is actually a vector of size 1<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>for instance, base R makes very heavy use of S3 objects. we can see an example in the model class resulting from lm(). when plotting it, the S3 system means the plot() function knows how to plot all the plots needed for a linear model. The reality is more complex and covered in <a href="">advanced r</a><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p>The bonferroni correction simply multiplies the p-value by the number of tests<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
-<li id="fn4"><p>The false discovery ratio is explained here instead<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
-<li id="fn5"><p>Personally, as a rule of thumb I prefer using FDRs for everything that will get downstream validation, so that the odd false discovery will be spotted<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
-<li id="fn6"><p>“or use machine learning like <a href="https://ai.googleblog.com/2021/07/high-fidelity-image-generation-using.html?m=1">Google</a>”<a href="#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Under the hood R might still do some copying<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>This sounds excessively pedantic but consistency helps avoid silly typos when you want to refer to the columns by name later in your script<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>for instance, base R makes very heavy use of S3 objects. The model class resulting from lm() has a method for the <code>plot()</code> function. When we call <code>plot()</code> on a model it knows how to plot all the plots needed for a linear model because it can use the method in the S3 class model<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>unlike most programming languages that start from 0<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>Unlike say Python, the last element is y, not y-1<a href="#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p>Although under the hood R will still possibly does some copying<a href="#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p>Think of them like prions. Any operation with a <code>NA</code> will return <code>NA</code>, unless we remove them before<a href="#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn9"><p>The bonferroni correction simply multiplies the p-value by the number of tests<a href="#fnref9" class="footnote-back">↩︎</a></p></li>
+<li id="fn10"><p>The FALSE discovery ratio is explained here instead<a href="#fnref10" class="footnote-back">↩︎</a></p></li>
+<li id="fn11"><p>Personally, as a rule of thumb I prefer using FDRs for everything that will get downstream validation<a href="#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p>Although changing the image adter is not recommended for reproducibility - R plots can be easily made publication ready<a href="#fnref12" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -1190,6 +1203,35 @@ $(document).ready(function () {
 });
 </script>
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

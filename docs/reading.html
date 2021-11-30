@@ -29,6 +29,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
@@ -222,6 +225,75 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
 
 </head>
 
@@ -229,6 +301,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -290,22 +372,11 @@ $(document).ready(function () {
 
 </div>
 
-<div id="TOC">
-<ul>
-<li><a href="#further-resources">Further resources</a></li>
-<li><a href="#further-packages-of-interest">Further packages of interest</a>
-<ul>
-<li><a href="#data.table">data.table</a></li>
-<li><a href="#tidymodels">tidymodels</a></li>
-<li><a href="#shiny">Shiny</a></li>
-</ul></li>
-</ul>
-</div>
 
-<p>Congratulations! You have reached the end of the course! Feel free to leave feedback and suggestions as issues on <a href="">github</a></p>
+<p>Congratulations! You have reached the end of the course! Feel free to leave feedback and suggestions as issues on <a href="https://github.com/sdangelis/Bioinformatics-cafe-tutorials">github</a></p>
 <div id="further-resources" class="section level1">
 <h1>Further resources</h1>
-<p>If crave more R, This is a list of external resources and open access books that go beyond what can be covered in 3 sessions.</p>
+<p>If you crave more Rm, This is a list of external resources and open access books that go beyond what can be covered in 3 sessions.</p>
 <ul>
 <li><a href="https://tinystats.github.io/teacups-giraffes-and-statistics/">teacups-giraffes-and-statistics</a> A narrative-driven introduction to both R and Statistics.</li>
 <li><a href="https://www.data-to-viz.com/">Data to Viz</a> A guide to help understand which visualisation is appropriate for your data, with links to Python, R and JavaScript code for to reproduce them</li>
@@ -317,29 +388,15 @@ $(document).ready(function () {
 <li><a href="https://ggplot2-book.org/index.html">ggplot book</a> Describes ggplot’s Grammar of Graphics and ggplot2</li>
 <li><a href="https://bioconductor.github.io/BiocWorkshops/">The Bioconductor 2018 Workshop Compilation</a> A collection of workshops on bioconductor packages from the 2018 bioconductor conference. Might be slighly out of date.</li>
 <li><a href="https://adv-r.hadley.nz/">Advanced R, second edition</a> for those wishing to delve deeper into R</li>
-<li><a href="">The R Inferno</a> An essential guide to the trouble spots and oddities of R.</li>
+<li><a href="https://www.burns-stat.com/pages/Tutor/R_inferno.pdf">The R Inferno</a> An essential guide to the trouble spots and oddities of R.</li>
 </ul>
-<p>Have a favorite R resource not included here? open an issue (or even better a pull request) and add it on <a href="">github</a></p>
-</div>
-<div id="further-packages-of-interest" class="section level1">
-<h1>Further packages of interest</h1>
-<p>Here are some packages that might be of interest</p>
-<div id="data.table" class="section level2">
-<h2>data.table</h2>
-<p>similar in spirit to dplyr in that it extends data frames for easy manipulation, but with emphasis on a concise syntax and speed. It is consistently <a href="https://h2oai.github.io/db-benchmark/">one of the fastest packages</a> for manipulating data frames. It can even be mixed with dplyr so I would consider using ‘data.table::fread()’ if <code>read.table()</code> or <code>read.csv()</code> gets too slow.</p>
-</div>
-<div id="tidymodels" class="section level2">
-<h2>tidymodels</h2>
-<p>An ecosystem for working with statistical models in a tidy format</p>
-</div>
-<div id="shiny" class="section level2">
-<h2>Shiny</h2>
-<p>A framework to generate web apps from R.</p>
-</div>
+<p>Have a favorite R resource not included here? open an issue (or even better a pull request) and add it on <a href="https://github.com/sdangelis/Bioinformatics-cafe-tutorials">github</a></p>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -377,6 +434,35 @@ $(document).ready(function () {
 });
 </script>
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

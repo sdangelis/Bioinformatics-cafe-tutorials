@@ -11,7 +11,7 @@
 
 
 
-<title>session 2</title>
+<title>Session 2</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -29,6 +29,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
@@ -222,6 +225,75 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
 
 </head>
 
@@ -229,6 +301,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -286,267 +368,17 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">session 2</h1>
+<h1 class="title toc-ignore">Session 2</h1>
 
 </div>
 
-<div id="TOC">
-<ul>
-<li><a href="#custom-functions-and-control-flow">Custom functions and control flow</a>
-<ul>
-<li><a href="#control-flow">Control flow</a></li>
-</ul></li>
-<li><a href="#creating-custom-functions">Creating custom functions</a>
-<ul>
-<li><a href="#docstring">docstring</a></li>
-</ul></li>
-<li><a href="#loops">Loops</a>
-<ul>
-<li><a href="#for-loops">for loops</a></li>
-<li><a href="#while">While</a></li>
-<li><a href="#repeat">Repeat</a></li>
-</ul></li>
-<li><a href="#apply-functions">Apply functions</a>
-<ul>
-<li><a href="#anonymous-functions">Anonymous functions</a></li>
-<li><a href="#a-note-on-performance-and-vectorisation">A note on performance and vectorisation</a></li>
-</ul></li>
-<li><a href="#into-the-tidyverse">Into the tidyverse</a>
-<ul>
-<li><a href="#manipulating-data-frames-effectively">manipulating data frames effectively</a></li>
-<li><a href="#one-pipe-two-pipes">one pipe, two pipes</a></li>
-<li><a href="#dyplr">dyplr</a></li>
-<li><a href="#string-manipulation">string manipulation</a></li>
-<li><a href="#ggplot2">ggplot2</a>
-<ul>
-<li><a href="#scatterplot">scatterplot</a></li>
-<li><a href="#histogram">histogram</a></li>
-<li><a href="#boxplot">boxplot</a></li>
-<li><a href="#violin-plot">violin plot</a></li>
-<li><a href="#dotplot">dotplot</a></li>
-</ul></li>
-<li><a href="#colour-palettes">colour palettes</a></li>
-</ul></li>
-</ul>
-</div>
 
-<p>Work in progress! please come back later. the outline here refers to the plan for session 2.</p>
-<pre class="r"><code>library(tidyverse)
-library(docstring)</code></pre>
-<p>Welcome to day 2! Today we’ll introduce some powerful programming concepts and use tidy R to analyse the results of a cell biology experiment.</p>
-<div id="custom-functions-and-control-flow" class="section level2">
-<h2>Custom functions and control flow</h2>
-<div id="control-flow" class="section level3">
-<h3>Control flow</h3>
-<p>Before we</p>
-</div>
-</div>
-<div id="creating-custom-functions" class="section level1">
-<h1>Creating custom functions</h1>
-<p>So far, if we needed to</p>
-<p>A powerful</p>
-<p>note that w</p>
-<p>R by default returns the last item evaluated. sometimes it si</p>
-<div id="docstring" class="section level2">
-<h2>docstring</h2>
-<p>we could add a comment to the function to describe what the function does but this will not be actually associated with the function when we call it or appear if we use <code>?my_function</code></p>
-<p>The package docstring allows us to generate documentation for any function on the fly, borrowing from</p>
-<pre class="r"><code>sum3 &lt;- function(x, y){
-  #&#39; Sums two numbers
-  #&#39; 
-  #&#39; @param x the first number to sum
-  #&#39; @param y the second number to sum
-  #&#39; @return the sum of \code{x} and \code{y
-  #&#39; @example 
-  #&#39; sum(2,2)
-  x+y
-} </code></pre>
-<p>note <code>#'</code> is mandatory. We can use tags from <a href="https://roxygen2.r-lib.org/articles/rd.html">Roxygen2</a> to structure our documentation. There are lots of tags, some useful ones are</p>
-<ul>
-<li><span class="citation">@param</span> argument description` to specify the description of arguments</li>
-<li><span class="citation">@return</span> to specify what the function returns</li>
-<li><span class="citation">@examples</span> r code that provides an example for how to use a function. this will run so it has to be either valid R code or wrapped in a <code>\dontrun{code}</code> block</li>
-<li><span class="citation">@note</span> to add a note</li>
-<li><span class="citation">@references</span> to add a citation to your function</li>
-</ul>
-</div>
-</div>
-<div id="loops" class="section level1">
-<h1>Loops</h1>
-<p>there are 3 types of loops in R: for while and repeat. Most of the time we can use while or for loops but</p>
-<div id="for-loops" class="section level2">
-<h2>for loops</h2>
-<p>for loops repeat the expression n times. we can access tjh</p>
-<pre class="r"><code>for(i in 1:10){
-  print(i)
-}</code></pre>
-<pre><code>## [1] 1
-## [1] 2
-## [1] 3
-## [1] 4
-## [1] 5
-## [1] 6
-## [1] 7
-## [1] 8
-## [1] 9
-## [1] 10</code></pre>
-<p>Conventionally the counter for loops is <code>i</code>, in case of nested loops <code>i</code> is taken for the first loop so we can use <code>j</code> in the second loop and so on.</p>
-</div>
-<div id="while" class="section level2">
-<h2>While</h2>
-<p>While loops repeat a code block until a certain condition is met, for instance we can count to 10 by printing. Note when working in a while loop we need to manually increment the counter and make sure the exit condition makes sense, else our loop will run literally forever</p>
-<pre class="r"><code>count=1
-while (count&lt;11){
-  print(count)
-  count = count+1 
-}</code></pre>
-<pre><code>## [1] 1
-## [1] 2
-## [1] 3
-## [1] 4
-## [1] 5
-## [1] 6
-## [1] 7
-## [1] 8
-## [1] 9
-## [1] 10</code></pre>
-</div>
-<div id="repeat" class="section level2">
-<h2>Repeat</h2>
-<p>Repeat loops are similar to while loops but execute once then use a break statement to exit the loop once we met our condition.</p>
-<pre class="r"><code>x=0
-repeat {
-  print(x)
-  x = x+1
-  if (x == 11){
-    break
-  }}</code></pre>
-<pre><code>## [1] 0
-## [1] 1
-## [1] 2
-## [1] 3
-## [1] 4
-## [1] 5
-## [1] 6
-## [1] 7
-## [1] 8
-## [1] 9
-## [1] 10</code></pre>
-<p>the <code>break</code> statement to quit a loop early work in all kinds of loops similarly <code>next</code> skips the current iteration</p>
-</div>
-</div>
-<div id="apply-functions" class="section level1">
-<h1>Apply functions</h1>
-<p>A generally preferred alternative to loops. Despite common belief this is not necessarily faster than a loop<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
-<div id="anonymous-functions" class="section level2">
-<h2>Anonymous functions</h2>
-<p>The apply family of functions becomes very powerful when coupled with anonymous functions. Anonymous functions are functions that have no name we can create an anonymous function with <code>funtion(x) { function body }</code></p>
-<p>The purr package additionally provides some more</p>
-</div>
-<div id="a-note-on-performance-and-vectorisation" class="section level2">
-<h2>A note on performance and vectorisation</h2>
-<p>As you might have noticed our loop to multiply a vector by a number is much slower than using <code>*</code>. R is a vectorised which means operations on a whole vector are much faster than the sum of each individual operations on each element.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
-<p>Nonetheless, loops are quick (but not fast), dirty and can get the job done. there are some tricks to make sure loops run as fast as they can 1. Never grow a variable inside a loop</p>
-<p>it is tempting to write a loop where we grow a variable by 1 in each iteration. For instance in this loop we sample from a normal distribution n times and return all the variables. Note the <code>rnorm()</code> function here is just an example of something that runs at each iteration, if we want to sample n elements from a normal distribution we can and should use <code>rmorm(n)</code></p>
-<pre class="r"><code>bad_loop &lt;- function (n){
-  x = NA
-  for(i in 1:n){
-    x &lt;- c(x, rnorm(1)) 
-  }
-  return(x)
-}</code></pre>
-<p>however, every time we grow the variable we force R to copy the vector to a new memory location with more space, consuming time</p>
-<p>Our loop will be much faster if we create a vector of the right size first and then replace values as we go along.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
-<pre class="r"><code>good_loop &lt;- function(n){
-  x &lt;- rep(NA,n)
-  for(i in 1:n){
-    x[i] &lt;- rnorm(1) 
-  }
-  return(x)
-}</code></pre>
-<p>We can use the <code>system.time()</code> function to quickly check how fast is our code.</p>
-<pre class="r"><code>system.time(good_loop(1e5))</code></pre>
-<pre><code>##    user  system elapsed 
-##    0.17    0.00    0.17</code></pre>
-<pre class="r"><code>system.time(bad_loop(1e5))</code></pre>
-<pre><code>##    user  system elapsed 
-##   15.09    0.14   15.23</code></pre>
-<p>Compared to the more optimised loop, the bad loop is unreasonably slow. The Rstudio Built in profiler reveals that the bad loop spends most of the time in the <code>c()</code> rather than <code>rmorm()</code></p>
-<ol start="2" style="list-style-type: decimal">
-<li>keep an eye on assignments</li>
-</ol>
-<p>The sharper eyes noted that the bad loop first creates a new vector with the old array and new value, then grows the old array. We can remove this extra step. In general keep an eye on unnecessary assignments in loops as they can be costly.</p>
-<pre class="r"><code>less_bad_loop &lt;- function (n){
-  x = NA
-  for(i in 1:n){
-    x[i] &lt;- rnorm(1) 
-  }
-  return(x)
-}</code></pre>
-<p>We can now compare the two loops again.</p>
-<pre class="r"><code>system.time(good_loop(1e5))</code></pre>
-<pre><code>##    user  system elapsed 
-##    0.16    0.00    0.16</code></pre>
-<pre class="r"><code>system.time(less_bad_loop(1e5))</code></pre>
-<pre><code>##    user  system elapsed 
-##    0.19    0.00    0.18</code></pre>
-<p>Now the difference is much smaller but still noticeable. For more performance tricks, see the [R Inferno book]</p>
-</div>
-</div>
-<div id="into-the-tidyverse" class="section level1">
-<h1>Into the tidyverse</h1>
-<p>By now we have all the tools we need to use R effectively</p>
-<div id="manipulating-data-frames-effectively" class="section level2">
-<h2>manipulating data frames effectively</h2>
-</div>
-<div id="one-pipe-two-pipes" class="section level2">
-<h2>one pipe, two pipes</h2>
-<p>pipes reside in the magrittr package but are implicitly imported by tidy packages a pipe connects the output from a function to another, without the need to assign it to a variable</p>
-<p>if you are on R &gt;= 4.1 pipes are now part of base r <code>|&gt;</code> will get you a pipe. it works like <code>%&gt;%</code> but has no support for the <code>.</code> placeholder</p>
-</div>
-<div id="dyplr" class="section level2">
-<h2>dyplr</h2>
-</div>
-<div id="string-manipulation" class="section level2">
-<h2>string manipulation</h2>
-</div>
-<div id="ggplot2" class="section level2">
-<h2>ggplot2</h2>
-<div id="scatterplot" class="section level3">
-<h3>scatterplot</h3>
-</div>
-<div id="histogram" class="section level3">
-<h3>histogram</h3>
-</div>
-<div id="boxplot" class="section level3">
-<h3>boxplot</h3>
-</div>
-<div id="violin-plot" class="section level3">
-<h3>violin plot</h3>
-</div>
-<div id="dotplot" class="section level3">
-<h3>dotplot</h3>
-</div>
-</div>
-<div id="colour-palettes" class="section level2">
-<h2>colour palettes</h2>
-<p>While the ggplot default palette is somewhat iconic, colours from the viridis package are a good starting point to choose colours. They are designed accessible to people with colourblindness, legible in grayscale and be perceptually uniform so each colour has a uniform distance from the next colour.</p>
-<p>for base plots we need to separately generate a viridis colour palette.</p>
-<p>in ggplot2 based graphics we can use the <code>scale_fill_viridis()</code> and <code>scale_color_viridis()</code> in our plot as needed.</p>
-<p>But if we feel more artsy, we can pick colour palettes from everything, from <a href="https://github.com/karthik/wesanderson">Wes Anderson movies</a> to <a href="https://github.com/ewenme/ghibli">Stuido Ghibli Films</a>. For a comprehensive list see the <a href="https://github.com/EmilHvitfeldt/r-color-palettes">paletteer</a> package.</p>
-</div>
-</div>
-<div class="footnotes">
-<hr />
-<ol>
-<li id="fn1"><p>see Advanced R and the R inferno<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>This is not black magic, vectorised functions loop over items in C rather than R. C has less overhead so is faster.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p>note depending on what kind of object x is, using x[i] might still duplicate it<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
-</ol>
-</div>
+<p>Work in progress! please come back later.</p>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -584,6 +416,35 @@ $(document).ready(function () {
 });
 </script>
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

@@ -2,4 +2,24 @@
 title: "About"
 ---
 
-Hi all, welcome to the website for the BCI Bioinfromatics Cafe R tutorial
+Hi all, welcome to the website for the BCI Bioinformatics Cafe R tutorial,
+This is a 3 part tutorial designed for biologists with no prior experience of R or programming.
+
+## Why R 
+
+R is a powerful statistical language widely used for statistics. It is open source (i.e free to use and modify) and has a rich ecosystem of community add-ons (i.e packages) to facilitate data science and biological analysis. We'll use some of these tools in this tutorial.  
+R is also particularly friendly to non programmers and those without a background in computer science.
+
+## Why this course
+
+There are lots of online R resources from the excellent [R 4 DS] to [Bioconductor tutorials]. However, many R introductory courses focus too extensively on getting a specific task done in an ideal scenario and little on how R works under the hood, leading to trouble when using R in the real world.  
+Moreover, this course is designed for biologists so will introduce tools for genomic data analysis and use relevant examples 
+
+## license
+
+This course runs internally at the Barts Cancer Institute but the notes are here for everyone. You're welcome to run your own!
+They are shared under the [licence], feel free to contribute on [GitHub]
+
+## Get in touch
+
+If you have any questions, feedback, suggestions or spotted a typo get in touch at angelis [dot] simone [dot] de [plus] r [at] gmail [dot] com 

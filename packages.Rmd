@@ -9,10 +9,7 @@ Generally speaking before implementing your function it is always worth checking
 
 # Installing packages
 
-Most R packages belong to a repository known as CRAN. CRAN packages can be installed with a function 
-```{r, eval=F}
-install.packages("package_name")
-```
+Most R packages belong to a repository known as CRAN. CRAN packages can be installed with  `install.packages("package_name")`
 
 Often R will ask for your permission to install packages compiled from source rather than binary releases ^[but wait? what is compilation?.\n
 unlike R some programming languages need to be translated from a human readable text format to a binary file understandable by the computer.\n R packages often interface with code in compiled languages as it is generally faster]. If you want to use the absolutely most recent version say yes, if you're in a hurry say no. Installing packages from source on Windows requires an additional component: [RTools](https://cran.r-project.org/bin/windows/Rtools/). 
@@ -20,15 +17,12 @@ unlike R some programming languages need to be translated from a human readable 
 # Using packages
 
 packages can be loaded by using the library function.
-Conventionally, packages are loaded at the beginning of a script, 
-to make which packages are required clear.
-
+Conventionally, packages are loaded at the beginning of a script, to make obvious which packages are needed.
 ```{r warning=TRUE}
 library(ggplot2)
 ```
 
 once loaded you can use the functions in the package as we have done so far
-
 We can use sessionInfo() to display information on R and the loaded packages. 
 ```{r}
 sessionInfo()
@@ -37,10 +31,11 @@ sessionInfo()
 ## Documentation 
 
 all packages have more or less extensive documentation. A quick Google search of your package and R or CRAN should bring up a documentation page similar to the one for [cowplot](https://cran.r-project.org/web/packages/cowplot/index.html). 
-All packages have a reference manual, detailing one by one the use of all the functions. This is the same information that the help panel uses so it can be quite dry.
-Additionally most packages have a vignette, introducing the package and showing how to actually use it to solve a problem
+All packages have a reference manual, detailing one by one the use of all the functions. This is the same information that the help panel uses so it can be quite dry.  
 
-we can also view the documentation from R with 
+Additionally most packages have a vignette, introducing the package and showing how to actually use it to solve a problem.
+
+we can also view the documentation from R with:
 ```{r eval=FALSE}
 browseVignettes("tidyverse") # shows the vignette
 ?cowplot # shows the reference manual
@@ -48,27 +43,25 @@ browseVignettes("tidyverse") # shows the vignette
 
 ## citing packages
 
-Citing the packages used in your work is important, for reproducibility and to acknowledge the work done by the package authors, in R more often than not, academics. You should always make an effort to cite the packages used in your analysis.^[Of course, packages are often built on top of other packages, in most cases it would not be reasonable to cite all the packages used and all their dependencies.]
-We can use the `citation("package")` function to retrieve the citation information
+Package authors, particularly in bioinformatics are often Academics. If you use a package consider citing any paper in which they presented their work ^[Of course, packages are often built on top of other packages, in most cases it would not be reasonable to cite all the packages used and all their dependencies.].
+We can use the `citation("package")` function to retrieve the citation information.
 
 for instance the IRanges package suggests you cite a PLOS Computational Biology
 ```{r}
 citation("IRanges")
 ```
-
 # key packages
 
-This section will introduce some key packages for data analysis.
+This section will introduce some key packages,
 
 ## Tidyverse
 
-the tidyverse is a collection of closely related packages designed that an be installed and loaded as one tidyverse
-They share a similar philosophy and can be very powerful for data manipulation.
-Note that the way of doing things in tidy R is often quite
-different from how you would operate in base R.
+the tidyverse is a collection of closely related packages for Data Science.
+They can be installed and loaded as one with `install.packages("tidyverse").
+The 
 
-The tidyverse packages provide functions to clean and manipulate data.
-The concept of tidy data is the key concpet in all tidy packages.
+The tidyverse packages provide functions to clean, manipulate, analyse and visualise data.
+
 In tidy data:
  
 1. Every column is a variable.
@@ -94,7 +87,7 @@ ggplot2 is a plotting package. while base R plots can become very beautiful with
 ggplot2 can easily produces publication quality graphics with comparatively little effort
 
 GGplot is based on the grammar of graphics, a whole theory of how to describe a plot whose explanation is 
-best left to the [official book](https://ggplot2-book.org/index.html). in short a ggplot2 graph is composed
+best left to the [official book](https://ggplot2-book.org/index.html). In short a ggplot2 graph is composed
 of 3 main elements: data, a geometry representing the individual data points and a mapping
 
 for a gallery of what is possible with ggplot and other plotting packages see 

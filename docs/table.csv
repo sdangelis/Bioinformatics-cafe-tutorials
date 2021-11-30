@@ -1,6 +1,5 @@
-sample,position
-sample A,1
-sample B,3
-sample C,4
-sample D,5
-sample E,2
+Plate,Doubling_time,Cell_line
+1,10,HC70
+2,20,HCC1400
+3,10,HCC1500
+4,40,BT-20

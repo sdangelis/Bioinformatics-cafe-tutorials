@@ -2,9 +2,9 @@
 title: "Session 3"
 ---
 
-Welcome to the third and final session in the series.
-While the first two sessions focused more on general data analysis skills, this session will 
-directly deal with genomic data.
+Welcome to the third and final session in the series. 
+Today we'll use maftools to analyse genetic variants and use 
+QDnaseq to get copy number calls from a shallow whole genome sequencing experiment.
 
 This section is still a work in progress! please come back later 
 
@@ -14,8 +14,6 @@ This section is still a work in progress! please come back later
 
 # TGCA CNV analysis
 
-# Genomic Ranges 
+# segmenting a shallow WGS genome with QDNAseq
 
-# segmenting a shallowWGS genome with QDNAseq 
-
-# 
+# Genomic Ranges

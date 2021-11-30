@@ -1,84 +1,70 @@
 ---
-title: "session 1"
+title: "Session 1"
 ---
 
 Welcome to the First session! By now the basic thing
 
-Today, We'll go over how variables can be and start analysing some patient data
-from TGCA. 
+Today, We'll go over how variables can be stored together and start analyzing some patient data
+from The Cancer Genome Atlas.
 
 # Data Structures
 
-We have seen
-variables can contain more than a single value.
-Depending on how many dimensions we need, there are several 
+So far we have seen variables made of single values. R has some pretty powerful data structures to store multiple, related values
 
-# vectors
+## vectors
 
-a vector is a collection of items^[In fact, unlike most languages in R any single variable that is not NULL is actually a vector of size 1]. we create a vector by using the
+a vector is a collection of items^[In fact, unlike most languages in R any single variable that is not NULL is actually a vector of size 1]. We create a vector by using the
 `c(item1,item2,item3)` function.
-
 ```{r}
-vector1 <- c(1, 2, 3, 4, 5)
+numbers <- c(1, 2, 3, 4, 5)
 ```
-
 we can assign a name to each element in the vector by assigning a vector
-of names to the names() function
-
+of names to the `names()` function. Note `names()` assigns the name in place^[Under the hood R might still do some copying], 
+i.e it doesn't create a new vector with the names we have to assign to a variable
 ```{r}
-names(vector1) <- c("item1", "item2", "item3", "item4", "item5")
+names(numbers) <- c("n1", "n2", "n3", "n4", "n5")
 ```
-
 or by providing them before the values when we create the vector.
 ```{r}
-vector1 <- c("item1" = 1, "item2" = 2, "item3" = 3, "item4" = 4)
+numbers <- c("n1" = 1, "n2" = 2, "n3" = 3, "n4" = 4)
 ```
-
-the names() can also be used alone to check the names of a vector
-
+The `names()` function can also be used alone to get the names of a vector
 ```{r}
-names(vector1)
+names(numbers)
 ```
-
-all items in a vector must be of the same type if we try to mix, for
-instance letters and numbers, R will force all items to be the most
-general type. The character type is the most general type.
-
+All items in a vector must be of the same type.
+if we try to mix instance letters and numbers, R will force (coherce) all items to be the most
+general type. 
+The character type is always the most general type.
 ```{r}
-vector2 <- c(1,2L, 1+2i, "hi")
+numbers2 <- c(1,2L, 1+2i, "three")
 ```
-
 ```{r}
-typeof(vector2)
+typeof(numbers2)
 ```
-Try to come up with a case for why this could be problem. 
+Try to come up with a case for why this could be a problem. 
 
+Your turn, create a vector to store the first 6 letters of the alphabet. What will be the resulting type?
+```{r}
+(letters <- c("a", "b", "c", "d", "e", "f"))
+```
 ## lists
 
-Lists are similar to vectors but can contain items of different types,
-without the need to cohere to the most general type
-
+Lists are similar to vectors but can contain items of different types, without the need to cohere to the most general type.
 ```{r}
 list <- list(2,1,"a")
 ```
-
-because of this lists are as whole of type list,
-
+Because of this lists are as whole of type list,
 ```{r}
 typeof(list)
 ```
-
-the environment panel of RStudio can be used to easily see what a list
-contains
-
+The environment panel of RStudio can be used to easily see what a list contains.  
 Another difference from vectors is that lists are recursive i.e a list
 can contain lists of things while a vector will always expand to a
-1-dimensional flat structure
-
+1-dimensional flat structure  
 ```{r}
 c(c(1,2),c(3,4))
 ```
-
 ```{r}
 list(list("1","2"), list("3","4"))
 ```
@@ -88,682 +74,605 @@ item3 and print their names to screen. HINT: names in lists work
 similarly to vectors
 
 ```{r class.source = 'fold-hide'}
-named_list<- list(1,2,3)
-names(named_list)<- c("item1", "item2", "item3")
+named_list <- list(1, 2, 3)
+names(named_list) <- c("item1", "item2", "item3")
 names(named_list)
-```
+``` 
 
-## matrices
+## data frames 
 
-matrices are tables, or precisely 2 dimensional vectors. Like vectors
-they can contain only one type of data we can create a matrix of sizes
-i, j by calling `matrix(vector_with_data, nrow=i, ncol=j)`. unless we
-specify `byrow = T`, matrices are populated column by column
+data frames are the most commonly used structure in R.
+Think of them as tables in a spreadsheet.
+They are 2-dimensional. The only constraint is that all the values in each column must be of the same type.
 
+We can create a data frame with `data.frame()`. 
+Each column is specified with the `name = vector` syntax. We separate columns with a commma
 ```{r}
-matrix(data=c(1,2,3,4), nrow = 2, ncol = 2)
+(cells <- data.frame("plate" = c(1, 2, 3, 4), "Doubling_time" = c(10, 20, 10, 40), "cell_line" = c("HC70", "HCC1400", "HCC1500", "BT-20")))
 ```
-
+Of course we can define the vectors separately and then bundle them.
 ```{r}
-matrix(data=c(1,2,3,4), nrow = 2, ncol = 2, byrow = T)
+plate = c(1, 2, 3, 4)
+Doubling_time = c(10, 20, 10, 40)
+cell_line = c("HC70", "HCC1400", "HCC1500", "BT-20")
+cells <- (data.frame(plate, Doubling_time, cell_line))
 ```
 
-try to reproduce the matrix below
+Names in a data table have 3 layers.
+- column names
+- row names
+- item names
 
-```{r, class.source = 'fold-hide'}
-matrix(data=c(1,4,7,2,5,8,3,6,9), nrow = 3, ncol = 3)
-```
-
-naming a matrix has 2 layers of complexity,
-
-Using names() will give a name to each value in the matrix
-
+We can view column names with `colnames(frame)` and edit them with `colnames(frame) <- names`.  
+for instance, we can rename all columns in our cells to consistently start with a capital letter^[This sounds excessively pedantic but consistency helps avoid silly typos when you want to refer to the columns by name later in your script].
 ```{r}
-named_matrix <- matrix(data=c(1,2,3,4), nrow = 2, ncol = 2)
-names(named_matrix) <- c("item1", "item2", "item3","item4")
-names(named_matrix)
+colnames(cells) <- c("Plate", "Doubling_time", "Cell_line")
+cells
 ```
+Row names work like column names but we use the `rownames(frame)` function
+It is tempting to use row names to encode an identifier instead of using an ID column (in our example this was Plate). 
+some - old style - R functions expect this. However these days doing so is discouraged as 
+row names cannot be accessed as if they were a normal column.   
 
-To name rows and columns we need to call `row.names` or `colnames`
-respectively Note adding data, such as a sample id, in row names is a
-bad idea as row names are treated differently by many functions. You
-should use a specific column to store sample names and/or IDs .
+Like with vectors `names()` allows us to edit and access the name of individual items.  
+Usually indidivual names are not useful as we should be able to identify each value by column and row.
 
+Finally, there are some other useful functions with dataframes.
+`dim()` returns the dimensions (rows, columns) of a data frame 
 ```{r}
-row.names(named_matrix) <- c("row1","row2")
-colnames(named_matrix) <- c("col1","col2")
+dim(cells)
 ```
-
-so now our matrix becomes
-
+while `nrow()`,`ncol()` return the number of rows and columns, respectively
 ```{r}
-named_matrix
+nrow(cells)
 ```
-
-note how value names are stored as a attribute. Because column names and
-row id should identify each item in a matrix you will rarely come across
-a use for named values in a matrix.
-
-## data frames
-
-data frames are the most commonly used structure in R as they are the
-closest to a spreadsheet or a table. like matrices they are
-2-dimensional but can contain elements of different types, as long as
-all the values in each column are the same type.
-
-we can create a data frame with data.frame, with columns separated by a
-comma
-
 ```{r}
-data.frame(c(2,3),c(3,3),c("hi", "hello"))
-```
-
-we can also bundle vectors to create a data frame.
-
-```{r}
-vector1 <- c("A","B","C","D","E")
-vector2 <- c(1,3,4,5,2)
-frame <- data.frame(vector1, vector2)
-frame
-```
-
-as with matrices we can rename the two columns. Try renaming the first
-column to sample and the second to position.
-
-```{r class.source = 'fold-hide'}
-colnames(frame)<- c("sample", "position")
-frame
+ncol(cells)
 ```
 
 Remember, Unlike excel however, formulas are recorded in your
-script/console, not the data frame itself.
+script/console, not the data frame itself. The frame simply stores values
 
-## S3, S4 and R6 object system
+## matrices
 
-More complex objects made of a collection of these structures can be implemented in R. This is often done to
-represent specialised objects^[for instance, base R makes very heavy use of S3 objects. we can see an
-example in the model class resulting from lm(). when plotting it, the S3
-system means the plot() function knows how to plot all the plots needed for a linear model.
-The reality is more complex and covered in [advanced r]()]. We will come across some in
-[session 3](session3.Rmd). For now, just be aware that we can combine structures exist.
-
-
-# Reading Tabular Data
-
-We have seen we can represent tabular data in R with a data frame, Bu how do we
-get such data into R? 
-
-There are two main formats to move tabular data.
-Tab separated values (.tsv)
-and comma separated values (.csv)
-Both are considered plain text files as they are simple text files with columns separated
-by a delimiter character. 
-In a csv file columns are separated by a comma, while a tsv file values are
-separated by a tab
-
-Both formats can be opened and saved in excel, although 
-you may need to specify the separator for TSV files.
-
-In R we can read a table from plain text file with `read.table()` we
-need to specify the separator, in the tab separated case it is `\t`
-Remember to assign the table to a variable to store the content of the
-file in memory as a data frame
-
-```{r, eval=FALSE}
-data <- read.table("table.txt", sep = "\t")
-```
-
-if we are reading a csv file we can use read.csv. There is no underlying
-difference with read.table but the defaults are adjusted for a csv file
-
-```{r, eval=FALSE}
-data <- read.csv("table.csv")
-```
-
-blank spaces as automatically treated as missing data. Other conventons exists,
-so we e can specify a character that is interpreted as missing values to ensure R
-can represent them as NA with `na_strings`
-
-```{r, eval=FALSE}
-data <- read.csv()
-```
-
-## Bioinformatics data in Base R
-
-Tab separated values are incredibly common in bioinformatics,
-For instance bed files, VCF and Maf files are all TSV. 
-Hover, sp,eto,es these formats have
-headers used to describe the content of which are not in table format.
-
-As headers start with a specific character we
-can tell R to ignore them with comment,
-Bbe careful as this will likely remove useful information from the file.
-
-now open the data_clinical_patient.tsv file from the setup folder and
-save it as data, mark \# as the comment character set the header argument to true
-with the header imported into R. Use "na" and "missing" as the na.strings argument
-Hint you can pass a vector to na.strings() Remember to set the working
-directory to the right location first!
-
+a matrix is a table, or precisely a 2 dimensional vector. Like vectors
+they can contain only one type of data.
+we can create a matrix of sizes i, j by calling `matrix(vector_with_data, nrow=i, ncol=j, dimnames(list_of_names))`. 
 ```{r}
-patients <- read.table("mel_ucla_2016/data_clinical_patient.txt", sep="\t", comment.char = "#", header=T)
+matrix(data = c(1,2,3,4), nrow = 2, ncol = 2, dimnames = list(list("a","b"), list("c", "d")))
 ```
-
-# Maths
-
-maths operators in R work as expected
+unless we specify `byrow = T`, matrices are populated column by column. Dimension names are always taken row names then columns
 ```{r}
-2+2
+matrix(data = c(1,2,3,4), nrow = 2, ncol = 2, dimnames = list(list("a","b"), list("c", "d")), byrow = T)
 ```
+Matrices  are not very flexible as a place to store data but are really good for mathematical operations, which is what they tend to be used for.
 
-```{r}
-2-1
-```
+## Maths on Vectors, matrices and data frames
 
-```{r}
-1*5
-```
-
-```{r}
-1/5
-```
-
-if we are interested in the integer part of a division we can use the
-integer division operator
-```{r}
-7%/%2
-```
-
-we can use the modulus operator `%%` to calculate the remainder
-```{r}
-7%%2
-```
-
-in R exponents are represented with `**` or `^`
-```{r}
-10**2
-10^2
-```
-
-10ⁿ can be shortened to `en`
-```{r}
-1e2
-```
 We can apply maths to vectors too, in this case the operation will be applied to every element of the vector. 
 
-For instance can increase
+For instance can increase all numbers by 1
 ```{r}
-vector2 + 1
+numbers = c(1, 2, 3, 4, 5)
+numbers + 1
 ```
-
 when using operations on 2 vectors we apply it element by element.
 ```{r}
 c(2, 3, 4) + c(3, 2, 4)
 ```
-
-# Subsetting data 
-
-Most of the times we are interested in only a subset of the data R makes
-
-
-## Subsetting vectors
-
-In R items are numbered from 1 (unlike most programming languages which
-start from 0). we can use the `[index]` operator to retrieve the element
-at that index
-
+R vectors have a somewhat surprising behavior when we operate on items of different length. 
+we have seen a length of 1 leads to the item being recycled
+Else the longer one should be a multiple of the longer
 ```{r}
-vector1[2]
+c(1,2,3,4) * c(1,2)
 ```
+However, because we can do it, it doesn't mean we should be typically. Think about how the result will look like before doing so.
 
-try to select items 1 and 3 from vector1. Hint you can use a vector of indices as your index
+similarly we can apply mathematical operations on a whole matrix
 ```{r}
-vector1[c(1,3)]
+numbers_matrix <- matrix(data = c(1,2,3,4), nrow = 2, ncol = 2, dimnames = list(list("a","b"), list("c", "d")))
 ```
-we can also use `:` to return a sequence of numbers and use it to choose all elements from x to y (inclusive)
 ```{r}
-vector1[2:4]
+numbers_matrix * 2
 ```
-Now try selecting all items from 1 to 3 and item 5.
+Data frames are a bit tricker, as not all columns are numbers. 
+```{r, error = T}
+cells+1
+```
+We'll see some ways to only select the columns we need.
+
+## Arrays
+
+Arrays are higher dimensional objects. In fact, vectors are just a special 1-dimensional array, matrices are a 2-dimensional array. Be aware they exist.
+
+## S3, S4 and R6 object system
+
+More complex objects made of a collection of these structures can be implemented in R. This is often done to
+represent specialized objects that have associated methods, or specialized variants of a function^[for instance, base R makes very heavy use of S3 objects. The model class resulting from lm() has a method for the `plot()` function. When we call `plot()` on a model it knows how to plot all the plots needed for a linear model because it can use the method in the S3 class model]. We will come across some examples of this in
+[session 3](session3.Rmd). For now just be aware that more complex structures can exist.
+
+# Subsetting 
+
+## Subestting vectors
+
+In R items are numbered from 1 ^[unlike most programming languages that start from 0].
+We can use the `vector[index]` operator to get the element at that index
+
+Remember the numbers vector, we can get the second number with
 ```{r}
-vector1[c(1:3,5)]
+numbers[2]
 ```
-
-## Subsetting matrices and data frames
-
-for a table the [index] syntax will return the specified column(s)
+try to select numbers 1 and 3. Hint you can use a vector of indices with as your index
+```{r class = "fold-hide"}
+numbers[c(1,3)]
+```
+we can also use `:` to return a sequence of numbers and use it to choose all elements from x to y. In R sequences are inclusive^[Unlike say Python, the last element is y, not y-1]
 ```{r}
-patients[1]
+numbers[2:4]
 ```
-
-We can get a specific record by to providing both a row and a column number in 
-the `[row, column]` order
+*Note* if you come from Python, you might be used to not needing a start or an end for `[:]` to get all the items from/to an index. This doesn`t work in R.
+```{r error = T}
+numbers[:3]
+```
+We can combine sequences and single values Now try selecting all items from 1 to 3 and item 5.
 ```{r}
-patients[3,1]
+numbers[c(1:3,5)]
 ```
-
-you can choose all rows or columns by not specifying anything before or after the comma, respectively.
-Thus this selects all rows for OS .
+We can also remove values at an index by using `[-index]`. try to remove the 3rd item.
 ```{r}
-patients[,2]
+numbers[[3]]
 ```
-While here we get all the columns for row 2.
+## Subsetting lists 
+
+Indices in lists work largely in the same way as in vectors.
+However, since lists are composed of other lists sub-setting with `[]` returns a list
 ```{r}
-frame[2,]
+list[1]
 ```
-## Subsetting with `[[]]`
-
-we use [[]] to return one value rather than a vector, a data
-frame or a list containing the values we choose. 
-
-Note a column in a data frame is considered one value
+to get the actual elements we can use the double bracket `[[]]` operator. it works like `[]` but does not support negative indexes.
 ```{r}
-frame[[1]]
+list[[1]]
 ```
-`$` is a shorthand for `[[]]` in data frames. 
-We can use it conveniently select a column by name.
+If we have a named list, we can use `[[]]` for names too. 
 ```{r}
-frame$sample
+named_list[["item1"]]
 ```
-
-## Reverse subsetting
-
-we can also operate in reverse i.e choose what to eliminate by adding -
-to the elements we do not wish to keep
-
+Although typically we use the `$name` shortcut 
 ```{r}
-frame[-1,]
+named_list$item1
 ```
+## Subsetting matrices
 
-sadly we cannot mix both approaches within the same selection
-
-```{r error=TRUE}
-frame[c(-1,2),1]
-```
-
-although we get away with it if we use a consistent approach
-
+matrices work like vectors but we can choose from 2 dimensions with `[row,column]`
 ```{r}
-frame[-3,1]
+numbers_matrix[1,2]
 ```
-
-# Boolean expressions
-
-subsetting becomes very powerful when used with logical operators.
-Logical operators allow us to select all items that match a given
-condition.
-
-most operators are intuitive, although checking if something is equal is
-done with `==` rather than `=` because `=` is already used to assign
-values to variables
-
-```{r echo=FALSE, results='asis'}
-knitr::kable(data.frame(c("==",">","<",">=","<="),c("equal to", "more than", "less than", "more than or equal to","less than or equal to")),col.names = c("symbol","operator"))
-```
-
-
-So if 1 is bigger than 2, the following should be true
-
+we can omit the row, or column but not the comma to get all columns or rows, respectively.
+So we can get all columns for the firt row with
 ```{r}
-1>2
+numbers_matrix[1,]
 ```
-
-A special case is the not operator or `!`, put it before any expression
-to invert the result
-
+Or all the rows in the first column
 ```{r}
-!(1>2)
+numbers_matrix[,1]
 ```
-
-`==` and `!` can be combined as `!=`,
-hence the two expression below are equivalent
-
+since matrices are vectors, we can select the individual elements without specifying columns or rows
 ```{r}
-(!1==2)==(1!=2)
+numbers_matrix[4]
 ```
 
-comparisons with NAs return NA
+## Data Frames
+
+Data frames behave like  matrices with `[row, column]` indices. Unlike matrices or lists, the `[]` operator can return either a vector or a data frame. *Normally* there is no need to worry about this.
 ```{r}
-1>NA
+cells[1,3]
 ```
-to check if something is NA we cannot use `==` but need to use `is.na()`
+The matrix  trick to get all columns or rows for a given row or column trick works here too
 ```{r}
-NA==NA
+cells[1,]
 ```
-
 ```{r}
-is.na(NA)
+cells[,1]
 ```
-
-`%in%` attempts to match elements from a in b, regardless of the order
-in b
-
+For a data frame the `[index]` syntax will return the specified column(s) as a data frame
 ```{r}
-c(1,2,3) %in% c(3,2,1)
+cells[1]
 ```
-
-Whereas `==` would return false for 1 and 3
-
+`[[]]` is less useful for data frames. it does not support the empty row/column syntax 
+```{r error = T}
+cells[[1,]]
+```
+```{r error = T}
+cells[[,1]]
+```
+but `[[index]]` returns a vector with the column, rather than a data frame with the column
 ```{r}
-c(1,2,3) == c(3,2,1)
+cells[[1]]
 ```
-
-operators work on characters too, but in a slighly different way
-
-`>, <, <=, >=` work on alphabetical order
-
+As for named lists, `$name` returns the column as a vector
 ```{r}
-"a">"b"
+cells$Plate
 ```
-
+If we assign values to a column that doesn't exist we can add it to the data frame (like `names()` this happens in place^[Although under the hood R will still possibly does some copying]). Traditionally we use `$name` here to create a new column with the given name.
+*NOTE* The cell lines, their features and their sources here are fictional.
 ```{r}
-"barts" < "blizzard"
+cells$source <- c("ATCC", "ATCC", "ECACC", "ATCC")
 ```
-
-However matching characters gets funny, and we'll see how to deal with
-them in session 2.
-
+now our table has an extra row:
 ```{r}
-"a" %in% "aereoplane"
+cells
 ```
-
-Multiple operators can be combined with And `&` is true only when both
-expressions are true
-
+Assigning a column to `NULL` deletes it.
 ```{r}
-1<2 & 3>4
+cells$source <- NULL
 ```
-
-Or `|` is true when any expression is true, including when both are true
-
 ```{r}
-1<2 | 3>4
+cells
 ```
 
-or is also true when both are true
+# Reading Tabular Data
 
+We have seen how to create and represent tabular data in R with a data frame, Typically we load a data set from a file.
+
+There are packages to load Excel files but typically we remove all the Excel specific information and export tabular data as a plain text file.
+In these files each line represents a row, with the columns within each line separated by a delimiter character.
+if the delimiter is a tab character we get a  tab separated value (tsv) file, if the delimiter is a comma we get a
+comma separated value (csv) file.
+For instance, a stock room table like this
+
+| Item | cabinet | shelf |
+| --- | --- | --- |
+| TAE | A | 1 |
+| Agarose | A | 2|
+| Ladder | B | 1 |
+
+Would be represented as this in a csv file:
+
+Item,Cabinet,Shelf  
+TAE,A,1  
+Agarose,A,2  
+Ladder,B,1  
+
+TSV and CSV can be opened and saved in excel but you may need to specify the separator for TSV files
+and the resulting files might have be saved as `.txt` rather than `.tsv`.
+
+In R we can read a table from plain text file with `read.table()`.
+we need to specify the separator, in the tab separated case it is `\t`
+Remember to store the table in a variable!
+```{r, eval=FALSE}
+data <- read.table("table.txt", sep = "\t")
+```
+if we are reading a csv file we can use read.csv. There is no
+difference with read.table but the default arguments match a typical csv file.
+```{r, eval=FALSE}
+data <- read.csv("table.csv")
+```
+blank spaces as automa tically treated as missing data. Other conventions exists,
+so we e can specify a character that is interpreted as missing values to ensure R
+can represent them as NA with `na_strings`.
+```{r, eval=FALSE}
+data <- read.csv()
+```
+
+# Analysis of TGCA data
+
+Now we undserstand how to get data into R, let's try to open the data_clinical_patient.tsv file from the setup folder and
+save it as `patients`. 
+This file has a header, a comment at the start and some missing values encoded as `na` or `missing` so we need to adjust some parametrs:
+
+1. set \# as the comment character (use the `comment.char` argument)
+2. set the header argument to TRUE.
+3. Use "na" and "missing" as the na.strings argument Hint you can pass a vector to na.strings() 
+
+Remember to set the working directory to the right location first!
+```{r class="fold-hide"}
+patients <- read.table("mel_ucla_2016/data_clinical_patient.txt", sep="\t", comment.char = "#", header = T )
+```
+
+## Exploring the data 
+
+let's start by checking the dimensions of the table. Remeber a function to do that?
 ```{r}
-1<2 | 3<4
+dim(patients)
 ```
-
-if we want to return false when both are true we can use the exclusive
-or `xor(expression 1, expression 2)`
-
+we can use `summary()` to get a quick summary of the data.
 ```{r}
-xor(1<2, 3<4)
+summary(patients)
 ```
+The resulting information is most useful for numerical columns or, as we'll see in the next session facrtors.
 
-like maths operators when used on vectors, the logical operators can compare two vectors element by element
-based on their index
-
+We can use table to get counts for each value
 ```{r}
-c(1,2,3)<c(2,3,4)
+table(patients$OS_STATUS)
 ```
-
-Again, the 2 vectors should  have the same length, or be a multiple of each
-other. 
-
+now try using table with the metastatic stage (M_STAGE)
 ```{r}
-c(1,2,3,4)<c(2,3,4,5) & c(2,3)>(c(1,2))
+table(patients$M_STAGE)
 ```
-
-If we are only interested in the first element we can use `&&` or `||` to
-only examine the first element. USE AT YOUR OWN RISK
-
+We can combine `nrow()` and maths to get to percentages. We even get to keep the name of the values
 ```{r}
-c(1,2,3)<c(2,3,4) && c(2,3,3)>(c(1,2,3))
+table(patients$M_STAGE)/nrow(patients)*100
 ```
 
-## subsetting with boolean expressions
-
-Now let's try to subset our table to choose only patients (rows) that
-were diagnosed after 65. Hint: you will need to use a boolean expression
-for the AGE_AT_DIAGNOSIS column within the row subsetting of the
-patients data frame and use , to select all rows.
-
-```{r class.source = 'fold-hide'}
-patients[patients$AGE_AT_DIAGNOSIS>65,]
-```
-
-# Data wrangling and manipulation
-
-Often most of the work in R involves manipulating the data until it is in a usable format. Base R has many although not all. For easier manipulation we'll introduce the tidyr package in session2. 
-
-## Recoding values
-
-Sometimes we may need to recede a value, either because R has not identified it as NA or as part of routine data manipulation. We can recode all values by subsetting the values needed and assigning their replacemnet value 
-
-for instance we can replace the sample in the dataframe we made at the beginning with a number 
+For numerical variables we can use `min()`, `max()` and `range()` to get the minimum, maximum or both values for a column 
 ```{r}
-frame[frame$sample=="A","sample"] <- "sample A"
-frame[frame$sample=="B","sample"] <- "sample B"
-frame[frame$sample=="C","sample"] <- "sample C"
-frame[frame$sample=="D","sample"] <- "sample D"
-frame[frame$sample=="E","sample"] <- "sample E"
-frame
+range(patients$AGE_AT_DIAGNOSIS)
 ```
 
+Depending on whether we expect our variable to be normally distributed or not we can start looking at how values are distributed
+A normal distribution looks like this - there is central value that is the most commonly observed and the remaining values are symmetrically distributed at either side of it:
 ```{r}
-
+d <- density(rnorm(1e6))
+plot(d, ylab = "Density", xlab = "Value", main = "Density plot for a normal distribution")
 ```
-
-try. HINT select
-
+Compare that with a non normal distribution.
 ```{r}
-
+d <- density(rbeta(1e6,shape1 = 5, shape2 = 2))
+plot(d, ylab = "Density", xlab = "Value", main = "Density plot for a non normal distribution")
 ```
+While there are formal tests for whether an observation follows a normal distribution,
+more often than not a quick histogram will let us judge if something is normal enough - we'll see how to generate them. 
 
-Sometimes we can have a NA or a character which forces, for instance. we can get rid of that by recoding it to a number.
+### Normal variables
+
+For now let's assume the age at diagnosis is normally distributed.
+In this case we want the mean and standard deviation to represent the central value and the spread of our data. 
+Remember in a normal distribution ~68% of the data will be in the mean ± sd range, 
+~ 95% of the data will be in the mean ± 2 sd range and ~99.7% within mean ± 3 sd
+We can get the mean and standard deviation with the  `mean()` and `sd()` function.
 ```{r}
+mean(patients$AGE_AT_DIAGNOSIS)
 ```
-However, this does not force everything to become a number again, for that we need to convert the with
-the as.numeric() function.
 ```{r}
-
+sd(patients$AGE_AT_DIAGNOSIS)
 ```
+### Non-normal variables
 
-## adding rows and columns 
-
-we can add rows to an existing columns 
-
-A common use case of this is to bring data and metadata together in a single table.
-for instance we have the condition and doubling time information for a series of samples in 2 different tables.
-This is of course a toy example and it makes no sense to split those table but 
-for more complex data it makes sense to have the data and metadata in separate table 
-
-let's read two data frames
-
-```{r eval=F}
-data <- read.csv("C:/Users/deange01/Desktop/simple_data.csv")
-meta <- read.csv("C:/Users/deange01/Desktop/simple_meta.csv")
+If instead we assume the age at diagnosis is not normally distributed, the 
+central tendency and spread of our data is better represented by the median and the quantiles.  
+`median()` will happily give us the median
+```{r}
+median(patients$AGE_AT_DIAGNOSIS)
 ```
-
-
-```{r eval=F}
-cbind(data,meta[2])
+the `quantile()` function will show us the values for 4 quantiles
+The N-th quantile represents the value that contains n % of the samples
+```{r}
+quantile(patients$AGE_AT_DIAGNOSIS)
 ```
-we can add further rows, for instance now we'll create a new data frame with samples 11 to 20, by adding
-10 to the sample name
-```{r eval=F}
-extra_data <- data
-extra_data$sample <- extra_data$sample+10
+In this case the 75% of the values are contained between 19 and 69.75 75%.  
+And `IQR()` will return the inter quantile range
+```{r}
+IQR(patients$AGE_AT_DIAGNOSIS)
 ```
-we can now bind both data into a single data frame with rbind
-```{r eval = F}
-rbind(data, extra_data)
+### Dealing with missigness 
+
+What if we're intersted in how many months of overall survival?
+```{r}
+mean(patients$OS_MONTHS)
 ```
+Looks like something is off. Looking at the summary, we have a `NA` value.
+NAs propagate through calculations ^[Think of them like prions. Any operation with a `NA` will return `NA`, unless we remove them before]
 
-For now this relies on the rows being identical and all in the same order we'll see how to deal with partial matches, and how to reconcile tables by an id variable in session 2.
-
-## dealing with NAs
+We can simply deal with NA by either removing or ignoring them Imputation, or the art of predicting missing values is beyond the scope of this tutorial.
 
 ```{r}
 missing <- c(NA,NA,NA,NA,1,2,1,1,1,2,3)
 ```
 
-NAs can confound some calculations 
-```{r}
-mean(missing)
-```
-Some functions, such as mean can be told to remove NAs from the computation
-using `na.rm = T`
+Some functions, such as mean can be told to remove NAs from using `na.rm = T`
 ```{r}
 mean(missing, na.rm = T)
 ```
-
-We can manually remove all cases of NAs with na.omit(). if runnning on a data frame 
-it will remove the whole rows consisting of all incomplete cases.
+We can also manually remove all NAs with `na.omit()`. 
 ```{r}
-na.omit(as.data.frame(missing))
+missing <- na.omit(missing)
 ```
+W
 
-DIY renove NAs from the table and save the new data in a variable called patients_complete
+If running on a data frame it will remove the whole rows consisting of any  incomplete cases.
 
+Now remove NAs from the table and save the new data frame in a variable called patients_complete.
+Na.omit on a data frame it will remove the whole rows consisting of any  incomplete cases.
 ```{r class.source = 'fold-hide'}
 patients_complete <- na.omit(patients)
 ```
+Whether we should ignore NA values from calculations or drop any case with a missing value is an analysis choice.
+Personally, I think it makes sense to ignore NAs if they are very sporadic. If NAs are concentrated in one or more columns,
+it may make sense to ignore columms where we have lots of missingness.
+Sometimes, especially if the NA values are in key columns we might want to consider complete cases only
 
-## transposing
 
-the transpose operator `t()` swaps the columns and the rows in a dataframe
+# Conditions 
 
+We have seen we can get a column or a row by manually providing an index for the values we need.
+We can ask R to choose all that match one or more conditions
+Some of this will be familiar if you. Even if you're familiar with it might be worth going quickly through this
+
+## Relational Operators
+
+We can use relational operators to ask about the relationship between two values. 
+Most operators are intuitive but checking if something is equal is done with `==` rather than `=` because `=` is already used to assign
+values to variables
+
+| operators | function |
+|---|---|
+| ==  | equal to | 
+| != | not equal to |
+| > | more than |
+| >= |  more or equal to |
+| < | less than |
+| <= | less or equal to |
+| %in% | check  in |
+| is.na() | check for NA values | 
+
+So if a is bigger than b, the following should be TRUE
 ```{r}
-t(patients)
+a = 1 
+b = 2
+1 > 2
 ```
-This becomes particularly useful with genome data as some tools will require each patient to be its own row or column, depending
-on how it is designed.
-
-# Data Analysis
-
-we can now start to explore the rows in our table 
-
-## summary statistics
-
-we can get an overall summary of all the values with the summary() function 
+Comparisons with NAs return NA
 ```{r}
-summary(frame)
+a > NA
+```
+to check if something is NA we cannot use `==` but need to use `is.na()`
+```{r}
+NA == NA
 ```
 ```{r}
-summary(patients)
+is.na(NA)
 ```
-this is not the case for factors where the summary function returns an useful summary of how many times each factor occurs. 
-For instance we can create a new data frame with the first 3 rows and ask R to treat them as a factor with `stringsAsFactors = T`
+`%in%` attempts to match elements from the two vectors, regardless of their order or length
 ```{r}
-factor_patients <- data.frame(patients$PATIENT_ID, patients$OS_STATUS, patients$OS_MONTHS, stringsAsFactors = T)
-summary(factor_patients)
+c(1, 2, 3) %in% c(3, 2, 1)
+```
+Whereas `==` works element by element in order and would return FALSE for 1 and 3
+```{r}
+c(1, 2, 3) == c(3, 2, 1)
+```
+Operators work on `TRUE` and `FALSE` values too. 
+There is a slight distinction between using `==` and `isTRUE` and `isFALSE`. 
+Using `==` 0 is interpreted as FALSE and 1 as TRUE. 
+```{r}
+1 == T
+```
+```{r}
+0 == F
+```
+isTRUE and isFALSE check for an actual logical TRUE or FALSE value.
+```{r}
+isTRUE(1)
+```
+like maths and relational operators boolean operators can compare two vectors element by element
+```{r}
+c(1,2,3) < c(2,3,4)
 ```
 
-we can explore how many elements are in an object with `length`.
-Similar to subsetting, length on a data frame returns the number of columns
+operators work on characters too, but in a slightly different way:
+`>, <, <=, >=` work on alphabetical order
 ```{r}
-length(frame)
-```
-we can explicitly check how many rows and columns a data frame has with nrow and ncol
-```{r}
-nrow(frame)
+"a">"b"
 ```
 ```{r}
-ncol(frame)
+"barts" < "blizzard"
+```
+However matching characters gets funny, and we'll see how to deal with them in session 2.
+```{r}
+"a" %in% "aereoplane"
 ```
 
-for instance how many rows are there in the patient data frame before and after removing incomplete cases?
+## Conditional subsetting
+
+To conditionally subset a vector we can provide a condition for itself
+Remember our numbers vector, we can choose all numbers > 2
+```{r}
+numbers[numbers > 2]
+```
+for a data frame, we typically want to choose some or all rows where a specific column matches a condition.
+```{r}
+patients[patients$AGE_AT_DIAGNOSIS < 40,]
+```
+Now let's try to subset our table to choose only patients (rows) that
+were diagnosed after 65.
 ```{r class.source = 'fold-hide'}
-nrow(patients)
-```
-```{r class.source = 'fold-hide'}
-nrow(patients_complete)
-```
-Makes sense, given there was a single NA in the data.
-
-for categorical variables, factor or characters, we can use the table() function
-to return the counts of each items.
-```{r}
-table(frame$sample)
-```
-let's explore the metastatic stage (in the M_STAGE column) of the patients
-```{r}
-table(patients_complete$M_STAGE)
+patients[patients$AGE_AT_DIAGNOSIS > 65,]
 ```
 
-Using table on numeric values is silly at best, for numbers we can use median or mean to get a measure of the central
-tendency of the data
+Here the difference between `%in%` and `==` is crucial as the data frame will most likely be not ordered by the column we subset by
+
+## Logical operators
+
+The next step is to combine multiple conditions.
+They follow Boolean logic, with the exception of `NAs` that always propagate through
+
+| Symbol | Name | Function |
+| --- | --- | --- |
+| & | and | TRUE if both TRUE |
+| \| | or | TRUE if A is TRUE or B is TRUE, or both are TRUE |
+| xor() | exclusive (disjunctive) or | TRUE only if either A is TRUE OR b is TRUE |
+| ! | negate | Negates the following expression | 
+
+`&` is TRUE only when both expressions are TRUE
 ```{r}
-median(patients_complete$OS_MONTHS)
+1 < 2 & 3 > 4
 ```
+`|` is TRUE when any expression is TRUE
 ```{r}
-mean(patients_complete$OS_MONTHS)
+1 < 2 | 3 > 4 
 ```
-we can use  min() and max() to get the minimum and maximum values
+`|` is also TRUE when both are TRUE
 ```{r}
-min(patients_complete$OS_MONTHS)
-```
-```{r}
-max(patients_complete$OS_MONTHS)
-```
-they can be combined with a single call to range()
-```{r}
-range(patients_complete$OS_MONTHS)
+1 < 2 | 3 < 4
 ```
 
-we can calculate the interquartile range or the standard deviation with `IQR` and `sd`, respectively
+if we want to return FALSE when both are TRUE we can use the exclusive
+or `xor(expression 1, expression 2)`
 ```{r}
-IQR(patients_complete$OS_MONTHS)
+xor(1 < 2, 3 < 4)
+```
+! negates whatever follows
+```{r}
+!1 > 2  
+```
+As with other operators, they work on vectors too 
+```{r}
+c(F, F, T) | c(T, F, F)
 ```
 
+Now try selecting all the patients from the complete case table (`patients_complete`) with age of diagnosis below 40 *OR* above 65
 ```{r}
-sd(patients_complete$OS_MONTHS)
+patients_complete[patients_complete$AGE_AT_DIAGNOSIS < 40 | patients_complete$AGE_AT_DIAGNOSIS > 65,]
 ```
-## common statistical tests:
 
-As a statistic language R is loaded with a library of built in
-statistical functions, we'll barely scratch the surface here! there are.
-Indeed for simplicity here we'll use both approaches. In the real
-world we would make an educated guess at whether the data is
-approximately normal before choosing the parametric or non-parametric
-route and check whether assumptions are met before running any tests.
+# Common statistical tests:
+
+Now we can create groups, we can start to explore their differences.
+As a statistic language R is loaded with a library of built-in
+statistical functions, we'll barely scratch the surface here!
+There are 2 main families of tests: Parametric (for normally distributed variables) 
+and non parametric (for non normally distributed ones)
+Before using a test we also need to check whether the assumptions are met before running any tests.
 
 We'll also very briefly discuss p-values. Note there is a whole world beyond p-values
 and lots of controversies over their (ab)use in biology [see this Nature Editorial](https://doi.org/10.1038/d41586-019-00874-8)
+For simplicity we'll use both non parametric and parametirc test on the same data.
 
+## Parametric tests
 
-### parametric tests
-
-The t-test is. In R, by default it uses the Welch variant that assumes an unequal variance, often a safe assumption.
-we need to provide 2 groups, we can do this by conditionally subsetting 
+The t-test compares the means between two groups. In R, It uses the Welch variant that assumes an unequal variance, often a safe assumption.
+we need to provide 2 groups, we can do this by conditionally sub-setting 
 ```{r}
-t.test(x=patients_complete[patients_complete$PREVIOUS_MAPKI=="No", "OS_MONTHS"], y = patients_complete[patients_complete$PREVIOUS_MAPKI=="Yes", "OS_MONTHS"])
+t.test(x = patients_complete[patients_complete$PREVIOUS_MAPKI == "No", "OS_MONTHS"], y = patients_complete[patients_complete$PREVIOUS_MAPKI == "Yes", "OS_MONTHS"])
 ```
 we can store the p-value in a vector by choosing p.val from the result of the test.
 ```{r}
-p_vals <- t.test(x=patients_complete[patients_complete$PREVIOUS_MAPKI=="No", "OS_MONTHS"], y = patients_complete[patients_complete$PREVIOUS_MAPKI=="Yes", "OS_MONTHS"])$p.val
+p_vals <- t.test(x = patients_complete[patients_complete$PREVIOUS_MAPKI == "No", "OS_MONTHS"], y = patients_complete[patients_complete$PREVIOUS_MAPKI == "Yes", "OS_MONTHS"])$p.val
 ```
 
-we can get a one-way anova with the `aov` function. the syntax here is slighly odd, as we need to use the x ~ groups form. 
-we also need to call summary to extract the P values and other information
+The one-way anova tests the means between multiple groups,
+In R we can use the `aov` function. the syntax here is slightly odd, as we need to use the x ~ groups form. 
+we also need to call summary to extract the P values and other information.
 ```{r}
 anova <- aov(patients_complete$OS_MONTHS ~ patients_complete$M_STAGE)
 summary(anova)
 ```
-
 we can add our P value to the p values vector, to avoid overwriting we use the `append` function. Note `summary(anova)` returns a list, we can then subset until we get our P value.
 ```{r}
-anova <- aov(patients_complete$OS_MONTHS ~ patients_complete$M_STAGE)
 p_vals <- append(p_vals, summary(anova)[[1]][5][1,1])
 ```
 
-### non-paramtetric staistical tests,
+## Non-paramtetric statistical tests
 
-the  Wilcoxon rank sum test is a non parametric test simialr to a T-test.
+the Wilcox rank sum test is a non parametric test similar to a T-test.
 Indeed the `wilcox.test()` function works in a similar way
 ```{r}
-wilcox.test(x=patients_complete[patients_complete$PREVIOUS_MAPKI=="No", "OS_MONTHS"], y = patients_complete[patients_complete$PREVIOUS_MAPKI=="Yes", "OS_MONTHS"])
+wilcox.test(x=patients_complete[patients_complete$PREVIOUS_MAPKI == "No", "OS_MONTHS"], y = patients_complete[patients_complete$PREVIOUS_MAPKI == "Yes", "OS_MONTHS"])
 ```
 We can again extract the p value an append it to our vector
 ```{r}
-p_vals <- append(p_vals,wilcox.test(x=patients_complete[patients_complete$PREVIOUS_MAPKI=="No", "OS_MONTHS"], y = patients_complete[patients_complete$PREVIOUS_MAPKI=="Yes", "OS_MONTHS"])$p.val)
+p_vals <- append(p_vals,wilcox.test(x=patients_complete[patients_complete$PREVIOUS_MAPKI == "No", "OS_MONTHS"], y = patients_complete[patients_complete$PREVIOUS_MAPKI == "Yes", "OS_MONTHS"])$p.val)
 ```
-
-The Kruskal-Wallis rank sum test is often referred as a non parametric anova. we can run one with `kruskal.test()`
+The Kruskal-Wallis rank sum test is often referred as a non parametric one way anova. we can run one with `kruskal.test()`
 ```{r}
 kruskal.test(patients_complete$OS_MONTHS ~ patients_complete$M_STAGE)
 ```
@@ -772,73 +681,69 @@ getting the p-value is as easy as for the t and Wilcoxon tests
 p_vals <- append(p_vals, kruskal.test(patients_complete$OS_MONTHS ~ patients_complete$M_STAGE)$p.val)
 ```
 
+## Adjusting the P-Value
 
-### Adjusting the P-Value
-
-At the traditional level, we reject the null hypothesis at the p\<0.05
-level. Such p value of 0.05 represent a 1/20 chance of seeing a
-difference as big or greater by chance alone. It follows on then that if
-we have 20 comparisons we can expect one to be true by chance.
+Traditionally, we reject the null hypothesis at the p\<0.05
+level. This value represents a 1/20 chance of seeing a
+difference as big or greater by chance alone. It follows then that if
+we have 20 comparisons we can expect one to be TRUE by chance.
 Therefore, we need to adjust the p value to consider the number of
-comparisons/ The "p-ajust()" function can then correct the observed p
+comparisons. The "p-ajust()" function can then correct the observed p
 values for multiple comparisons with many methods.
-for instance we can use a  bonferroni correction^[The bonferroni correction simply multiplies the p-value by the number of tests]
+for instance we can use a bonferroni correction^[The bonferroni correction simply multiplies the p-value by the number of tests]
 ```{r}
-p.adjust(p_vals, method="bonferroni")
+p.adjust(p_vals, method = "bonferroni")
 ```
-
-now do the same but with the false discovery rate (FDR)^[The false discovery ratio is explained here instead] is. Hint type `?p.adjust` to see what
+now do the same but with the FALSE discovery rate (FDR)^[The FALSE discovery ratio is explained here instead] is. Hint type `?p.adjust` to see what
 methods corresponds to FDR
 ```{r class.source = 'fold-hide'}
-p.adjust(p_vals, method="fdr")
+p.adjust(p_vals, method = "fdr")
 ```
-
-We can see the Bonferroni correction is more conservative than the FDR^[Personally, as a rule of thumb I prefer using FDRs for everything that will get downstream validation, so that the odd false discovery will be spotted]
+We can see the Bonferroni correction is more conservative than the FDR^[Personally, as a rule of thumb I prefer using FDRs for everything that will get downstream validation]
 
 # Base R Plots
 
-base R plots can be displayed in the plots pane of R studio. Note R will refuse to draw a
-plot if the plot panel is too small. Simple R plots can be generated quickly with base functions but the ggplot2 package we'll use in session 2, can generate publication quality plots with less effort. 
+base R plots can be displayed in the plots pane of R studio. 
+*Note R will refuse to draw a plot if the plot panel is too small. 
+Simple R plots can be generated quickly with base functions and can be extensively customised.
+We'll also introduce the ggplot package that can generate publication quality plots with less effort in session 2. 
 
 R tracks every time we create a new plot so any items added to a plot get added to 
 the lastly created plot.
 
-## Scatter plot
+## Scatter plots
 
 we can plot a scatter plot with `plot(x, y)`
 ```{r}
 plot(patients_complete$AGE_AT_DIAGNOSIS, patients_complete$OS_MONTHS)
 ```
-
 we can add a trend line with `abline()`, following the format y=ax+b.
 ```{r eval=F}
 plot(patients_complete$AGE_AT_DIAGNOSIS, patients_complete$OS_MONTHS)
-abline(a=1,b=+1)
+abline(a = 1,b =+ 1)
 ```
 we can also add a vertical or horizontal line by specifying the intercept with h or v.
 ```{r}
 plot(patients_complete$AGE_AT_DIAGNOSIS, patients_complete$OS_MONTHS)
-abline(h=10)
+abline(h = 10)
 ```
-We can also fit a line from more complex modeling, for instance from a linear regression. note `lm` takes a y ~ x order  
+We can also fit a line from more complex modeling, for instance from a linear regression. note `lm()` takes the y ~ x order.
 ```{r}
 plot(patients_complete$AGE_AT_DIAGNOSIS, patients_complete$OS_MONTHS)
 abline(lm(patients_complete$OS_MONTHS ~ patients_complete$AGE_AT_DIAGNOSIS))
 ```
-
 We can change the two axis. ylim and xlim control the start and end of x and y axis. Be careful as R will clip off any value outside that range, again without warning
 ```{r}
-plot(patients_complete$AGE_AT_DIAGNOSIS, patients_complete$OS_MONTHS, ylim=c(0,100),xlim=c(30,80))
+plot(patients_complete$AGE_AT_DIAGNOSIS, patients_complete$OS_MONTHS, ylim = c(0,100), xlim = c(30,80))
 ```
-
 We can also add a title and some label to the axis. We do this with main, xlab and ylab 
 ```{r}
-plot(patients_complete$AGE_AT_DIAGNOSIS, patients_complete$OS_MONTHS, main="this is the title", ylab="y axis", xlab="x axsis")
-```
+plot(patients_complete$AGE_AT_DIAGNOSIS, patients_complete$OS_MONTHS, main = "this is the title", ylab = "y axis", xlab = "x axsis")
+``` 
 
 ## Histograms
 
-Histograms can be used to visualize the distribution of a variable. In base r we can generate one with `hist`
+Histograms can be used to visualize the distribution of values in a variable. In base r we can generate one with `hist()`
 
 ```{r}
 hist(patients_complete$OS_MONTHS)
@@ -847,9 +752,7 @@ Again, we can control several parameters, We can manually specify the number of 
 ```{r}
 hist(patients_complete$OS_MONTHS, breaks=4)
 ```
-we can also add a colour
-
-And add a density line. To do so we need to switch to plotting probabilities with probability=T in the hist function
+we can also add a colour and add a density line. To do so we need to switch to plotting probabilities with probability=T in the hist function.
 ```{r}
 hist(patients_complete$OS_MONTHS, col="pink", probability = T)
 lines(density(patients_complete$OS_MONTHS), col="purple")
@@ -861,7 +764,7 @@ hist(patients_complete$OS_MONTHS, ylab = "Frequency", xlab="Overal Survivial (mo
 ```
 ## Box plots
 
-Box Plots 
+Box Plots show the median value and distribution of a variable between 2 or more groups. We can use the `boxplot()` function for this.
 
 ```{r}
 boxplot(patients_complete$OS_MONTHS~patients_complete$M_STAGE)
@@ -870,14 +773,14 @@ By default the whiskers extend to 1.5x the interquartile range of each gruop. we
 ```{r}
 boxplot(patients_complete$OS_MONTHS~patients_complete$M_STAGE, range=0.4)
 ```
-we can even control the shape of the outlier points with pch. `?points` reveal what each value corresponds to.
+We can even control the shape of the outlier points with pch. `?points` reveal what each value corresponds to.
 ```{r}
 boxplot(patients_complete$OS_MONTHS~patients_complete$M_STAGE, range=0.4, pch=18)
 ```
 
 Now let's add some colour to the plot. Try adding colours to the plot above with the "col" argument. hint, if you don't want to have the groups use the same colour(s), specify a number of colours in the colour vector matching the number of groups
 ```{r class.source = 'fold-hide'}
-boxplot(patients_complete$OS_MONTHS~patients_complete$M_STAGE, range=0.4, pch=18, col=c("red","green","blue","yellow"))
+boxplot(patients_complete$OS_MONTHS~patients_complete$M_STAGE, range = 0.4, pch = 18, col = c("red","green","blue","yellow"))
 ```
 
 ## Saving plots
@@ -886,66 +789,51 @@ In RStudio there are 2 ways to save a plot. you can select the export button on 
 this opens a save window where you can save as pdf or image.
 
 Alternatively, you can save plots automatically from your script. there are 2 step for this approach.
-first you need to choose a graphic device
-
+first you need to choose a graphic device i.e `pdf("filename")`
 ```{r eval=FALSE}
 pdf("plot.pdf")
 ```
-
 then generate your plot
-
 ```{r, eval=F}
 plot(mtcars$hp~mtcars$mpg)
 ```
-
 your plot is now in the device. it will not be printed in rstudio.
 we can still add elements to it, for instance a trend line 
-
 ```{r, eval = F}
 abline(lm(mtcars$hp ~ mtcars$mpg))
 ```
-
 to save your plot you need to release the graphic devices
-
 ```{r eval=FALSE}
 dev.off()
 ```
 
-the choice of device changes the output format. pdf() and svg() produce
-vector image where the each element of the plot is represented as a
-mathematical formula. 
-This means you can zoom the image without loosing
-quality and easily edit the individual elements of the plots later.
-Although manually editing images outside the R script is rarely a good idea as
-you loose the ability to reproduce the plot. Text remains editable too. 
-However, opening
-complex vector files (particularly those saved as svg) can be slow to view.
+The choice of device changes the output format. 
+`pdf()` and `svg()` produce
+vector images where you can zoom the image without loosing
+quality and potentially edit the elements in Inkscape or Illustrator
+^[Although changing the image adter is not recommended for reproducibility - R plots can be easily made publication ready]
+However, complex vector files (particularly of saved as svg) can get quite slow.
 
-png/jpeg/tiff will produce raster images, these are similar to a photos,
-where unless it's a police TV show, you cannot zoom and get a sharper
-image^["or use machine learning like [Google](https://ai.googleblog.com/2021/07/high-fidelity-image-generation-using.html?m=1)"]
+`png()` will produce raster images, these are similar to photos,
+where you can't zoom and get a sharperimage
 
-now go to your working directory and look for the plot. you should have gotten something like this 
+Now go to your working directory and look for the plot. you should have gotten something like this 
 ```{r, class.source = 'fold-hide'}
 plot(mtcars$hp~mtcars$mpg)
 abline(lm(mtcars$hp ~ mtcars$mpg))
 ```
 
-## Saving data
+# Saving data
 
-we can save files to a tabular format with write.table(). By default R add both rows and column names. row names can confuse Excel so should be avoided with row.names=F
+we can save files to a tabular format with write.table(). By default R add both rows and column names. Normally row names are not meaningful so we can omit them wuth `row.names = F`.
 ```{r}
-write.table(frame, row.names = F, sep = ",", file="table.csv")
+write.table(cells, row.names = F, sep = ",", file = "table.csv")
 ```
-Again, the `write.csv()` function  is similar but has appropriate defaults for CSV files
+As with `read.csv()`, the `write.csv()` function  is similar but has appropriate defaults for CSV files.
  
 By default. this encloses any string in `""`  
-we can get rid of it by setting `quotes=FALSE`
+we can get rid of it by setting `quotes=FALSE`. There is normally no real need to do this.
 ```{r}
-write.table(frame, row.names = FALSE, sep = ",", file="table.csv", quote=FALSE)
+write.table(cells, row.names = FALSE, sep = ",", file = "table.csv", quote = FALSE)
 ```
-
-if append is true R will add the current data to the specified file without overwriting it.
-
-The `write.csv()` function  is similar but 
-
+if append is TRUE R will add the current data to the specified file without overwriting it.
